@@ -14,7 +14,7 @@
   },
 
   "license": "MIT",
-  "icon": "assets/exposliveenhancement/icon.png",
+  "icon": "assets/explosiveenhancement/icon.png",
 
   "environment": "*",
   "entrypoints": {

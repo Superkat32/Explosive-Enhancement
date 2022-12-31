@@ -16,47 +16,49 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(Explosion.class)
 public class ExampleMixin {
 	@Shadow @Final private Random random;
-	private final double x;
-	private final double y;
-	private final double z;
-	private final World world;
+//	private final double x;
+//	private final double y;
+//	private final double z;
+//	private final World world;
 
-	public ExampleMixin(World world, double x, double y, double z) {
-		this.x = x;
-		this.y = y;
-		this.z = z;
-		this.world = world;
-	}
+//	public ExampleMixin(World world, double x, double y, double z) {
+//		this.x = x;
+//		this.y = y;
+//		this.z = z;
+////		this.world = world;
+//	}
 
 
 	@Redirect(method = "affectWorld(Z)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;addParticle(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V"))
-	public void affectWorld(World instance, ParticleEffect parameters, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
+	public void affectWorld(World world, ParticleEffect parameters, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
 		ExplosiveEnhancement.LOGGER.info("affectWorld has been called!");
 		if(ExplosiveConfig.modEnabled) {
 //			if (particles) {
 				ExplosiveEnhancement.LOGGER.info("particle has been shown!");
 				if(ExplosiveConfig.showBoom) {
 					//Boom particle
-					this.world.addParticle(ExplosiveEnhancement.BOOM, this.x, this.y, this.z, 0, 0, 0);
+//					this.world.addParticle(ExplosiveEnhancement.BOOM, this.x, this.y, this.z, 0, 0, 0);
+					world.addParticle(ExplosiveEnhancement.BOOM, x, y, z, 0, 0, 0);
 				}
 				if(ExplosiveConfig.showBigExplosion) {
 					//Big explosion particle
-					this.world.addParticle(ExplosiveEnhancement.BIG_EXPLOSION, this.x, this.y, this.z, 0, 0, 0);
+//					this.world.addParticle(ExplosiveEnhancement.BIG_EXPLOSION, this.x, this.y, this.z, 0, 0, 0);
+					world.addParticle(ExplosiveEnhancement.BIG_EXPLOSION, x, y + 0.5, z, 0, 0, 0);
 				}
 				if(ExplosiveConfig.showLingerParticles) {
 					//Smoke linger particles
 					//I'm aware DRY is a thing, but I couldn't figure out any other way to get even a similar effect that I was happy with, so unfortunately, this will have to do.
-					this.world.addParticle(ExplosiveEnhancement.LINGER, this.x, this.y, this.z, 0, 0.15, 0);
-					this.world.addParticle(ExplosiveEnhancement.LINGER, this.x, this.y, this.z, 0, 0.4, 0);
-					this.world.addParticle(ExplosiveEnhancement.LINGER, this.x, this.y, this.z, 0.15, 0.4, 0);
-					this.world.addParticle(ExplosiveEnhancement.LINGER, this.x, this.y, this.z, 0, 0.4, 0.15);
-		//			this.world.addParticle(ExplosiveEnhancement.LINGER, this.x, this.y, this.z, 0.15, 0.3, 0.15);
-					this.world.addParticle(ExplosiveEnhancement.LINGER, this.x, this.y, this.z, -0.15, 0.4, 0);
-					this.world.addParticle(ExplosiveEnhancement.LINGER, this.x, this.y, this.z, 0, 0.4, -0.15);
-		//			this.world.addParticle(ExplosiveEnhancement.LINGER, this.x, this.y, this.z, -0.15, 0.3, -0.15);
+					world.addParticle(ExplosiveEnhancement.LINGER, x, y, z, 0, 0.15, 0);
+					world.addParticle(ExplosiveEnhancement.LINGER, x, y, z, 0, 0.4, 0);
+					world.addParticle(ExplosiveEnhancement.LINGER, x, y, z, 0.15, 0.4, 0);
+					world.addParticle(ExplosiveEnhancement.LINGER, x, y, z, 0, 0.4, 0.15);
+		//			world.addParticle(ExplosiveEnhancement.LINGER, x, y, z, 0.15, 0.3, 0.15);
+					world.addParticle(ExplosiveEnhancement.LINGER, x, y, z, -0.15, 0.4, 0);
+					world.addParticle(ExplosiveEnhancement.LINGER, x, y, z, 0, 0.4, -0.15);
+		//			world.addParticle(ExplosiveEnhancement.LINGER, x, y, z, -0.15, 0.3, -0.15);
 				}
 				if(ExplosiveConfig.showDefaultExplosion) {
-					this.world.addParticle(ParticleTypes.EXPLOSION_EMITTER, this.x, this.y, this.z, 1.0, 0.0, 0.0);
+					world.addParticle(ParticleTypes.EXPLOSION_EMITTER, x, y, z, 1.0, 0.0, 0.0);
 				}
 //			}
 		}
