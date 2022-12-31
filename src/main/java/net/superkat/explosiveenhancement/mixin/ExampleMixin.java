@@ -45,8 +45,6 @@ public class ExampleMixin {
 			this.world.addParticle(ExplosiveEnhancement.LINGER, this.x, this.y, this.z, -0.15, 0.4, 0);
 			this.world.addParticle(ExplosiveEnhancement.LINGER, this.x, this.y, this.z, 0, 0.4, -0.15);
 //			this.world.addParticle(ExplosiveEnhancement.LINGER, this.x, this.y, this.z, -0.15, 0.3, -0.15);
-			//Spark particles
-			this.world.addParticle(ExplosiveEnhancement.SPARKUP, this.x, this.y + 1, this.z, 0, 0.7, 0);
 		}
 	}
 }
