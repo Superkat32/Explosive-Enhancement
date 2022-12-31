@@ -11,7 +11,7 @@ public class ExplosiveEnhancementClient implements ClientModInitializer {
         ParticleFactoryRegistry.getInstance().register(ExplosiveEnhancement.BOOM, BoomParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(ExplosiveEnhancement.BIG_EXPLOSION, BigExplosionParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(ExplosiveEnhancement.LINGER, LingerParticle.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(ExplosiveEnhancement.SPARK, LingerParticle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(ExplosiveEnhancement.SPARKUP, SparkUpParticle.Factory::new);
 
     }
 }

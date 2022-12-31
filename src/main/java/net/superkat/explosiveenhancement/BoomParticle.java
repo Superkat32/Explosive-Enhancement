@@ -16,10 +16,6 @@ import org.joml.Vector3f;
 public class BoomParticle extends SpriteBillboardParticle {
     private final SpriteProvider sprites;
     private static final Quaternionf QUATERNION = new Quaternionf(0F, -0.7F, 0.7F, 0F);
-    private float field_28250;
-    private float field_28248;
-    private float field_40507;
-    private float field_40508;
 
     BoomParticle(ClientWorld world, double x, double y, double z, double velX, double velY, double velZ, SpriteProvider sprites) {
         super(world, x, y + 0.5, z, 0.0, 0.0, 0.0);
