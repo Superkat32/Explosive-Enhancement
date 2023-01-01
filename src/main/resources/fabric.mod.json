@@ -16,7 +16,7 @@
   "license": "MIT",
   "icon": "assets/explosiveenhancement/icon.png",
 
-  "environment": "*",
+  "environment": "client",
   "entrypoints": {
     "main": [
       "net.superkat.explosiveenhancement.ExplosiveEnhancement"

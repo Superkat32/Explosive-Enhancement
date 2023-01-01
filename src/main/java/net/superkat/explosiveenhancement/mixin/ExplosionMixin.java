@@ -14,14 +14,14 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(Explosion.class)
-public class ExampleMixin {
+public class ExplosionMixin {
 	@Shadow @Final private Random random;
 //	private final double x;
 //	private final double y;
 //	private final double z;
 //	private final World world;
 
-//	public ExampleMixin(World world, double x, double y, double z) {
+//	public ExplosionMixin(World world, double x, double y, double z) {
 //		this.x = x;
 //		this.y = y;
 //		this.z = z;
