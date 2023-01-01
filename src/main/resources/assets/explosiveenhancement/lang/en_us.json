@@ -5,7 +5,7 @@
   "explosiveenhancement.midnightconfig.showBoom": "Show boom particle?",
   "explosiveenhancement.midnightconfig.showBoom.tooltip": "The boom particle is the huge circle which is flat on the ground.",
   "explosiveenhancement.midnightconfig.showBigExplosion": "Show big explosion particle?",
-  "explosiveenhancement.midnightconfig.showBigExplosion.tooltip": "The big explosion the the big circle which appears when an explosion happens.",
+  "explosiveenhancement.midnightconfig.showBigExplosion.tooltip": "The big explosion is the big circle which appears when an explosion happens.",
   "explosiveenhancement.midnightconfig.showLingerParticles": "Show lingering smoke particles?",
   "explosiveenhancement.midnightconfig.showLingerParticles.tooltip": "The lingering smoke particles are in the shape of a mushroom cloud.",
   "explosiveenhancement.midnightconfig.showDefaultExplosion": "Show default Minecraft explosion?",

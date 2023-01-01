@@ -61,6 +61,8 @@ public class ExplosionMixin {
 					world.addParticle(ParticleTypes.EXPLOSION_EMITTER, x, y, z, 1.0, 0.0, 0.0);
 				}
 //			}
+		} else {
+			world.addParticle(ParticleTypes.EXPLOSION_EMITTER, x, y, z, 1.0, 0.0, 0.0);
 		}
 	}
 }
