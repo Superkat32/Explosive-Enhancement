@@ -16,6 +16,7 @@ public class ExplosiveEnhancement implements ModInitializer {
 	public static final DefaultParticleType BOOM = FabricParticleTypes.simple();
 	public static final DefaultParticleType BIG_EXPLOSION = FabricParticleTypes.simple();
 	public static final DefaultParticleType LINGER = FabricParticleTypes.simple();
+	public static final DefaultParticleType BUBBLE = FabricParticleTypes.simple();
 
 	@Override
 	public void onInitialize() {
@@ -25,6 +26,7 @@ public class ExplosiveEnhancement implements ModInitializer {
 		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "boom"), BOOM);
 		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "big_explosion"), BIG_EXPLOSION);
 		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "linger"), LINGER);
+		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "bubble"), BUBBLE);
 		LOGGER.info("Hello Fabric world!");
 	}
 }

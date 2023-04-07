@@ -27,7 +27,8 @@ public abstract class ExplosionMixin {
 	@Shadow public abstract DamageSource getDamageSource();
 
     @Shadow @Final private ObjectArrayList<BlockPos> affectedBlocks;
-    private boolean isUnderWater = false;
+	@Shadow @Final private double x;
+	private boolean isUnderWater = false;
     private final float power;
 	private final DamageSource damageSource;
 
@@ -47,9 +48,12 @@ public abstract class ExplosionMixin {
 	public void affectWorld(World world, ParticleEffect parameters, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
 		LOGGER.info("affectWorld has been called!");
 		if(this.affectedBlocks.isEmpty()) {
-            LOGGER.info("E");
+			//If underwater
+            LOGGER.info("Underwater");
+			isUnderWater = true;
 		} else {
-            LOGGER.info("A");
+			//If not underwater
+            LOGGER.info("Not underwater");
 		}
 		if(ExplosiveConfig.modEnabled) {
 //			if (particles) {
@@ -81,7 +85,9 @@ public abstract class ExplosionMixin {
 					world.addParticle(ParticleTypes.EXPLOSION_EMITTER, x, y, z, 1.0, 0.0, 0.0);
 				}
 			} else {
-				LOGGER.info("IS UNDERWATER!");
+				for(int total = 50; total >= 1; total--) {
+					world.addParticle(ExplosiveEnhancement.BUBBLE, x, y, z, this.random.nextBetween(1, 7) * 0.2 * this.random.nextBetween(-1, 1), this.random.nextBetween(1, 10) * 0.1, this.random.nextBetween(1, 7) * 0.2 * this.random.nextBetween(-1, 1));
+				}
 			}
 //			}
 		} else {
