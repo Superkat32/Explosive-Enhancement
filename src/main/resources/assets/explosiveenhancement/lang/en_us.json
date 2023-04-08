@@ -1,7 +1,7 @@
 {
   "explosiveenhancement.midnightconfig.title": "Explosive Enhancement Config",
-  "explosiveenhancement.midnightconfig.modEnabled": "Mod enabled?",
-  "explosiveenhancement.midnightconfig.modEnabled.tooltip": "Should the mod be enabled?",
+
+  "explosiveenhancement.midnightconfig.normalExplosions": "Normal Explosion Options",
   "explosiveenhancement.midnightconfig.showBoom": "Show boom particle?",
   "explosiveenhancement.midnightconfig.showBoom.tooltip": "The boom particle is the huge circle which is flat on the ground.",
   "explosiveenhancement.midnightconfig.showBigExplosion": "Show big explosion particle?",
@@ -9,5 +9,18 @@
   "explosiveenhancement.midnightconfig.showLingerParticles": "Show lingering smoke particles?",
   "explosiveenhancement.midnightconfig.showLingerParticles.tooltip": "The lingering smoke particles are in the shape of a mushroom cloud.",
   "explosiveenhancement.midnightconfig.showDefaultExplosion": "Show default Minecraft explosion?",
-  "explosiveenhancement.midnightconfig.showDefaultExplosion.tooltip": "The default explosion consists of multiple white circles surrounding the explosion. You can turn this on/off, and still turn on/off other options provided by the mod."
+  "explosiveenhancement.midnightconfig.showDefaultExplosion.tooltip": "The default explosion consists of multiple white circles surrounding the explosion. You can turn this on/off, and still turn on/off other options provided by the mod.",
+
+  "explosiveenhancement.midnightconfig.underwaterExplosions": "Underwater Explosion Options",
+  "explosiveenhancement.midnightconfig.bubbleEnum": "Bubble Amount",
+  "explosiveenhancement.midnightconfig.bubbleEnum.tooltip": "The amount of bubbles that should be spawned",
+  "explosiveenhancement.midnightconfig.enum.BubbleEnum.NONE": "None",
+  "explosiveenhancement.midnightconfig.enum.BubbleEnum.LOW": "Low",
+  "explosiveenhancement.midnightconfig.enum.BubbleEnum.MEDIUM": "Medium",
+  "explosiveenhancement.midnightconfig.enum.BubbleEnum.HIGH": "High",
+  "explosiveenhancement.midnightconfig.enum.BubbleEnum.INSANELYHIGH": "Insanely High!",
+
+  "explosiveenhancement.midnightconfig.extras": "Extra Options",
+  "explosiveenhancement.midnightconfig.modEnabled": "Mod enabled?",
+  "explosiveenhancement.midnightconfig.modEnabled.tooltip": "Should the mod be enabled?"
 }
