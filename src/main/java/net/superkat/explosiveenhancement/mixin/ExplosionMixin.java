@@ -85,7 +85,15 @@ public abstract class ExplosionMixin {
 					world.addParticle(ParticleTypes.EXPLOSION_EMITTER, x, y, z, 1.0, 0.0, 0.0);
 				}
 			} else {
-				for(int total = 50; total >= 1; total--) {
+                int amount = 0;
+                switch(ExplosiveConfig.bubbleEnum) {
+                    case NONE -> amount = 0;
+                    case LOW -> amount = 15;
+                    case MEDIUM -> amount = 50;
+                    case HIGH -> amount = 100;
+                    case INSANELYHIGH -> amount = 250;
+                }
+				for(int total = amount; total >= 1; total--) {
 					world.addParticle(ExplosiveEnhancement.BUBBLE, x, y, z, this.random.nextBetween(1, 7) * 0.2 * this.random.nextBetween(-1, 1), this.random.nextBetween(1, 10) * 0.1, this.random.nextBetween(1, 7) * 0.2 * this.random.nextBetween(-1, 1));
 				}
 			}
