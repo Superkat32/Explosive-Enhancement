@@ -19,6 +19,10 @@ repositories {
 	maven { url "https://maven.shedaniel.me/" }
 	maven { url "https://maven.terraformersmc.com/releases/" }
 	maven { url = "https://api.modrinth.com/maven"}
+	maven {
+		name 'Xander Maven'
+		url 'https://maven.isxander.dev/releases'
+	}
 }
 
 dependencies {
@@ -37,6 +41,8 @@ dependencies {
 
 	//Mod Menu
 	modApi "com.terraformersmc:modmenu:${modmenu_version}"
+
+	modImplementation 'dev.isxander:yet-another-config-lib:2.2.0-for-1.19.2'
 
 
 	// Uncomment the following line to enable the deprecated Fabric API modules. 
