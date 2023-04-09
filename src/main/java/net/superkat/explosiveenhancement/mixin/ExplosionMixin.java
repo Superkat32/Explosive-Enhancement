@@ -47,7 +47,7 @@ public abstract class ExplosionMixin {
 	@Redirect(method = "affectWorld(Z)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;addParticle(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V"))
 	public void affectWorld(World world, ParticleEffect parameters, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
 		LOGGER.info("affectWorld has been called!");
-		if(this.affectedBlocks.isEmpty()) {
+		if(this.affectedBlocks.isEmpty() && ExplosiveConfig.underwaterExplosions) {
 			//If underwater
             LOGGER.info("Underwater");
 			isUnderWater = true;
@@ -55,7 +55,8 @@ public abstract class ExplosionMixin {
 			//If not underwater
             LOGGER.info("Not underwater");
 		}
-		if(ExplosiveConfig.modEnabled) {
+		boolean modEnabled = true;
+		if(modEnabled) {
 //			if (particles) {
 			if(!isUnderWater) {
 				LOGGER.info("particle has been shown!");
@@ -85,15 +86,7 @@ public abstract class ExplosionMixin {
 					world.addParticle(ParticleTypes.EXPLOSION_EMITTER, x, y, z, 1.0, 0.0, 0.0);
 				}
 			} else {
-                int amount = 0;
-                switch(ExplosiveConfig.bubbleEnum) {
-                    case NONE -> amount = 0;
-                    case LOW -> amount = 15;
-                    case MEDIUM -> amount = 50;
-                    case HIGH -> amount = 100;
-                    case INSANELYHIGH -> amount = 250;
-                }
-				for(int total = amount; total >= 1; total--) {
+				for(int total = ExplosiveConfig.bubbleAmount; total >= 1; total--) {
 					world.addParticle(ExplosiveEnhancement.BUBBLE, x, y, z, this.random.nextBetween(1, 7) * 0.2 * this.random.nextBetween(-1, 1), this.random.nextBetween(1, 10) * 0.1, this.random.nextBetween(1, 7) * 0.2 * this.random.nextBetween(-1, 1));
 				}
 			}

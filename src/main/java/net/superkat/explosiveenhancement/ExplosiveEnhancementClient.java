@@ -7,6 +7,7 @@ public class ExplosiveEnhancementClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        ExplosiveConfig.INSTANCE.load();
 
         ParticleFactoryRegistry.getInstance().register(ExplosiveEnhancement.BOOM, BoomParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(ExplosiveEnhancement.BIG_EXPLOSION, BigExplosionParticle.Factory::new);
