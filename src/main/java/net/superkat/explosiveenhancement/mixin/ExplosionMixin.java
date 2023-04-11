@@ -1,7 +1,6 @@
 package net.superkat.explosiveenhancement.mixin;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
@@ -10,7 +9,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 import net.superkat.explosiveenhancement.ExplosiveConfig;
 import net.superkat.explosiveenhancement.ExplosiveEnhancement;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -22,27 +20,8 @@ import static net.superkat.explosiveenhancement.ExplosiveEnhancement.LOGGER;
 @Mixin(Explosion.class)
 public abstract class ExplosionMixin {
 	@Shadow @Final private Random random;
-
-
-	@Shadow public abstract DamageSource getDamageSource();
-
     @Shadow @Final private ObjectArrayList<BlockPos> affectedBlocks;
-	@Shadow @Final private double x;
 	private boolean isUnderWater = false;
-    private final float power;
-	private final DamageSource damageSource;
-
-    public ExplosionMixin(float power, @Nullable DamageSource damageSource) {
-        this.power = power;
-		this.damageSource = damageSource;
-    }
-
-//    @Inject(method = "affectWorld(Z)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockState;isAir()Z"))
-//	public void isInAir(boolean particles, CallbackInfo ci) {
-//		if(this.power > 2.0F) {
-//        }
-//		LOGGER.info(String.valueOf(this.power));
-//	}
 
 	@Redirect(method = "affectWorld(Z)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;addParticle(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V"))
 	public void affectWorld(World world, ParticleEffect parameters, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
@@ -57,7 +36,6 @@ public abstract class ExplosionMixin {
 			}
 		}
 		if(ExplosiveConfig.modEnabled) {
-//			if (particles) {
 			if(!isUnderWater) {
 				if(ExplosiveConfig.debugLogs) {
 					LOGGER.info("Particle is being shown!");
@@ -92,7 +70,6 @@ public abstract class ExplosionMixin {
 					world.addParticle(ExplosiveEnhancement.BUBBLE, x, y, z, this.random.nextBetween(1, 7) * 0.3 * this.random.nextBetween(-1, 1), this.random.nextBetween(1, 10) * 0.1, this.random.nextBetween(1, 7) * 0.3 * this.random.nextBetween(-1, 1));
 				}
 			}
-//			}
 		} else {
 			world.addParticle(ParticleTypes.EXPLOSION_EMITTER, x, y, z, 1.0, 0.0, 0.0);
 		}
