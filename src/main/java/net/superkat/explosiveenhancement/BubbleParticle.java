@@ -10,6 +10,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 
@@ -25,7 +26,7 @@ public class BubbleParticle extends SpriteBillboardParticle {
         this.setBoundingBoxSpacing(0.02F, 0.02F);
         this.scale *= this.random.nextFloat() * 1.5F + 0.2F;
         this.velocityX = velX / this.random.nextBetween(1, 15);
-        this.velocityY = velY / 2.5;
+        this.velocityY = velY / this.random.nextBetween((int) 1.2, (int) 2.7);
         this.velocityZ = velZ /  this.random.nextBetween(1, 15);
         this.maxAge = 120 + this.random.nextBetween(0, 40);
         this.setSpriteForAge(spriteProvider);
@@ -37,24 +38,27 @@ public class BubbleParticle extends SpriteBillboardParticle {
         this.prevPosZ = this.z;
         if (this.maxAge-- <= 0) {
             this.markDead();
+            this.world.addParticle(ParticleTypes.BUBBLE_POP, this.x, this.y, this.z, this.velocityX, this.velocityY, this.velocityZ);
         } else {
             this.velocityY += 0.002;
             this.move(this.velocityX, this.velocityY, this.velocityZ);
-            this.velocityX *= 0.8500000238418579;
-            this.velocityY *= 0.8800000238418579;
-            this.velocityZ *= 0.8500000238418579;
+            this.velocityX *= 0.7300000238418579;
+            this.velocityY *= 0.8500000238418579;
+            this.velocityZ *= 0.7300000238418579;
             if (!this.world.getFluidState(new BlockPos(this.x, this.y, this.z)).isIn(FluidTags.WATER)) {
                 this.velocityY -= 0.002;
                 if(startAirTick) {
-                    startingAirTick = this.age;
+                    startingAirTick = this.maxAge;
                     this.velocityY = 0;
                     startAirTick = false;
                 }
-                if(this.age == startingAirTick + extraTimeBeforePopping) {
-                    this.markDead();
+                if(!startAirTick) {
+                    if(this.maxAge == startingAirTick - extraTimeBeforePopping) {
+                        this.markDead();
+                        this.world.addParticle(ParticleTypes.BUBBLE_POP, this.x, this.y, this.z, this.velocityX, this.velocityY, this.velocityZ);
+                    }
                 }
             }
-
         }
     }
 
