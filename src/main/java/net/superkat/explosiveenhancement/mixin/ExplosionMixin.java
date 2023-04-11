@@ -46,20 +46,22 @@ public abstract class ExplosionMixin {
 
 	@Redirect(method = "affectWorld(Z)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;addParticle(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V"))
 	public void affectWorld(World world, ParticleEffect parameters, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
-		LOGGER.info("affectWorld has been called!");
+		if(ExplosiveConfig.debugLogs) {
+			LOGGER.info("affectWorld has been called!");
+		}
 		if(this.affectedBlocks.isEmpty() && ExplosiveConfig.underwaterExplosions) {
 			//If underwater
-            LOGGER.info("Underwater");
 			isUnderWater = true;
-		} else {
-			//If not underwater
-            LOGGER.info("Not underwater");
+			if(ExplosiveConfig.debugLogs) {
+				LOGGER.info("Particle is underwater!");
+			}
 		}
-		boolean modEnabled = true;
-		if(modEnabled) {
+		if(ExplosiveConfig.modEnabled) {
 //			if (particles) {
 			if(!isUnderWater) {
-				LOGGER.info("particle has been shown!");
+				if(ExplosiveConfig.debugLogs) {
+					LOGGER.info("Particle is being shown!");
+				}
 				if(ExplosiveConfig.showBoom) {
 					//Boom particle
 //					this.world.addParticle(ExplosiveEnhancement.BOOM, this.x, this.y, this.z, 0, 0, 0);
