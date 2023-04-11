@@ -44,6 +44,17 @@
   "explosiveenhancement.underwater.enabled": "Underwater Explosions",
   "explosiveenhancement.underwater.enabled.tooltip": "Should there be a special effect for underwater explosions?",
   "explosiveenhancement.underwater.bubbleamount": "Bubble Amount",
-  "explosiveenhancement.underwater.bubbleamount.tooltip": "How many bubbles should be shown after an underwater explosion?"
+  "explosiveenhancement.underwater.bubbleamount.tooltip": "How many bubbles should be shown after an underwater explosion?",
+
+
+
+  "explosiveenhancement.category.extras": "Extras",
+
+  "explosiveenhancement.extras.group": "Extras",
+  "explosiveenhancement.extras.group.tooltip": "All extra options",
+  "explosiveenhancement.extras.logs": "Debug Logs",
+  "explosiveenhancement.extras.logs.tooltip": "Should debug logs be enabled?",
+  "explosiveenhancement.extras.enabled": "Mod Enabled",
+  "explosiveenhancement.extras.enabled.tooltip": "Should the mod be enabled?"
 
 }

@@ -37,6 +37,8 @@ public class ExplosiveConfig {
     @ConfigEntry public static boolean showDefaultExplosion = false;
     @ConfigEntry public static boolean underwaterExplosions = true;
     @ConfigEntry public static int bubbleAmount = 50;
+    @ConfigEntry public static boolean debugLogs = false;
+    @ConfigEntry public static boolean modEnabled = true;
 
     public static Screen makeScreen(Screen parent) {
         return YetAnotherConfigLib.create(INSTANCE, (defaults, config, builder) -> {
@@ -117,15 +119,50 @@ public class ExplosiveConfig {
                             () -> config.bubbleAmount,
                             val -> config.bubbleAmount = val
                     )
-                    .controller(integerOption -> new <Number>IntegerSliderController(integerOption, 0, 250, 10))
+                    .controller(integerOption -> new <Number>IntegerSliderController(integerOption, 0, 250, 5))
                     .build();
             underwaterGroup.option(underwaterExplosions);
             underwaterGroup.option(bubbleAmount);
             defaultCategoryBuilder.group(underwaterGroup.build());
 
+
+
+            var extrasCategoryBuilder = ConfigCategory.createBuilder()
+                    .name(Text.translatable("explosiveenhancement.category.extras"));
+
+            var extrasGroup = OptionGroup.createBuilder()
+                    .name(Text.translatable("explosiveenhancement.extras.group"))
+                    .tooltip(Text.translatable("explosiveenhancement.extras.group.tooltip"));
+
+            var debugLogs = Option.createBuilder(boolean.class)
+                    .name(Text.translatable("explosiveenhancement.extras.logs"))
+                    .tooltip(Text.translatable("explosiveenhancement.extras.logs.tooltip"))
+                    .binding(
+                            defaults.debugLogs,
+                            () -> config.debugLogs,
+                            val -> config.debugLogs = val
+                    )
+                    .controller(booleanOption -> new BooleanController(booleanOption, true))
+                    .build();
+
+            var modEnabled = Option.createBuilder(boolean.class)
+                    .name(Text.translatable("explosiveenhancement.extras.enabled"))
+                    .tooltip(Text.translatable("explosiveenhancement.extras.enabled.tooltip"))
+                    .binding(
+                            defaults.modEnabled,
+                            () -> config.modEnabled,
+                            val -> config.modEnabled = val
+                    )
+                    .controller(booleanOption -> new BooleanController(booleanOption, true))
+                    .build();
+            extrasGroup.option(debugLogs);
+            extrasGroup.option(modEnabled);
+            extrasCategoryBuilder.group(extrasGroup.build());
+
             return builder
                     .title(Text.translatable("explosiveenhancement.title"))
-                    .category(defaultCategoryBuilder.build());
+                    .category(defaultCategoryBuilder.build())
+                    .category(extrasCategoryBuilder.build());
         }).generateScreen(parent);
     }
 
