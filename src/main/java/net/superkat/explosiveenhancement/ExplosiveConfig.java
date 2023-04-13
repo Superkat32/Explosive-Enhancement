@@ -106,7 +106,7 @@ public class ExplosiveConfig {
                             () -> config.bubbleAmount,
                             val -> config.bubbleAmount = val
                     )
-                    .controller(integerOption -> new <Number>IntegerSliderController(integerOption, 0, 250, 5))
+                    .controller(integerOption -> new <Number>IntegerSliderController(integerOption, 0, 500, 5))
                     .build();
             underwaterGroup.option(underwaterExplosions);
             underwaterGroup.option(bubbleAmount);
