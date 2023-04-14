@@ -18,6 +18,8 @@
   "explosiveenhancement.underwater.group.tooltip": "Underwater explosion options",
   "explosiveenhancement.underwater.enabled": "Underwater Explosions",
   "explosiveenhancement.underwater.enabled.tooltip": "Should there be a special effect for underwater explosions?",
+  "explosiveenhancement.underwater.shockwave": "Shockwaves",
+  "explosiveenhancement.underwater.shockwave.tooltip": "Should shockwaves be shown after an underwater explosion?",
   "explosiveenhancement.underwater.bubbleamount": "Bubble Amount",
   "explosiveenhancement.underwater.bubbleamount.tooltip": "How many bubbles should be shown after an underwater explosion?",
 
