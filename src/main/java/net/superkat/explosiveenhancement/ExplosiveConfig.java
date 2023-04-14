@@ -88,17 +88,6 @@ public class ExplosiveConfig {
                     .name(Text.translatable("explosiveenhancement.underwater.group"))
                     .tooltip(Text.translatable("explosiveenhancement.underwater.group.tooltip"));
 
-            var underwaterExplosions = Option.createBuilder(boolean.class)
-                    .name(Text.translatable("explosiveenhancement.underwater.enabled"))
-                    .tooltip(Text.translatable("explosiveenhancement.underwater.enabled.tooltip"))
-                    .binding(
-                            defaults.underwaterExplosions,
-                            () -> config.underwaterExplosions,
-                            val -> config.underwaterExplosions = val
-                    )
-                    .controller(booleanOption -> new BooleanController(booleanOption, true))
-                    .build();
-
             var shockwave = Option.createBuilder(boolean.class)
                     .name(Text.translatable("explosiveenhancement.underwater.shockwave"))
                     .tooltip(Text.translatable("explosiveenhancement.underwater.shockwave.tooltip"))
@@ -108,6 +97,7 @@ public class ExplosiveConfig {
                             val -> config.shockwave = val
                     )
                     .controller(booleanOption -> new BooleanController(booleanOption, true))
+                    .available(true)
                     .build();
 
             var bubbleAmount = Option.createBuilder(Integer.class)
@@ -119,6 +109,20 @@ public class ExplosiveConfig {
                             val -> config.bubbleAmount = val
                     )
                     .controller(integerOption -> new <Number>IntegerSliderController(integerOption, 0, 500, 5))
+                    .available(true)
+                    .build();
+
+            var underwaterExplosions = Option.createBuilder(boolean.class)
+                    .name(Text.translatable("explosiveenhancement.underwater.enabled"))
+                    .tooltip(Text.translatable("explosiveenhancement.underwater.enabled.tooltip"))
+                    .binding(
+                            defaults.underwaterExplosions,
+                            () -> config.underwaterExplosions,
+                            val -> config.underwaterExplosions = val
+                    )
+                    .controller(booleanOption -> new BooleanController(booleanOption, true))
+                    .listener((opt, newValue) -> shockwave.setAvailable(newValue))
+                    .listener((opt, newValue) -> bubbleAmount.setAvailable(newValue))
                     .build();
             underwaterGroup.option(underwaterExplosions);
             underwaterGroup.option(shockwave);
