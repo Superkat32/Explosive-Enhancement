@@ -47,7 +47,6 @@ public class ExplosiveConfig {
                             val -> config.showBoom = val
                     )
                     .controller(booleanOption -> new BooleanController(booleanOption, true))
-                    .available(true)
                     .build();
             var showBigExplosion = Option.createBuilder(boolean.class)
                     .name(Text.translatable("explosiveenhancement.bigexplosion.enabled"))
@@ -58,7 +57,6 @@ public class ExplosiveConfig {
                             val -> config.showBigExplosion = val
                     )
                     .controller(booleanOption -> new BooleanController(booleanOption, true))
-                    .available(true)
                     .build();
             var showLingerParticles = Option.createBuilder(boolean.class)
                     .name(Text.translatable("explosiveenhancement.linger.enabled"))
@@ -69,7 +67,6 @@ public class ExplosiveConfig {
                             val -> config.showLingerParticles = val
                     )
                     .controller(booleanOption -> new BooleanController(booleanOption, true))
-                    .available(true)
                     .build();
             var showDefaultExplosion = Option.createBuilder(boolean.class)
                     .name(Text.translatable("explosiveenhancement.default.enabled"))
@@ -80,7 +77,6 @@ public class ExplosiveConfig {
                             val -> config.showDefaultExplosion = val
                     )
                     .controller(booleanOption -> new BooleanController(booleanOption, true))
-                    .available(true)
                     .build();
             explosionGroup.option(showBoom);
             explosionGroup.option(showBigExplosion);
@@ -101,7 +97,6 @@ public class ExplosiveConfig {
                             val -> config.shockwave = val
                     )
                     .controller(booleanOption -> new BooleanController(booleanOption, true))
-                    .available(true)
                     .build();
 
             var bubbleAmount = Option.createBuilder(Integer.class)
@@ -113,7 +108,6 @@ public class ExplosiveConfig {
                             val -> config.bubbleAmount = val
                     )
                     .controller(integerOption -> new <Number>IntegerSliderController(integerOption, 0, 500, 5))
-                    .available(true)
                     .build();
 
             var underwaterExplosions = Option.createBuilder(boolean.class)
@@ -125,9 +119,6 @@ public class ExplosiveConfig {
                             val -> config.underwaterExplosions = val
                     )
                     .controller(booleanOption -> new BooleanController(booleanOption, true))
-                    .listener((opt, newValue) -> shockwave.setAvailable(newValue))
-                    .listener((opt, newValue) -> bubbleAmount.setAvailable(newValue))
-                    .available(true)
                     .build();
             underwaterGroup.option(underwaterExplosions);
             underwaterGroup.option(shockwave);
@@ -152,7 +143,6 @@ public class ExplosiveConfig {
                             val -> config.debugLogs = val
                     )
                     .controller(booleanOption -> new BooleanController(booleanOption, true))
-                    .available(true)
                     .build();
 
             var modEnabled = Option.createBuilder(boolean.class)
@@ -164,15 +154,6 @@ public class ExplosiveConfig {
                             val -> config.modEnabled = val
                     )
                     .controller(booleanOption -> new BooleanController(booleanOption, true))
-                    .listener((opt, newValue) -> showBoom.setAvailable(newValue))
-                    .listener((opt, newValue) -> showBigExplosion.setAvailable(newValue))
-                    .listener((opt, newValue) -> showLingerParticles.setAvailable(newValue))
-                    .listener((opt, newValue) -> showDefaultExplosion.setAvailable(newValue))
-                    .listener((opt, newValue) -> underwaterExplosions.requestSet(newValue))
-                    .listener((opt, newValue) -> underwaterExplosions.setAvailable(newValue))
-//                    .listener((opt, newValue) -> shockwave.setAvailable(newValue))
-//                    .listener((opt, newValue) -> bubbleAmount.setAvailable(newValue))
-                    .listener((opt, newValue) -> debugLogs.setAvailable(newValue))
                     .build();
             extrasGroup.option(debugLogs);
             extrasGroup.option(modEnabled);
