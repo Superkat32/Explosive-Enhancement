@@ -1,11 +1,11 @@
 package net.superkat.explosiveenhancement;
 
-import eu.midnightdust.lib.config.MidnightConfig;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,11 +24,11 @@ public class ExplosiveEnhancement implements ModInitializer {
 		//Loads the config
 //		MidnightConfig.init("explosiveenhancement", ExplosiveConfig.class);
 
-		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "boom"), BOOM);
-		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "big_explosion"), BIG_EXPLOSION);
-		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "linger"), LINGER);
-		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "bubble"), BUBBLE);
-		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "shockwave"), SHOCKWAVE);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier("explosiveenhancement", "boom"), BOOM);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier("explosiveenhancement", "big_explosion"), BIG_EXPLOSION);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier("explosiveenhancement", "linger"), LINGER);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier("explosiveenhancement", "bubble"), BUBBLE);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier("explosiveenhancement", "shockwave"), SHOCKWAVE);
 		LOGGER.info("Hello Fabric world!");
 	}
 }

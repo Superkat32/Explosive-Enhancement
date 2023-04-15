@@ -42,7 +42,7 @@ dependencies {
 	//Mod Menu
 	modApi "com.terraformersmc:modmenu:${modmenu_version}"
 
-	modImplementation 'dev.isxander:yet-another-config-lib:2.2.0-for-1.19.2'
+	modImplementation 'dev.isxander:yet-another-config-lib:2.2.0'
 
 
 	// Uncomment the following line to enable the deprecated Fabric API modules. 
