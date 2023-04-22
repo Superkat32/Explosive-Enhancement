@@ -38,7 +38,8 @@ public class BoomParticle extends SpriteBillboardParticle {
         float z = (float) (MathHelper.lerp(ticks, this.prevPosZ, this.z) - vec3.getZ());
 
         Vector3f[] vector3fs = new Vector3f[]{new Vector3f(-1.0F, -1.0F, 0.0F), new Vector3f(-1.0F, 1.0F, 0.0F), new Vector3f(1.0F, 1.0F, 0.0F), new Vector3f(1.0F, -1.0F, 0.0F)};
-        Vector3f[] vector3fs2 = new Vector3f[]{new Vector3f(-1.0F, -1.0F, 0.0F), new Vector3f(1.0F, -1.0F, 0.0F), new Vector3f(1.0F, -1.0F, 0.0F), new Vector3f(-1.0F, -1.0F, 0.0F)}; // Additional vertices for underside faces
+        // Additional vertices for underside faces
+        Vector3f[] vector3fsBottom = new Vector3f[]{new Vector3f(-1.0F, -1.0F, 0.0F), new Vector3f(1.0F, -1.0F, 0.0F), new Vector3f(1.0F, -1.0F, 0.0F), new Vector3f(-1.0F, -1.0F, 0.0F)};
 
         float f4 = this.getSize(ticks);
 
@@ -49,10 +50,10 @@ public class BoomParticle extends SpriteBillboardParticle {
             vector3f.add(x, y, z);
 
             // Create additional vertices for underside faces
-            Vector3f vector3f2 = vector3fs2[i];
-            vector3f2.rotate(QUATERNION);
-            vector3f2.mul(f4);
-            vector3f2.add(x, y - 0.1F, z); // Slightly lower to avoid z-fighting
+            Vector3f vector3fBottom = vector3fsBottom[i];
+            vector3fBottom.rotate(QUATERNION);
+            vector3fBottom.mul(f4);
+            vector3fBottom.add(x, y - 0.1F, z); // Slightly lower to avoid z-fighting
         }
 
         float f7 = this.getMinU();
