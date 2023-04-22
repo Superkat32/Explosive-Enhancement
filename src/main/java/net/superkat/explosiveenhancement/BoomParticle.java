@@ -38,13 +38,21 @@ public class BoomParticle extends SpriteBillboardParticle {
         float z = (float) (MathHelper.lerp(ticks, this.prevPosZ, this.z) - vec3.getZ());
 
         Vector3f[] vector3fs = new Vector3f[]{new Vector3f(-1.0F, -1.0F, 0.0F), new Vector3f(-1.0F, 1.0F, 0.0F), new Vector3f(1.0F, 1.0F, 0.0F), new Vector3f(1.0F, -1.0F, 0.0F)};
+        Vector3f[] vector3fs2 = new Vector3f[]{new Vector3f(-1.0F, -1.0F, 0.0F), new Vector3f(1.0F, -1.0F, 0.0F), new Vector3f(1.0F, -1.0F, 0.0F), new Vector3f(-1.0F, -1.0F, 0.0F)}; // Additional vertices for underside faces
+
         float f4 = this.getSize(ticks);
 
-        for(int i = 0; i < 4; ++i) {
+        for (int i = 0; i < 4; ++i) {
             Vector3f vector3f = vector3fs[i];
             vector3f.rotate(QUATERNION);
             vector3f.mul(f4);
             vector3f.add(x, y, z);
+
+            // Create additional vertices for underside faces
+            Vector3f vector3f2 = vector3fs2[i];
+            vector3f2.rotate(QUATERNION);
+            vector3f2.mul(f4);
+            vector3f2.add(x, y - 0.1F, z); // Slightly lower to avoid z-fighting
         }
 
         float f7 = this.getMinU();
@@ -52,12 +60,19 @@ public class BoomParticle extends SpriteBillboardParticle {
         float f5 = this.getMinV();
         float f6 = this.getMaxV();
         int light = this.getBrightness(ticks);
+
+        // Render the top faces
         buffer.vertex(vector3fs[0].x(), vector3fs[0].y(), vector3fs[0].z()).texture(f8, f6).color(this.red, this.green, this.blue, this.alpha).light(light).next();
         buffer.vertex(vector3fs[1].x(), vector3fs[1].y(), vector3fs[1].z()).texture(f8, f5).color(this.red, this.green, this.blue, this.alpha).light(light).next();
         buffer.vertex(vector3fs[2].x(), vector3fs[2].y(), vector3fs[2].z()).texture(f7, f5).color(this.red, this.green, this.blue, this.alpha).light(light).next();
         buffer.vertex(vector3fs[3].x(), vector3fs[3].y(), vector3fs[3].z()).texture(f7, f6).color(this.red, this.green, this.blue, this.alpha).light(light).next();
-    }
 
+        // Render the underside faces
+        buffer.vertex(vector3fs[3].x(), vector3fs[3].y(), vector3fs[3].z()).texture(f7, f6).color(this.red, this.green, this.blue, this.alpha).light(light).next();
+        buffer.vertex(vector3fs[2].x(), vector3fs[2].y(), vector3fs[2].z()).texture(f7, f5).color(this.red, this.green, this.blue, this.alpha).light(light).next();
+        buffer.vertex(vector3fs[1].x(), vector3fs[1].y(), vector3fs[1].z()).texture(f8, f5).color(this.red, this.green, this.blue, this.alpha).light(light).next();
+        buffer.vertex(vector3fs[0].x(), vector3fs[0].y(), vector3fs[0].z()).texture(f8, f6).color(this.red, this.green, this.blue, this.alpha).light(light).next();
+    }
     @Override
     public ParticleTextureSheet getType() {
         return ParticleTextureSheet.PARTICLE_SHEET_OPAQUE;
