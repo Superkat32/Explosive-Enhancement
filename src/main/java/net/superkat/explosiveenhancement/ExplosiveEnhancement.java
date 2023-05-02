@@ -30,6 +30,5 @@ public class ExplosiveEnhancement implements ModInitializer {
 		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "bubble"), BUBBLE);
 		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "shockwave"), SHOCKWAVE);
 		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "underwater_blast"), UNDERWATER_BLAST);
-		LOGGER.info("Hello Fabric world!");
 	}
 }
