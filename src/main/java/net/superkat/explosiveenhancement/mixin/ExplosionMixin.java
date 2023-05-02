@@ -68,6 +68,8 @@ public abstract class ExplosionMixin {
 			} else {
 				if(ExplosiveConfig.shockwave) {
 					world.addParticle(ExplosiveEnhancement.SHOCKWAVE, x, y + 0.5, z, 0, 0, 0);
+				}
+				if(ExplosiveConfig.underwaterBlast) {
 					world.addParticle(ExplosiveEnhancement.UNDERWATER_BLAST, x, y + 0.5, z, 0, 0, 0);
 				}
 				for(int total = ExplosiveConfig.bubbleAmount; total >= 1; total--) {
