@@ -122,6 +122,7 @@ public class ExplosiveConfig {
             var bubbleAmount = Option.createBuilder(Integer.class)
                     .name(Text.translatable("explosiveenhancement.underwater.bubbleamount"))
                     .tooltip(Text.translatable("explosiveenhancement.underwater.bubbleamount.tooltip"))
+                    .tooltip(Text.translatable("explosiveenhancement.underwater.bubbleamount.warningtooltip"))
                     .binding(
                             defaults.bubbleAmount,
                             () -> config.bubbleAmount,
