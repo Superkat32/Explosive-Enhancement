@@ -27,9 +27,9 @@ public class BubbleParticle extends SpriteBillboardParticle {
         this.spriteProvider = spriteProvider;
         this.setBoundingBoxSpacing(0.02F, 0.02F);
         this.scale *= this.random.nextFloat() * 1.5F + 0.2F;
-        this.velocityX = velX / this.random.nextBetween(1, 15);
-        this.velocityY = velY / this.random.nextBetween((int) 1.2, (int) 2.7);
-        this.velocityZ = velZ /  this.random.nextBetween(1, 15);
+        this.velocityX = velX / this.random.nextBetween(1, 7);
+        this.velocityY = velY / this.random.nextBetween((int) 1.4, (int) 4.5);
+        this.velocityZ = velZ /  this.random.nextBetween(1, 7);
         this.maxAge = 120 + this.random.nextBetween(0, 40);
         this.setSpriteForAge(spriteProvider);
     }
@@ -45,7 +45,7 @@ public class BubbleParticle extends SpriteBillboardParticle {
             this.velocityY += 0.002;
             this.move(this.velocityX, this.velocityY, this.velocityZ);
             this.velocityX *= 0.7300000238418579;
-            this.velocityY *= 0.8500000238418579;
+            this.velocityY *= 0.8700000238418579;
             this.velocityZ *= 0.7300000238418579;
             if (!this.world.getFluidState(new BlockPos(this.x, this.y, this.z)).isIn(FluidTags.WATER)) {
                 this.velocityY -= 0.002;
