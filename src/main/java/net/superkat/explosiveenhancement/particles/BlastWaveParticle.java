@@ -1,4 +1,4 @@
-package net.superkat.explosiveenhancement;
+package net.superkat.explosiveenhancement.particles;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -13,11 +13,11 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3f;
 
 @Environment(EnvType.CLIENT)
-public class BoomParticle extends SpriteBillboardParticle {
+public class BlastWaveParticle extends SpriteBillboardParticle {
     private final SpriteProvider sprites;
     private static final Quaternion QUATERNION = new Quaternion(0F, -0.7F, 0.7F, 0F);
 
-    BoomParticle(ClientWorld world, double x, double y, double z, double velX, double velY, double velZ, SpriteProvider sprites) {
+    BlastWaveParticle(ClientWorld world, double x, double y, double z, double velX, double velY, double velZ, SpriteProvider sprites) {
         super(world, x, y + 0.5, z, 0.0, 0.0, 0.0);
 //        this.field_28787 = true;
         this.scale = 7F;
@@ -88,7 +88,7 @@ public class BoomParticle extends SpriteBillboardParticle {
     @Environment(EnvType.CLIENT)
     public record Factory(SpriteProvider sprites) implements ParticleFactory<DefaultParticleType> {
         public Particle createParticle(DefaultParticleType type, ClientWorld world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-            return new BoomParticle(world, x, y, z, xSpeed, ySpeed, zSpeed, sprites);
+            return new BlastWaveParticle(world, x, y, z, xSpeed, ySpeed, zSpeed, sprites);
         }
     }
 }

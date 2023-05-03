@@ -1,4 +1,4 @@
-package net.superkat.explosiveenhancement;
+package net.superkat.explosiveenhancement.particles;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -7,13 +7,13 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.DefaultParticleType;
 
 @Environment(EnvType.CLIENT)
-public class LingerParticle extends SpriteBillboardParticle {
+public class MushroomCloudParticle extends SpriteBillboardParticle {
     private final SpriteProvider spriteProvider;
 //    private final double startX;
 //    private final double startY;
 //    private final double startZ;
 
-    LingerParticle(ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteProvider spriteProvider) {
+    MushroomCloudParticle(ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteProvider spriteProvider) {
         super(world, x, y, z);
         this.velocityMultiplier = 0.6F;
         this.spriteProvider = spriteProvider;
@@ -80,7 +80,7 @@ public class LingerParticle extends SpriteBillboardParticle {
         }
 
         public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
-            return new LingerParticle(clientWorld, d, e, f, g, h, i, this.spriteProvider);
+            return new MushroomCloudParticle(clientWorld, d, e, f, g, h, i, this.spriteProvider);
         }
     }
 }

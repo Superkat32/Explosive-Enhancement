@@ -1,4 +1,4 @@
-package net.superkat.explosiveenhancement;
+package net.superkat.explosiveenhancement.particles;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -7,10 +7,10 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.DefaultParticleType;
 
 @Environment(EnvType.CLIENT)
-public class BigExplosionParticle extends SpriteBillboardParticle {
+public class FireballParticle extends SpriteBillboardParticle {
     private final SpriteProvider spriteProvider;
 
-    BigExplosionParticle(ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteProvider spriteProvider) {
+    FireballParticle(ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteProvider spriteProvider) {
         super(world, x, y, z);
         this.spriteProvider = spriteProvider;
         this.maxAge = 9;
@@ -48,7 +48,7 @@ public class BigExplosionParticle extends SpriteBillboardParticle {
         }
 
         public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
-            return new BigExplosionParticle(clientWorld, d, e, f, g, h, i, this.spriteProvider);
+            return new FireballParticle(clientWorld, d, e, f, g, h, i, this.spriteProvider);
         }
     }
 }
