@@ -5,12 +5,12 @@
 
   "explosiveenhancement.explosion.group": "Explosions",
   "explosiveenhancement.explosion.group.tooltip": "Explosion particle options",
-  "explosiveenhancement.boom.enabled": "Boom Particle",
-  "explosiveenhancement.boom.enabled.tooltip": "A large orange, horizontal circle",
-  "explosiveenhancement.bigexplosion.enabled": "Big Explosion Particle",
-  "explosiveenhancement.bigexplosion.enabled.tooltip": "A big orange, vertical circle",
-  "explosiveenhancement.linger.enabled": "Lingering Smoke Particles",
-  "explosiveenhancement.linger.enabled.tooltip": "Smoke that is in the shape of a mushroom",
+  "explosiveenhancement.blastwave.enabled": "Boom Particle",
+  "explosiveenhancement.blastwave.enabled.tooltip": "A large orange, horizontal circle",
+  "explosiveenhancement.fireball.enabled": "Big Explosion Particle",
+  "explosiveenhancement.fireball.enabled.tooltip": "A big orange, vertical circle",
+  "explosiveenhancement.mushroomcloud.enabled": "Lingering Smoke Particles",
+  "explosiveenhancement.mushroomcloud.enabled.tooltip": "Smoke that is in the shape of a mushroom",
   "explosiveenhancement.default.enabled": "Default Explosion Particles",
   "explosiveenhancement.default.enabled.tooltip": "Should the default particle explosions be shown?",
 

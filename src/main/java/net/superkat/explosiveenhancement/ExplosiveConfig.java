@@ -18,13 +18,13 @@ public class ExplosiveConfig {
 
     public static final ConfigInstance<ExplosiveConfig> INSTANCE = new GsonConfigInstance<>(ExplosiveConfig.class, Path.of("./config/explosive-config.json"));
 
-    @ConfigEntry public static boolean showBoom = true;
-    @ConfigEntry public static boolean showBigExplosion = true;
-    @ConfigEntry public static boolean showLingerParticles = true;
+    @ConfigEntry public static boolean showBlastWave = true;
+    @ConfigEntry public static boolean showFireball = true;
+    @ConfigEntry public static boolean showMushroomCloud = true;
     @ConfigEntry public static boolean showDefaultExplosion = false;
     @ConfigEntry public static boolean underwaterExplosions = true;
-    @ConfigEntry public static boolean shockwave = true;
-    @ConfigEntry public static boolean underwaterBlast = true;
+    @ConfigEntry public static boolean showShockwave = true;
+    @ConfigEntry public static boolean showUnderwaterBlastWave = true;
     @ConfigEntry public static int bubbleAmount = 50;
     @ConfigEntry public static boolean debugLogs = false;
     @ConfigEntry public static boolean modEnabled = true;
@@ -39,33 +39,33 @@ public class ExplosiveConfig {
             var explosionGroup = OptionGroup.createBuilder()
                     .name(Text.translatable("explosiveenhancement.explosion.group"))
                     .tooltip(Text.translatable("explosiveenhancement.explosion.group.tooltip"));
-            var showBoom = Option.createBuilder(boolean.class)
-                    .name(Text.translatable("explosiveenhancement.boom.enabled"))
-                    .tooltip(Text.translatable("explosiveenhancement.boom.enabled.tooltip"))
+            var showBlastWave = Option.createBuilder(boolean.class)
+                    .name(Text.translatable("explosiveenhancement.blastwave.enabled"))
+                    .tooltip(Text.translatable("explosiveenhancement.blastwave.enabled.tooltip"))
                     .binding(
-                            defaults.showBoom,
-                            () -> config.showBoom,
-                            val -> config.showBoom = val
+                            defaults.showBlastWave,
+                            () -> config.showBlastWave,
+                            val -> config.showBlastWave = val
                     )
                     .controller(booleanOption -> new BooleanController(booleanOption, true))
                     .build();
-            var showBigExplosion = Option.createBuilder(boolean.class)
-                    .name(Text.translatable("explosiveenhancement.bigexplosion.enabled"))
-                    .tooltip(Text.translatable("explosiveenhancement.bigexplosion.enabled.tooltip"))
+            var showFireball = Option.createBuilder(boolean.class)
+                    .name(Text.translatable("explosiveenhancement.fireball.enabled"))
+                    .tooltip(Text.translatable("explosiveenhancement.fireball.enabled.tooltip"))
                     .binding(
-                            defaults.showBigExplosion,
-                            () -> config.showBigExplosion,
-                            val -> config.showBigExplosion = val
+                            defaults.showFireball,
+                            () -> config.showFireball,
+                            val -> config.showFireball = val
                     )
                     .controller(booleanOption -> new BooleanController(booleanOption, true))
                     .build();
-            var showLingerParticles = Option.createBuilder(boolean.class)
-                    .name(Text.translatable("explosiveenhancement.linger.enabled"))
-                    .tooltip(Text.translatable("explosiveenhancement.linger.enabled.tooltip"))
+            var showMushroomCloud = Option.createBuilder(boolean.class)
+                    .name(Text.translatable("explosiveenhancement.mushroomcloud.enabled"))
+                    .tooltip(Text.translatable("explosiveenhancement.mushroomcloud.enabled.tooltip"))
                     .binding(
-                            defaults.showLingerParticles,
-                            () -> config.showLingerParticles,
-                            val -> config.showLingerParticles = val
+                            defaults.showMushroomCloud,
+                            () -> config.showMushroomCloud,
+                            val -> config.showMushroomCloud = val
                     )
                     .controller(booleanOption -> new BooleanController(booleanOption, true))
                     .build();
@@ -79,9 +79,9 @@ public class ExplosiveConfig {
                     )
                     .controller(booleanOption -> new BooleanController(booleanOption, true))
                     .build();
-            explosionGroup.option(showBoom);
-            explosionGroup.option(showBigExplosion);
-            explosionGroup.option(showLingerParticles);
+            explosionGroup.option(showBlastWave);
+            explosionGroup.option(showFireball);
+            explosionGroup.option(showMushroomCloud);
             explosionGroup.option(showDefaultExplosion);
             defaultCategoryBuilder.group(explosionGroup.build());
 
@@ -99,23 +99,23 @@ public class ExplosiveConfig {
                     )
                     .controller(booleanOption -> new BooleanController(booleanOption, true))
                     .build();
-            var shockwave = Option.createBuilder(boolean.class)
+            var showShockwave = Option.createBuilder(boolean.class)
                     .name(Text.translatable("explosiveenhancement.underwater.shockwave"))
                     .tooltip(Text.translatable("explosiveenhancement.underwater.shockwave.tooltip"))
                     .binding(
-                            defaults.shockwave,
-                            () -> config.shockwave,
-                            val -> config.shockwave = val
+                            defaults.showShockwave,
+                            () -> config.showShockwave,
+                            val -> config.showShockwave = val
                     )
                     .controller(booleanOption -> new BooleanController(booleanOption, true))
                     .build();
-            var underwaterBlast = Option.createBuilder(boolean.class)
+            var showUnderwaterBlast = Option.createBuilder(boolean.class)
                     .name(Text.translatable("explosiveenhancement.underwater.blast"))
                     .tooltip(Text.translatable("explosiveenhancement.underwater.blast.tooltip"))
                     .binding(
-                            defaults.underwaterBlast,
-                            () -> config.underwaterBlast,
-                            val -> config.underwaterBlast = val
+                            defaults.showUnderwaterBlastWave,
+                            () -> config.showUnderwaterBlastWave,
+                            val -> config.showUnderwaterBlastWave = val
                     )
                     .controller(booleanOption -> new BooleanController(booleanOption, true))
                     .build();
@@ -132,8 +132,8 @@ public class ExplosiveConfig {
                     .build();
 
             underwaterGroup.option(underwaterExplosions);
-            underwaterGroup.option(shockwave);
-            underwaterGroup.option(underwaterBlast);
+            underwaterGroup.option(showShockwave);
+            underwaterGroup.option(showUnderwaterBlast);
             underwaterGroup.option(bubbleAmount);
             defaultCategoryBuilder.group(underwaterGroup.build());
 

@@ -40,17 +40,17 @@ public abstract class ExplosionMixin {
 				if(ExplosiveConfig.debugLogs) {
 					LOGGER.info("Particle is being shown!");
 				}
-				if(ExplosiveConfig.showBoom) {
+				if(ExplosiveConfig.showBlastWave) {
 					//Boom particle
 //					this.world.addParticle(ExplosiveEnhancement.BOOM, this.x, this.y, this.z, 0, 0, 0);
 					world.addParticle(ExplosiveEnhancement.BLASTWAVE, x, y, z, 0, 0, 0);
 				}
-				if(ExplosiveConfig.showBigExplosion) {
+				if(ExplosiveConfig.showFireball) {
 					//Big explosion particle
 //					this.world.addParticle(ExplosiveEnhancement.BIG_EXPLOSION, this.x, this.y, this.z, 0, 0, 0);
 					world.addParticle(ExplosiveEnhancement.FIREBALL, x, y + 0.5, z, 0, 0, 0);
 				}
-				if(ExplosiveConfig.showLingerParticles) {
+				if(ExplosiveConfig.showMushroomCloud) {
 					//Smoke linger particles
 					//I'm aware DRY is a thing, but I couldn't figure out any other way to get even a similar effect that I was happy with, so unfortunately, this will have to do.
 					world.addParticle(ExplosiveEnhancement.MUSHROOMCLOUD, x, y, z, 0, 0.15, 0);
@@ -66,10 +66,10 @@ public abstract class ExplosionMixin {
 					world.addParticle(ParticleTypes.EXPLOSION_EMITTER, x, y, z, 1.0, 0.0, 0.0);
 				}
 			} else {
-				if(ExplosiveConfig.shockwave) {
+				if(ExplosiveConfig.showShockwave) {
 					world.addParticle(ExplosiveEnhancement.SHOCKWAVE, x, y + 0.5, z, 0, 0, 0);
 				}
-				if(ExplosiveConfig.underwaterBlast) {
+				if(ExplosiveConfig.showUnderwaterBlastWave) {
 					world.addParticle(ExplosiveEnhancement.UNDERWATERBLASTWAVE, x, y + 0.5, z, 0, 0, 0);
 				}
 				for(int total = ExplosiveConfig.bubbleAmount; total >= 1; total--) {
