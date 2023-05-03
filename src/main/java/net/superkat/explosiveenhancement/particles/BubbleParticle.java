@@ -3,7 +3,7 @@
 // (powered by FernFlower decompiler)
 //
 
-package net.superkat.explosiveenhancement;
+package net.superkat.explosiveenhancement.particles;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
