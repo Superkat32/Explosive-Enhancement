@@ -1,13 +1,13 @@
 {
   "textures": [
-    "explosiveenhancement:big_explosion1",
-    "explosiveenhancement:big_explosion2",
-    "explosiveenhancement:big_explosion3",
-    "explosiveenhancement:big_explosion4",
-    "explosiveenhancement:big_explosion5",
-    "explosiveenhancement:big_explosion6",
-    "explosiveenhancement:big_explosion7",
-    "explosiveenhancement:big_explosion8",
-    "explosiveenhancement:big_explosion9"
+    "explosiveenhancement:fireball1",
+    "explosiveenhancement:fireball2",
+    "explosiveenhancement:fireball3",
+    "explosiveenhancement:fireball4",
+    "explosiveenhancement:fireball5",
+    "explosiveenhancement:fireball6",
+    "explosiveenhancement:fireball7",
+    "explosiveenhancement:fireball8",
+    "explosiveenhancement:fireball9"
   ]
 }
