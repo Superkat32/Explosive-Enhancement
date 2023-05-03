@@ -26,6 +26,7 @@ public class ExplosiveConfig {
     @ConfigEntry public static boolean showShockwave = true;
     @ConfigEntry public static boolean showUnderwaterBlastWave = true;
     @ConfigEntry public static int bubbleAmount = 50;
+    @ConfigEntry public static boolean showDefaultExplosionUnderwater = false;
     @ConfigEntry public static boolean debugLogs = false;
     @ConfigEntry public static boolean modEnabled = true;
 
@@ -130,11 +131,22 @@ public class ExplosiveConfig {
                     )
                     .controller(integerOption -> new <Number>IntegerSliderController(integerOption, 0, 500, 5))
                     .build();
+            var showDefaultExplosionUnderwater = Option.createBuilder(boolean.class)
+                    .name(Text.translatable("explosiveenhancement.underwater.default"))
+                    .tooltip(Text.translatable("explosiveenhancement.underwater.default.tooltip"))
+                    .binding(
+                            defaults.showDefaultExplosionUnderwater,
+                            () -> config.showDefaultExplosionUnderwater,
+                            val -> config.showDefaultExplosionUnderwater = val
+                    )
+                    .controller(booleanOption -> new BooleanController(booleanOption, true))
+                    .build();
 
             underwaterGroup.option(underwaterExplosions);
             underwaterGroup.option(showShockwave);
             underwaterGroup.option(showUnderwaterBlast);
             underwaterGroup.option(bubbleAmount);
+            underwaterGroup.option(showDefaultExplosionUnderwater);
             defaultCategoryBuilder.group(underwaterGroup.build());
 
 
