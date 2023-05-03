@@ -43,23 +43,23 @@ public abstract class ExplosionMixin {
 				if(ExplosiveConfig.showBoom) {
 					//Boom particle
 //					this.world.addParticle(ExplosiveEnhancement.BOOM, this.x, this.y, this.z, 0, 0, 0);
-					world.addParticle(ExplosiveEnhancement.BOOM, x, y, z, 0, 0, 0);
+					world.addParticle(ExplosiveEnhancement.BLASTWAVE, x, y, z, 0, 0, 0);
 				}
 				if(ExplosiveConfig.showBigExplosion) {
 					//Big explosion particle
 //					this.world.addParticle(ExplosiveEnhancement.BIG_EXPLOSION, this.x, this.y, this.z, 0, 0, 0);
-					world.addParticle(ExplosiveEnhancement.BIG_EXPLOSION, x, y + 0.5, z, 0, 0, 0);
+					world.addParticle(ExplosiveEnhancement.FIREBALL, x, y + 0.5, z, 0, 0, 0);
 				}
 				if(ExplosiveConfig.showLingerParticles) {
 					//Smoke linger particles
 					//I'm aware DRY is a thing, but I couldn't figure out any other way to get even a similar effect that I was happy with, so unfortunately, this will have to do.
-					world.addParticle(ExplosiveEnhancement.LINGER, x, y, z, 0, 0.15, 0);
-					world.addParticle(ExplosiveEnhancement.LINGER, x, y, z, 0, 0.4, 0);
-					world.addParticle(ExplosiveEnhancement.LINGER, x, y, z, 0.15, 0.4, 0);
-					world.addParticle(ExplosiveEnhancement.LINGER, x, y, z, 0, 0.4, 0.15);
+					world.addParticle(ExplosiveEnhancement.MUSHROOMCLOUD, x, y, z, 0, 0.15, 0);
+					world.addParticle(ExplosiveEnhancement.MUSHROOMCLOUD, x, y, z, 0, 0.4, 0);
+					world.addParticle(ExplosiveEnhancement.MUSHROOMCLOUD, x, y, z, 0.15, 0.4, 0);
+					world.addParticle(ExplosiveEnhancement.MUSHROOMCLOUD, x, y, z, 0, 0.4, 0.15);
 		//			world.addParticle(ExplosiveEnhancement.LINGER, x, y, z, 0.15, 0.3, 0.15);
-					world.addParticle(ExplosiveEnhancement.LINGER, x, y, z, -0.15, 0.4, 0);
-					world.addParticle(ExplosiveEnhancement.LINGER, x, y, z, 0, 0.4, -0.15);
+					world.addParticle(ExplosiveEnhancement.MUSHROOMCLOUD, x, y, z, -0.15, 0.4, 0);
+					world.addParticle(ExplosiveEnhancement.MUSHROOMCLOUD, x, y, z, 0, 0.4, -0.15);
 		//			world.addParticle(ExplosiveEnhancement.LINGER, x, y, z, -0.15, 0.3, -0.15);
 				}
 				if(ExplosiveConfig.showDefaultExplosion) {
@@ -70,7 +70,7 @@ public abstract class ExplosionMixin {
 					world.addParticle(ExplosiveEnhancement.SHOCKWAVE, x, y + 0.5, z, 0, 0, 0);
 				}
 				if(ExplosiveConfig.underwaterBlast) {
-					world.addParticle(ExplosiveEnhancement.UNDERWATER_BLAST, x, y + 0.5, z, 0, 0, 0);
+					world.addParticle(ExplosiveEnhancement.UNDERWATERBLASTWAVE, x, y + 0.5, z, 0, 0, 0);
 				}
 				for(int total = ExplosiveConfig.bubbleAmount; total >= 1; total--) {
 					world.addParticle(ExplosiveEnhancement.BUBBLE, x, y, z, this.random.nextBetween(1, 7) * 0.3 * this.random.nextBetween(-1, 1), this.random.nextBetween(1, 10) * 0.1, this.random.nextBetween(1, 7) * 0.3 * this.random.nextBetween(-1, 1));
