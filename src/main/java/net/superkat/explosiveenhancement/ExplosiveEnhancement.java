@@ -18,6 +18,7 @@ public class ExplosiveEnhancement implements ModInitializer {
 	public static final DefaultParticleType LINGER = FabricParticleTypes.simple();
 	public static final DefaultParticleType BUBBLE = FabricParticleTypes.simple();
 	public static final DefaultParticleType SHOCKWAVE = FabricParticleTypes.simple();
+	public static final DefaultParticleType UNDERWATER_BLAST = FabricParticleTypes.simple();
 
 	@Override
 	public void onInitialize() {
@@ -29,6 +30,6 @@ public class ExplosiveEnhancement implements ModInitializer {
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier("explosiveenhancement", "linger"), LINGER);
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier("explosiveenhancement", "bubble"), BUBBLE);
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier("explosiveenhancement", "shockwave"), SHOCKWAVE);
-		LOGGER.info("Hello Fabric world!");
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier("explosiveenhancement", "underwater_blast"), UNDERWATER_BLAST);
 	}
 }

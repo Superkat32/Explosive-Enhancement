@@ -6,11 +6,11 @@
   "explosiveenhancement.explosion.group": "Explosions",
   "explosiveenhancement.explosion.group.tooltip": "Explosion particle options",
   "explosiveenhancement.boom.enabled": "Boom Particle",
-  "explosiveenhancement.boom.enabled.tooltip": "Should the boom particle be shown?",
+  "explosiveenhancement.boom.enabled.tooltip": "A large orange, horizontal circle",
   "explosiveenhancement.bigexplosion.enabled": "Big Explosion Particle",
-  "explosiveenhancement.bigexplosion.enabled.tooltip": "Should the big explosion particle be shown?",
+  "explosiveenhancement.bigexplosion.enabled.tooltip": "A big orange, vertical circle",
   "explosiveenhancement.linger.enabled": "Lingering Smoke Particles",
-  "explosiveenhancement.linger.enabled.tooltip": "Should the lingering smoke particles be shown?",
+  "explosiveenhancement.linger.enabled.tooltip": "Smoke that is in the shape of a mushroom",
   "explosiveenhancement.default.enabled": "Default Explosion Particles",
   "explosiveenhancement.default.enabled.tooltip": "Should the default particle explosions be shown?",
 
@@ -19,9 +19,12 @@
   "explosiveenhancement.underwater.enabled": "Underwater Explosions",
   "explosiveenhancement.underwater.enabled.tooltip": "Should there be a special effect for underwater explosions?",
   "explosiveenhancement.underwater.shockwave": "Shockwaves",
-  "explosiveenhancement.underwater.shockwave.tooltip": "Should shockwaves be shown after an underwater explosion?",
+  "explosiveenhancement.underwater.shockwave.tooltip": "A vertical circle with a hint of blue",
+  "explosiveenhancement.underwater.blast": "Underwater Blasts",
+  "explosiveenhancement.underwater.blast.tooltip": "A large blue-ish horizontal circle",
   "explosiveenhancement.underwater.bubbleamount": "Bubble Amount",
-  "explosiveenhancement.underwater.bubbleamount.tooltip": "How many bubbles should be shown after an underwater explosion?",
+  "explosiveenhancement.underwater.bubbleamount.tooltip": "Little bubbles that pop after some time",
+  "explosiveenhancement.underwater.bubbleamount.warningtooltip": "Warning: Too many bubbles may cause lag",
 
 
 
