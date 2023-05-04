@@ -65,6 +65,7 @@ public abstract class ExplosionMixin {
 				if(ExplosiveConfig.showDefaultExplosion) {
 					world.addParticle(ParticleTypes.EXPLOSION_EMITTER, x, y, z, 1.0, 0.0, 0.0);
 				}
+				world.addParticle(ExplosiveEnhancement.SPARKS, x, y + 0.5, z, 0, 0, 0);
 			} else {
 				if(ExplosiveConfig.showShockwave) {
 					world.addParticle(ExplosiveEnhancement.SHOCKWAVE, x, y + 0.5, z, 0, 0, 0);
