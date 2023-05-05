@@ -17,7 +17,7 @@ public class MushroomCloudParticle extends SpriteBillboardParticle {
         super(world, x, y, z);
         this.velocityMultiplier = 0.6F;
         this.spriteProvider = spriteProvider;
-        this.maxAge = this.random.nextInt(75) + 45;
+        this.maxAge = this.random.nextInt(75) + 55;
         this.scale = 1F;;
 //        this.gravityStrength = 0.008F;
         this.gravityStrength = 3.0E-6F;
@@ -60,7 +60,7 @@ public class MushroomCloudParticle extends SpriteBillboardParticle {
             this.setSpriteForAge(this.spriteProvider);
             if (this.age == 12) {
                 this.velocityX = 0;
-                this.velocityY = 0.07;
+                this.velocityY = 0.05;
                 this.velocityZ = 0;
             }
             this.move(this.velocityX, this.velocityY, this.velocityZ);
