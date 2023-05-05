@@ -53,13 +53,13 @@ public abstract class ExplosionMixin {
 				if(ExplosiveConfig.showMushroomCloud) {
 					//Smoke linger particles
 					//I'm aware DRY is a thing, but I couldn't figure out any other way to get even a similar effect that I was happy with, so unfortunately, this will have to do.
-					world.addParticle(ExplosiveEnhancement.MUSHROOMCLOUD, x, y, z, 0, 0.15, 0);
-					world.addParticle(ExplosiveEnhancement.MUSHROOMCLOUD, x, y, z, 0, 0.4, 0);
-					world.addParticle(ExplosiveEnhancement.MUSHROOMCLOUD, x, y, z, 0.15, 0.4, 0);
-					world.addParticle(ExplosiveEnhancement.MUSHROOMCLOUD, x, y, z, 0, 0.4, 0.15);
+					world.addParticle(ExplosiveEnhancement.SMOKE, x, y, z, 0, 0.15, 0);
+					world.addParticle(ExplosiveEnhancement.SMOKE, x, y, z, 0, 0.4, 0);
+					world.addParticle(ExplosiveEnhancement.SMOKE, x, y, z, 0.15, 0.4, 0);
+					world.addParticle(ExplosiveEnhancement.SMOKE, x, y, z, 0, 0.4, 0.15);
 		//			world.addParticle(ExplosiveEnhancement.LINGER, x, y, z, 0.15, 0.3, 0.15);
-					world.addParticle(ExplosiveEnhancement.MUSHROOMCLOUD, x, y, z, -0.15, 0.4, 0);
-					world.addParticle(ExplosiveEnhancement.MUSHROOMCLOUD, x, y, z, 0, 0.4, -0.15);
+					world.addParticle(ExplosiveEnhancement.SMOKE, x, y, z, -0.15, 0.4, 0);
+					world.addParticle(ExplosiveEnhancement.SMOKE, x, y, z, 0, 0.4, -0.15);
 		//			world.addParticle(ExplosiveEnhancement.LINGER, x, y, z, -0.15, 0.3, -0.15);
 				}
 				if(ExplosiveConfig.showDefaultExplosion) {
