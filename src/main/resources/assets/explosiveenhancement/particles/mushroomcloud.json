@@ -1,16 +1,16 @@
 {
   "textures": [
-    "explosiveenhancement:big_smoke_0",
-    "explosiveenhancement:big_smoke_1",
-    "explosiveenhancement:big_smoke_2",
-    "explosiveenhancement:big_smoke_3",
-    "explosiveenhancement:big_smoke_4",
-    "explosiveenhancement:big_smoke_5",
-    "explosiveenhancement:big_smoke_6",
-    "explosiveenhancement:big_smoke_7",
-    "explosiveenhancement:big_smoke_8",
-    "explosiveenhancement:big_smoke_9",
-    "explosiveenhancement:big_smoke_10",
-    "explosiveenhancement:big_smoke_11"
+    "explosiveenhancement:smoke1",
+    "explosiveenhancement:smoke2",
+    "explosiveenhancement:smoke3",
+    "explosiveenhancement:smoke4",
+    "explosiveenhancement:smoke5",
+    "explosiveenhancement:smoke6",
+    "explosiveenhancement:smoke7",
+    "explosiveenhancement:smoke8",
+    "explosiveenhancement:smoke9",
+    "explosiveenhancement:smoke10",
+    "explosiveenhancement:smoke11",
+    "explosiveenhancement:smoke12"
   ]
 }
