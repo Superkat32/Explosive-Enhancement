@@ -43,17 +43,12 @@ public abstract class ExplosionMixin {
 					LOGGER.info("Particle is being shown!");
 				}
 				if(ExplosiveConfig.showBlastWave) {
-					//Boom particle
-//					this.world.addParticle(ExplosiveEnhancement.BOOM, this.x, this.y, this.z, 0, 0, 0);
 					world.addParticle(ExplosiveEnhancement.BLASTWAVE, x, y, z, 0, 0, 0);
 				}
 				if(ExplosiveConfig.showFireball) {
-					//Big explosion particle
-//					this.world.addParticle(ExplosiveEnhancement.BIG_EXPLOSION, this.x, this.y, this.z, 0, 0, 0);
 					world.addParticle(ExplosiveEnhancement.FIREBALL, x, y + 0.5, z, 0, 0, 0);
 				}
 				if(ExplosiveConfig.showMushroomCloud) {
-					//Smoke linger particles
 					//I'm aware DRY is a thing, but I couldn't figure out any other way to get even a similar effect that I was happy with, so unfortunately, this will have to do.
 					world.addParticle(ExplosiveEnhancement.SMOKE, x, y, z, 0, 0.15, 0);
 					world.addParticle(ExplosiveEnhancement.SMOKE, x, y, z, 0, 0.4, 0);
@@ -67,7 +62,6 @@ public abstract class ExplosionMixin {
 				if(ExplosiveConfig.showDefaultExplosion) {
 					world.addParticle(ParticleTypes.EXPLOSION_EMITTER, x, y, z, 1.0, 0.0, 0.0);
 				}
-//				world.addParticle(ExplosiveEnhancement.SPARKS, x, y + 0.5, z, 0, 0, 0);
 			} else {
 				if(ExplosiveConfig.showShockwave) {
 					world.addParticle(ExplosiveEnhancement.SHOCKWAVE, x, y + 0.5, z, 0, 0, 0);
