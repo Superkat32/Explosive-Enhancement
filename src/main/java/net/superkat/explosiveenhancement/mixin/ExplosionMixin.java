@@ -1,6 +1,5 @@
 package net.superkat.explosiveenhancement.mixin;
 
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.tag.FluidTags;
@@ -21,7 +20,6 @@ import static net.superkat.explosiveenhancement.ExplosiveEnhancement.LOGGER;
 @Mixin(Explosion.class)
 public abstract class ExplosionMixin {
 	@Shadow @Final private Random random;
-    @Shadow @Final private ObjectArrayList<BlockPos> affectedBlocks;
 	private boolean isUnderWater = false;
 
 	@Redirect(method = "affectWorld(Z)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;addParticle(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V"))

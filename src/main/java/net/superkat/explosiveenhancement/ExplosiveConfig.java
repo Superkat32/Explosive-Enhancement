@@ -173,6 +173,7 @@ public class ExplosiveConfig {
             var debugLogs = Option.createBuilder(boolean.class)
                     .name(Text.translatable("explosiveenhancement.extras.logs"))
                     .tooltip(Text.translatable("explosiveenhancement.extras.logs.tooltip"))
+                    .tooltip(Text.translatable("explosiveenhancement.extras.logs.warningtooltip"))
                     .binding(
                             defaults.debugLogs,
                             () -> config.debugLogs,
