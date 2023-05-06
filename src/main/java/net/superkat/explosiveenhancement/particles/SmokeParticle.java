@@ -7,18 +7,18 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.DefaultParticleType;
 
 @Environment(EnvType.CLIENT)
-public class MushroomCloudParticle extends SpriteBillboardParticle {
+public class SmokeParticle extends SpriteBillboardParticle {
     private final SpriteProvider spriteProvider;
 //    private final double startX;
 //    private final double startY;
 //    private final double startZ;
 
-    MushroomCloudParticle(ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteProvider spriteProvider) {
+    SmokeParticle(ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteProvider spriteProvider) {
         super(world, x, y, z);
         this.velocityMultiplier = 0.6F;
         this.spriteProvider = spriteProvider;
-        this.maxAge = this.random.nextInt(75) + 45;
-        this.scale = 1F;;
+        this.maxAge = this.random.nextInt(75) + 55;
+        this.scale = 1F;
 //        this.gravityStrength = 0.008F;
         this.gravityStrength = 3.0E-6F;
         this.velocityX = velocityX;
@@ -60,7 +60,7 @@ public class MushroomCloudParticle extends SpriteBillboardParticle {
             this.setSpriteForAge(this.spriteProvider);
             if (this.age == 12) {
                 this.velocityX = 0;
-                this.velocityY = 0.07;
+                this.velocityY = 0.05;
                 this.velocityZ = 0;
             }
             this.move(this.velocityX, this.velocityY, this.velocityZ);
@@ -80,7 +80,7 @@ public class MushroomCloudParticle extends SpriteBillboardParticle {
         }
 
         public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
-            return new MushroomCloudParticle(clientWorld, d, e, f, g, h, i, this.spriteProvider);
+            return new SmokeParticle(clientWorld, d, e, f, g, h, i, this.spriteProvider);
         }
     }
 }

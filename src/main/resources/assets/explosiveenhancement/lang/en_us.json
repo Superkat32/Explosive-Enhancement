@@ -11,8 +11,10 @@
   "explosiveenhancement.fireball.enabled.tooltip": "A large orange, vertical circle",
   "explosiveenhancement.mushroomcloud.enabled": "Mushroom Cloud Particles",
   "explosiveenhancement.mushroomcloud.enabled.tooltip": "Smoke that is in the shape of a mushroom",
+  "explosiveenhancement.sparks.enabled": "Sparks Particle",
+  "explosiveenhancement.sparks.enabled.tooltip": "White lines that come as a result of the explosion",
   "explosiveenhancement.default.enabled": "Default Explosion Particles",
-  "explosiveenhancement.default.enabled.tooltip": "Should the default particle explosions be shown?",
+  "explosiveenhancement.default.enabled.tooltip": "The vanilla Minecraft particles",
 
   "explosiveenhancement.underwater.group": "Underwater Explosions",
   "explosiveenhancement.underwater.group.tooltip": "Underwater explosion options",
@@ -25,6 +27,8 @@
   "explosiveenhancement.underwater.bubbleamount": "Bubble Amount",
   "explosiveenhancement.underwater.bubbleamount.tooltip": "Little bubbles that pop after some time",
   "explosiveenhancement.underwater.bubbleamount.warningtooltip": "Warning: Too many bubbles may cause lag",
+  "explosiveenhancement.underwater.default": "Default Explosion Particles",
+  "explosiveenhancement.underwater.default.tooltip": "The vanilla Minecraft particles",
 
 
 

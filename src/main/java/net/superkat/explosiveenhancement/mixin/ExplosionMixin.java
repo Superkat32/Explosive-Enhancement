@@ -53,18 +53,19 @@ public abstract class ExplosionMixin {
 				if(ExplosiveConfig.showMushroomCloud) {
 					//Smoke linger particles
 					//I'm aware DRY is a thing, but I couldn't figure out any other way to get even a similar effect that I was happy with, so unfortunately, this will have to do.
-					world.addParticle(ExplosiveEnhancement.MUSHROOMCLOUD, x, y, z, 0, 0.15, 0);
-					world.addParticle(ExplosiveEnhancement.MUSHROOMCLOUD, x, y, z, 0, 0.4, 0);
-					world.addParticle(ExplosiveEnhancement.MUSHROOMCLOUD, x, y, z, 0.15, 0.4, 0);
-					world.addParticle(ExplosiveEnhancement.MUSHROOMCLOUD, x, y, z, 0, 0.4, 0.15);
+					world.addParticle(ExplosiveEnhancement.SMOKE, x, y, z, 0, 0.15, 0);
+					world.addParticle(ExplosiveEnhancement.SMOKE, x, y, z, 0, 0.4, 0);
+					world.addParticle(ExplosiveEnhancement.SMOKE, x, y, z, 0.15, 0.4, 0);
+					world.addParticle(ExplosiveEnhancement.SMOKE, x, y, z, 0, 0.4, 0.15);
 		//			world.addParticle(ExplosiveEnhancement.LINGER, x, y, z, 0.15, 0.3, 0.15);
-					world.addParticle(ExplosiveEnhancement.MUSHROOMCLOUD, x, y, z, -0.15, 0.4, 0);
-					world.addParticle(ExplosiveEnhancement.MUSHROOMCLOUD, x, y, z, 0, 0.4, -0.15);
+					world.addParticle(ExplosiveEnhancement.SMOKE, x, y, z, -0.15, 0.4, 0);
+					world.addParticle(ExplosiveEnhancement.SMOKE, x, y, z, 0, 0.4, -0.15);
 		//			world.addParticle(ExplosiveEnhancement.LINGER, x, y, z, -0.15, 0.3, -0.15);
 				}
 				if(ExplosiveConfig.showDefaultExplosion) {
 					world.addParticle(ParticleTypes.EXPLOSION_EMITTER, x, y, z, 1.0, 0.0, 0.0);
 				}
+//				world.addParticle(ExplosiveEnhancement.SPARKS, x, y + 0.5, z, 0, 0, 0);
 			} else {
 				if(ExplosiveConfig.showShockwave) {
 					world.addParticle(ExplosiveEnhancement.SHOCKWAVE, x, y + 0.5, z, 0, 0, 0);
@@ -74,6 +75,9 @@ public abstract class ExplosionMixin {
 				}
 				for(int total = ExplosiveConfig.bubbleAmount; total >= 1; total--) {
 					world.addParticle(ExplosiveEnhancement.BUBBLE, x, y, z, this.random.nextBetween(1, 7) * 0.3 * this.random.nextBetween(-1, 1), this.random.nextBetween(1, 10) * 0.1, this.random.nextBetween(1, 7) * 0.3 * this.random.nextBetween(-1, 1));
+				}
+				if(ExplosiveConfig.showDefaultExplosionUnderwater) {
+					world.addParticle(ParticleTypes.EXPLOSION_EMITTER, x, y, z, 1.0, 0.0, 0.0);
 				}
 			}
 		} else {

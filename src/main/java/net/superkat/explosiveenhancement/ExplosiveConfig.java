@@ -21,11 +21,13 @@ public class ExplosiveConfig {
     @ConfigEntry public static boolean showBlastWave = true;
     @ConfigEntry public static boolean showFireball = true;
     @ConfigEntry public static boolean showMushroomCloud = true;
+    @ConfigEntry public static boolean showSparks = true;
     @ConfigEntry public static boolean showDefaultExplosion = false;
     @ConfigEntry public static boolean underwaterExplosions = true;
     @ConfigEntry public static boolean showShockwave = true;
     @ConfigEntry public static boolean showUnderwaterBlastWave = true;
     @ConfigEntry public static int bubbleAmount = 50;
+    @ConfigEntry public static boolean showDefaultExplosionUnderwater = false;
     @ConfigEntry public static boolean debugLogs = false;
     @ConfigEntry public static boolean modEnabled = true;
 
@@ -69,6 +71,16 @@ public class ExplosiveConfig {
                     )
                     .controller(booleanOption -> new BooleanController(booleanOption, true))
                     .build();
+            var showSparks = Option.createBuilder(boolean.class)
+                    .name(Text.translatable("explosiveenhancement.sparks.enabled"))
+                    .tooltip(Text.translatable("explosiveenhancement.sparks.enabled.tooltip"))
+                    .binding(
+                            defaults.showSparks,
+                            () -> config.showSparks,
+                            val -> config.showSparks = val
+                    )
+                    .controller(booleanOption -> new BooleanController(booleanOption, true))
+                    .build();
             var showDefaultExplosion = Option.createBuilder(boolean.class)
                     .name(Text.translatable("explosiveenhancement.default.enabled"))
                     .tooltip(Text.translatable("explosiveenhancement.default.enabled.tooltip"))
@@ -82,6 +94,7 @@ public class ExplosiveConfig {
             explosionGroup.option(showBlastWave);
             explosionGroup.option(showFireball);
             explosionGroup.option(showMushroomCloud);
+            explosionGroup.option(showSparks);
             explosionGroup.option(showDefaultExplosion);
             defaultCategoryBuilder.group(explosionGroup.build());
 
@@ -130,11 +143,22 @@ public class ExplosiveConfig {
                     )
                     .controller(integerOption -> new <Number>IntegerSliderController(integerOption, 0, 500, 5))
                     .build();
+            var showDefaultExplosionUnderwater = Option.createBuilder(boolean.class)
+                    .name(Text.translatable("explosiveenhancement.underwater.default"))
+                    .tooltip(Text.translatable("explosiveenhancement.underwater.default.tooltip"))
+                    .binding(
+                            defaults.showDefaultExplosionUnderwater,
+                            () -> config.showDefaultExplosionUnderwater,
+                            val -> config.showDefaultExplosionUnderwater = val
+                    )
+                    .controller(booleanOption -> new BooleanController(booleanOption, true))
+                    .build();
 
             underwaterGroup.option(underwaterExplosions);
             underwaterGroup.option(showShockwave);
             underwaterGroup.option(showUnderwaterBlast);
             underwaterGroup.option(bubbleAmount);
+            underwaterGroup.option(showDefaultExplosionUnderwater);
             defaultCategoryBuilder.group(underwaterGroup.build());
 
 
