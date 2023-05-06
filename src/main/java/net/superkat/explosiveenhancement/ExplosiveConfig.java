@@ -21,6 +21,7 @@ public class ExplosiveConfig {
     @ConfigEntry public static boolean showBlastWave = true;
     @ConfigEntry public static boolean showFireball = true;
     @ConfigEntry public static boolean showMushroomCloud = true;
+    @ConfigEntry public static boolean showSparks = true;
     @ConfigEntry public static boolean showDefaultExplosion = false;
     @ConfigEntry public static boolean underwaterExplosions = true;
     @ConfigEntry public static boolean showShockwave = true;
@@ -70,6 +71,16 @@ public class ExplosiveConfig {
                     )
                     .controller(booleanOption -> new BooleanController(booleanOption, true))
                     .build();
+            var showSparks = Option.createBuilder(boolean.class)
+                    .name(Text.translatable("explosiveenhancement.sparks.enabled"))
+                    .tooltip(Text.translatable("explosiveenhancement.sparks.enabled.tooltip"))
+                    .binding(
+                            defaults.showSparks,
+                            () -> config.showSparks,
+                            val -> config.showSparks = val
+                    )
+                    .controller(booleanOption -> new BooleanController(booleanOption, true))
+                    .build();
             var showDefaultExplosion = Option.createBuilder(boolean.class)
                     .name(Text.translatable("explosiveenhancement.default.enabled"))
                     .tooltip(Text.translatable("explosiveenhancement.default.enabled.tooltip"))
@@ -83,6 +94,7 @@ public class ExplosiveConfig {
             explosionGroup.option(showBlastWave);
             explosionGroup.option(showFireball);
             explosionGroup.option(showMushroomCloud);
+            explosionGroup.option(showSparks);
             explosionGroup.option(showDefaultExplosion);
             defaultCategoryBuilder.group(explosionGroup.build());
 

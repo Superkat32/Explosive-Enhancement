@@ -5,6 +5,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.DefaultParticleType;
+import net.superkat.explosiveenhancement.ExplosiveConfig;
 import net.superkat.explosiveenhancement.ExplosiveEnhancement;
 
 @Environment(EnvType.CLIENT)
@@ -32,7 +33,7 @@ public class FireballParticle extends SpriteBillboardParticle {
         } else {
             this.velocityY -= (double)this.gravityStrength;
             this.move(this.velocityX, this.velocityY, this.velocityZ);
-            if(this.age >= this.maxAge * 0.65) {
+            if(this.age >= this.maxAge * 0.65 && ExplosiveConfig.showSparks) {
                 this.world.addParticle(ExplosiveEnhancement.SPARKS, this.x, this.y, this.z, this.velocityX, this.velocityY, this.velocityZ);
             }
             this.setSpriteForAge(this.spriteProvider);
