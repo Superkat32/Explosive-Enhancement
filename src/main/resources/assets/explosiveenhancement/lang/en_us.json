@@ -11,6 +11,8 @@
   "explosiveenhancement.fireball.enabled.tooltip": "A large orange, vertical circle",
   "explosiveenhancement.mushroomcloud.enabled": "Mushroom Cloud Particles",
   "explosiveenhancement.mushroomcloud.enabled.tooltip": "Smoke that is in the shape of a mushroom",
+  "explosiveenhancement.sparks.enabled": "Sparks Particle",
+  "explosiveenhancement.sparks.enabled.tooltip": "White lines that come as a result of the explosion",
   "explosiveenhancement.default.enabled": "Default Explosion Particles",
   "explosiveenhancement.default.enabled.tooltip": "The vanilla Minecraft particles",
 
