@@ -3,6 +3,7 @@ package net.superkat.explosiveenhancement.mixin;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
@@ -28,7 +29,8 @@ public abstract class ExplosionMixin {
 		if(ExplosiveConfig.debugLogs) {
 			LOGGER.info("affectWorld has been called!");
 		}
-		if(this.affectedBlocks.isEmpty() && ExplosiveConfig.underwaterExplosions) {
+		BlockPos pos = new BlockPos(x, y, z);
+		if(world.getFluidState(pos).isIn(FluidTags.WATER) && ExplosiveConfig.underwaterExplosions) {
 			//If underwater
 			isUnderWater = true;
 			if(ExplosiveConfig.debugLogs) {
