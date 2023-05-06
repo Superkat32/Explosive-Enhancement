@@ -14,11 +14,12 @@ public class SparkParticle extends SpriteBillboardParticle {
         super(world, x, y, z);
         this.spriteProvider = spriteProvider;
         this.maxAge = 5;
-        this.scale = 7F;;
+        this.scale = 5.5F;
 //        this.gravityStrength = 0.008F;
         this.velocityX = velocityX;
         this.velocityY = velocityY;
         this.velocityZ = velocityZ;
+        this.alpha = 0.85F;
         this.setSpriteForAge(spriteProvider);
     }
 
