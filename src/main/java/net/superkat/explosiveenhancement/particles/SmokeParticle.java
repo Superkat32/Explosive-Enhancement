@@ -18,7 +18,7 @@ public class SmokeParticle extends SpriteBillboardParticle {
         this.velocityMultiplier = 0.6F;
         this.spriteProvider = spriteProvider;
         this.maxAge = this.random.nextInt(75) + 55;
-        this.scale = 1F;;
+        this.scale = 1F;
 //        this.gravityStrength = 0.008F;
         this.gravityStrength = 3.0E-6F;
         this.velocityX = velocityX;
