@@ -16,7 +16,7 @@ public class FireballParticle extends SpriteBillboardParticle {
         super(world, x, y, z);
         this.spriteProvider = spriteProvider;
         this.maxAge = 9;
-        this.scale = 5F;;
+        this.scale = 5F;
 //        this.gravityStrength = 0.008F;
         this.velocityX = velocityX;
         this.velocityY = velocityY;

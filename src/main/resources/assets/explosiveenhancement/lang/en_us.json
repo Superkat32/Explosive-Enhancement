@@ -26,7 +26,9 @@
   "explosiveenhancement.underwater.blast.tooltip": "A large blue-ish horizontal circle",
   "explosiveenhancement.underwater.bubbleamount": "Bubble Amount",
   "explosiveenhancement.underwater.bubbleamount.tooltip": "Little bubbles that pop after some time",
-  "explosiveenhancement.underwater.bubbleamount.warningtooltip": "Warning: Too many bubbles may cause lag",
+  "explosiveenhancement.underwater.bubbleamount.warningtooltip": "§cWarning§r: Too many bubbles may cause lag",
+  "explosiveenhancement.underwater.sparks": "Sparks Particle",
+  "explosiveenhancement.underwater.sparks.tooltip": "White lines that come as a result of the explosion",
   "explosiveenhancement.underwater.default": "Default Explosion Particles",
   "explosiveenhancement.underwater.default.tooltip": "The vanilla Minecraft particles",
 
@@ -38,6 +40,7 @@
   "explosiveenhancement.extras.group.tooltip": "All extra options",
   "explosiveenhancement.extras.logs": "Debug Logs",
   "explosiveenhancement.extras.logs.tooltip": "Extra console logs to help debug, if needed",
+  "explosiveenhancement.extras.logs.warningtooltip": "§cWarning§r: Will spam logs!",
   "explosiveenhancement.extras.enabled": "Mod Enabled",
   "explosiveenhancement.extras.enabled.tooltip": "Should the mod be enabled?"
 

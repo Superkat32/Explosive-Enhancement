@@ -8,6 +8,7 @@ public class ExplosiveEnhancementClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        //Loads the config, powered by YACL
         ExplosiveConfig.INSTANCE.load();
 
         ParticleFactoryRegistry.getInstance().register(ExplosiveEnhancement.BLASTWAVE, BlastWaveParticle.Factory::new);
@@ -15,7 +16,7 @@ public class ExplosiveEnhancementClient implements ClientModInitializer {
         ParticleFactoryRegistry.getInstance().register(ExplosiveEnhancement.SMOKE, SmokeParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(ExplosiveEnhancement.SPARKS, SparkParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(ExplosiveEnhancement.BUBBLE, BubbleParticle.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(ExplosiveEnhancement.SHOCKWAVE, FireballParticle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(ExplosiveEnhancement.SHOCKWAVE, ShockwaveParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(ExplosiveEnhancement.UNDERWATERBLASTWAVE, BlastWaveParticle.Factory::new);
 
     }
