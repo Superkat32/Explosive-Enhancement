@@ -34,14 +34,10 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	//MidnightLib
-	modImplementation "maven.modrinth:midnightlib:${midnightlib_version}"
-
-	include "maven.modrinth:midnightlib:${midnightlib_version}"
-
 	//Mod Menu
 	modApi "com.terraformersmc:modmenu:${modmenu_version}"
 
+	//YACL
 	modImplementation 'dev.isxander:yet-another-config-lib:2.2.0-for-1.19.2'
 
 

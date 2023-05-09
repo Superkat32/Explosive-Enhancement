@@ -22,9 +22,6 @@ public class ExplosiveEnhancement implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		//Loads the config
-//		MidnightConfig.init("explosiveenhancement", ExplosiveConfig.class);
-
 		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "blastwave"), BLASTWAVE);
 		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "fireball"), FIREBALL);
 		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "smoke"), SMOKE);
