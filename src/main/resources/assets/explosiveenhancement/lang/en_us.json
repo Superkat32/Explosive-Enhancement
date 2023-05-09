@@ -27,6 +27,8 @@
   "explosiveenhancement.underwater.bubbleamount": "Bubble Amount",
   "explosiveenhancement.underwater.bubbleamount.tooltip": "Little bubbles that pop after some time",
   "explosiveenhancement.underwater.bubbleamount.warningtooltip": "§cWarning§r: Too many bubbles may cause lag",
+  "explosiveenhancement.underwater.sparks": "Sparks Particle",
+  "explosiveenhancement.underwater.sparks.tooltip": "White lines that come as a result of the explosion",
   "explosiveenhancement.underwater.default": "Default Explosion Particles",
   "explosiveenhancement.underwater.default.tooltip": "The vanilla Minecraft particles",
 
