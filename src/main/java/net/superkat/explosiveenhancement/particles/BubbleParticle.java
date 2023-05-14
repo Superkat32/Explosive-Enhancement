@@ -47,7 +47,7 @@ public class BubbleParticle extends SpriteBillboardParticle {
             this.velocityX *= 0.6500000238418579;
             this.velocityY *= 0.8500000238418579;
             this.velocityZ *= 0.6500000238418579;
-            if (!this.world.getFluidState(new BlockPos(this.x, this.y, this.z)).isIn(FluidTags.WATER)) {
+            if (!this.world.getFluidState(new BlockPos((int) this.x, (int) this.y, (int) this.z)).isIn(FluidTags.WATER)) {
                 this.velocityY -= 0.002;
                 if(startAirTick) {
                     startingAirTick = this.maxAge;
