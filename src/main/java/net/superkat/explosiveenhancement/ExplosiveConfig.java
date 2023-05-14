@@ -26,7 +26,7 @@ public class ExplosiveConfig {
     @ConfigEntry public static boolean showMushroomCloud = true;
     @ConfigEntry public static boolean showSparks = true;
     @ConfigEntry public static float sparkSize = 5.3F;
-    @ConfigEntry public static float sparkOpacity = 0.7F;
+    @ConfigEntry public static float sparkOpacity = 0.70F;
     @ConfigEntry public static boolean showDefaultExplosion = false;
     @ConfigEntry public static boolean underwaterExplosions = true;
     @ConfigEntry public static boolean showShockwave = true;
@@ -34,7 +34,7 @@ public class ExplosiveConfig {
     @ConfigEntry public static int bubbleAmount = 50;
     @ConfigEntry public static boolean showUnderwaterSparks = false;
     @ConfigEntry public static float underwaterSparkSize = 4.0F;
-    @ConfigEntry public static float underwaterSparkOpacity = 0.3F;
+    @ConfigEntry public static float underwaterSparkOpacity = 0.30F;
     @ConfigEntry public static boolean showDefaultExplosionUnderwater = false;
     @ConfigEntry public static boolean modEnabled = true;
     @ConfigEntry public static boolean debugLogs = false;
@@ -107,7 +107,7 @@ public class ExplosiveConfig {
                             () -> config.sparkOpacity,
                             val -> config.sparkOpacity = val
                     )
-                    .controller(floatOption -> new <Number>FloatSliderController(floatOption, 0F, 1F, 0.05F))
+                    .controller(floatOption -> new <Number>FloatSliderController(floatOption, 0.00F, 1.00F, 0.05F))
                     .build();
             var showDefaultExplosion = Option.createBuilder(boolean.class)
                     .name(Text.translatable("explosiveenhancement.default.enabled"))
@@ -201,7 +201,7 @@ public class ExplosiveConfig {
                             () -> config.underwaterSparkOpacity,
                             val -> config.underwaterSparkOpacity = val
                     )
-                    .controller(floatOption -> new <Number>FloatSliderController(floatOption, 0F, 1F, 0.05F))
+                    .controller(floatOption -> new <Number>FloatSliderController(floatOption, 0.00F, 1.00F, 0.05F))
                     .build();
             var showDefaultExplosionUnderwater = Option.createBuilder(boolean.class)
                     .name(Text.translatable("explosiveenhancement.underwater.default"))
