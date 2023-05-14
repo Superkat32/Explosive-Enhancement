@@ -8,19 +8,19 @@ import net.minecraft.particle.DefaultParticleType;
 import net.superkat.explosiveenhancement.ExplosiveConfig;
 
 @Environment(EnvType.CLIENT)
-public class SparkParticle extends SpriteBillboardParticle {
+public class UnderwaterSparkParticle extends SpriteBillboardParticle {
     private final SpriteProvider spriteProvider;
 
-    SparkParticle(ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteProvider spriteProvider) {
+    UnderwaterSparkParticle(ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteProvider spriteProvider) {
         super(world, x, y, z);
         this.spriteProvider = spriteProvider;
         this.maxAge = 5;
-        this.scale = ExplosiveConfig.sparkSize;
+        this.scale = ExplosiveConfig.underwaterSparkSize;
 //        this.gravityStrength = 0.008F;
         this.velocityX = velocityX;
         this.velocityY = velocityY;
         this.velocityZ = velocityZ;
-        this.alpha = ExplosiveConfig.sparkOpacity;
+        this.alpha = ExplosiveConfig.underwaterSparkOpacity;
         this.setSpriteForAge(spriteProvider);
     }
 
@@ -50,7 +50,7 @@ public class SparkParticle extends SpriteBillboardParticle {
         }
 
         public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
-            return new SparkParticle(clientWorld, d, e, f, g, h, i, this.spriteProvider);
+            return new UnderwaterSparkParticle(clientWorld, d, e, f, g, h, i, this.spriteProvider);
         }
     }
 }

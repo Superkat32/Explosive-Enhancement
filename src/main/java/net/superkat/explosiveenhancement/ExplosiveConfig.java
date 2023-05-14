@@ -8,6 +8,7 @@ import dev.isxander.yacl.config.ConfigEntry;
 import dev.isxander.yacl.config.ConfigInstance;
 import dev.isxander.yacl.config.GsonConfigInstance;
 import dev.isxander.yacl.gui.controllers.BooleanController;
+import dev.isxander.yacl.gui.controllers.slider.FloatSliderController;
 import dev.isxander.yacl.gui.controllers.slider.IntegerSliderController;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
@@ -17,20 +18,26 @@ import java.nio.file.Path;
 public class ExplosiveConfig {
 
     public static final ConfigInstance<ExplosiveConfig> INSTANCE = new GsonConfigInstance<>(ExplosiveConfig.class, Path.of("./config/explosive-config.json"));
+    
+    //TODO - Move "Mod Enabled" to be above "Debug Logs"
 
     @ConfigEntry public static boolean showBlastWave = true;
     @ConfigEntry public static boolean showFireball = true;
     @ConfigEntry public static boolean showMushroomCloud = true;
     @ConfigEntry public static boolean showSparks = true;
+    @ConfigEntry public static float sparkSize = 5.3F;
+    @ConfigEntry public static float sparkOpacity = 0.70F;
     @ConfigEntry public static boolean showDefaultExplosion = false;
     @ConfigEntry public static boolean underwaterExplosions = true;
     @ConfigEntry public static boolean showShockwave = true;
     @ConfigEntry public static boolean showUnderwaterBlastWave = true;
     @ConfigEntry public static int bubbleAmount = 50;
     @ConfigEntry public static boolean showUnderwaterSparks = false;
+    @ConfigEntry public static float underwaterSparkSize = 4.0F;
+    @ConfigEntry public static float underwaterSparkOpacity = 0.30F;
     @ConfigEntry public static boolean showDefaultExplosionUnderwater = false;
-    @ConfigEntry public static boolean debugLogs = false;
     @ConfigEntry public static boolean modEnabled = true;
+    @ConfigEntry public static boolean debugLogs = false;
 
     public static Screen makeScreen(Screen parent) {
         return YetAnotherConfigLib.create(INSTANCE, (defaults, config, builder) -> {
@@ -82,6 +89,26 @@ public class ExplosiveConfig {
                     )
                     .controller(booleanOption -> new BooleanController(booleanOption, true))
                     .build();
+            var sparkSize = Option.createBuilder(Float.class)
+                    .name(Text.translatable("explosiveenhancement.sparks.size"))
+                    .tooltip(Text.translatable("explosiveenhancement.sparks.size.tooltip"))
+                    .binding(
+                            defaults.sparkSize,
+                            () -> config.sparkSize,
+                            val -> config.sparkSize = val
+                    )
+                    .controller(floatOption -> new <Number>FloatSliderController(floatOption, 0F, 10F, 0.1F))
+                    .build();
+            var sparkOpacity = Option.createBuilder(Float.class)
+                    .name(Text.translatable("explosiveenhancement.sparks.opacity"))
+                    .tooltip(Text.translatable("explosiveenhancement.sparks.opacity.tooltip"))
+                    .binding(
+                            defaults.sparkOpacity,
+                            () -> config.sparkOpacity,
+                            val -> config.sparkOpacity = val
+                    )
+                    .controller(floatOption -> new <Number>FloatSliderController(floatOption, 0.00F, 1.00F, 0.05F))
+                    .build();
             var showDefaultExplosion = Option.createBuilder(boolean.class)
                     .name(Text.translatable("explosiveenhancement.default.enabled"))
                     .tooltip(Text.translatable("explosiveenhancement.default.enabled.tooltip"))
@@ -96,6 +123,8 @@ public class ExplosiveConfig {
             explosionGroup.option(showFireball);
             explosionGroup.option(showMushroomCloud);
             explosionGroup.option(showSparks);
+            explosionGroup.option(sparkSize);
+            explosionGroup.option(sparkOpacity);
             explosionGroup.option(showDefaultExplosion);
             defaultCategoryBuilder.group(explosionGroup.build());
 
@@ -154,6 +183,26 @@ public class ExplosiveConfig {
                     )
                     .controller(booleanOption -> new BooleanController(booleanOption, true))
                     .build();
+            var underwaterSparkSize = Option.createBuilder(Float.class)
+                    .name(Text.translatable("explosiveenhancement.underwater.sparks.size"))
+                    .tooltip(Text.translatable("explosiveenhancement.underwater.sparks.size.tooltip"))
+                    .binding(
+                            defaults.underwaterSparkSize,
+                            () -> config.underwaterSparkSize,
+                            val -> config.underwaterSparkSize = val
+                    )
+                    .controller(floatOption -> new <Number>FloatSliderController(floatOption, 0F, 10F, 0.1F))
+                    .build();
+            var underwaterSparkOpacity = Option.createBuilder(Float.class)
+                    .name(Text.translatable("explosiveenhancement.underwater.sparks.opacity"))
+                    .tooltip(Text.translatable("explosiveenhancement.underwater.sparks.opacity.tooltip"))
+                    .binding(
+                            defaults.underwaterSparkOpacity,
+                            () -> config.underwaterSparkOpacity,
+                            val -> config.underwaterSparkOpacity = val
+                    )
+                    .controller(floatOption -> new <Number>FloatSliderController(floatOption, 0.00F, 1.00F, 0.05F))
+                    .build();
             var showDefaultExplosionUnderwater = Option.createBuilder(boolean.class)
                     .name(Text.translatable("explosiveenhancement.underwater.default"))
                     .tooltip(Text.translatable("explosiveenhancement.underwater.default.tooltip"))
@@ -170,6 +219,8 @@ public class ExplosiveConfig {
             underwaterGroup.option(showUnderwaterBlast);
             underwaterGroup.option(bubbleAmount);
             underwaterGroup.option(showUnderwaterSparks);
+            underwaterGroup.option(underwaterSparkSize);
+            underwaterGroup.option(underwaterSparkOpacity);
             underwaterGroup.option(showDefaultExplosionUnderwater);
             defaultCategoryBuilder.group(underwaterGroup.build());
 
@@ -182,17 +233,6 @@ public class ExplosiveConfig {
                     .name(Text.translatable("explosiveenhancement.extras.group"))
                     .tooltip(Text.translatable("explosiveenhancement.extras.group.tooltip"));
 
-            var debugLogs = Option.createBuilder(boolean.class)
-                    .name(Text.translatable("explosiveenhancement.extras.logs"))
-                    .tooltip(Text.translatable("explosiveenhancement.extras.logs.tooltip"))
-                    .tooltip(Text.translatable("explosiveenhancement.extras.logs.warningtooltip"))
-                    .binding(
-                            defaults.debugLogs,
-                            () -> config.debugLogs,
-                            val -> config.debugLogs = val
-                    )
-                    .controller(booleanOption -> new BooleanController(booleanOption, true))
-                    .build();
 
             var modEnabled = Option.createBuilder(boolean.class)
                     .name(Text.translatable("explosiveenhancement.extras.enabled"))
@@ -204,8 +244,19 @@ public class ExplosiveConfig {
                     )
                     .controller(booleanOption -> new BooleanController(booleanOption, true))
                     .build();
-            extrasGroup.option(debugLogs);
+            var debugLogs = Option.createBuilder(boolean.class)
+                    .name(Text.translatable("explosiveenhancement.extras.logs"))
+                    .tooltip(Text.translatable("explosiveenhancement.extras.logs.tooltip"))
+                    .tooltip(Text.translatable("explosiveenhancement.extras.logs.warningtooltip"))
+                    .binding(
+                            defaults.debugLogs,
+                            () -> config.debugLogs,
+                            val -> config.debugLogs = val
+                    )
+                    .controller(booleanOption -> new BooleanController(booleanOption, true))
+                    .build();
             extrasGroup.option(modEnabled);
+            extrasGroup.option(debugLogs);
             extrasCategoryBuilder.group(extrasGroup.build());
 
             return builder
