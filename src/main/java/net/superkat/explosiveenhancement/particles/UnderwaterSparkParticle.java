@@ -6,21 +6,21 @@ import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.DefaultParticleType;
 import net.superkat.explosiveenhancement.ExplosiveConfig;
-import net.superkat.explosiveenhancement.ExplosiveEnhancement;
 
 @Environment(EnvType.CLIENT)
-public class ShockwaveParticle extends SpriteBillboardParticle {
+public class UnderwaterSparkParticle extends SpriteBillboardParticle {
     private final SpriteProvider spriteProvider;
 
-    ShockwaveParticle(ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteProvider spriteProvider) {
+    UnderwaterSparkParticle(ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteProvider spriteProvider) {
         super(world, x, y, z);
         this.spriteProvider = spriteProvider;
-        this.maxAge = 9;
-        this.scale = 5F;
+        this.maxAge = 5;
+        this.scale = ExplosiveConfig.underwaterSparkSize;
 //        this.gravityStrength = 0.008F;
         this.velocityX = velocityX;
         this.velocityY = velocityY;
         this.velocityZ = velocityZ;
+        this.alpha = ExplosiveConfig.underwaterSparkOpacity;
         this.setSpriteForAge(spriteProvider);
     }
 
@@ -33,9 +33,6 @@ public class ShockwaveParticle extends SpriteBillboardParticle {
         } else {
             this.velocityY -= (double)this.gravityStrength;
             this.move(this.velocityX, this.velocityY, this.velocityZ);
-            if(this.age >= this.maxAge * 0.65 && ExplosiveConfig.showUnderwaterSparks) {
-                this.world.addParticle(ExplosiveEnhancement.UNDERWATERSPARKS, this.x, this.y, this.z, this.velocityX, this.velocityY, this.velocityZ);
-            }
             this.setSpriteForAge(this.spriteProvider);
         }
     }
@@ -53,7 +50,7 @@ public class ShockwaveParticle extends SpriteBillboardParticle {
         }
 
         public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
-            return new ShockwaveParticle(clientWorld, d, e, f, g, h, i, this.spriteProvider);
+            return new UnderwaterSparkParticle(clientWorld, d, e, f, g, h, i, this.spriteProvider);
         }
     }
 }

@@ -33,8 +33,8 @@ public class ExplosiveConfig {
     @ConfigEntry public static boolean showUnderwaterBlastWave = true;
     @ConfigEntry public static int bubbleAmount = 50;
     @ConfigEntry public static boolean showUnderwaterSparks = false;
-    @ConfigEntry public static float underwaterSparkSize = 4.7F;
-    @ConfigEntry public static float underwaterSparkOpacity = 0.5F;
+    @ConfigEntry public static float underwaterSparkSize = 4.0F;
+    @ConfigEntry public static float underwaterSparkOpacity = 0.3F;
     @ConfigEntry public static boolean showDefaultExplosionUnderwater = false;
     @ConfigEntry public static boolean modEnabled = true;
     @ConfigEntry public static boolean debugLogs = false;
@@ -183,6 +183,26 @@ public class ExplosiveConfig {
                     )
                     .controller(booleanOption -> new BooleanController(booleanOption, true))
                     .build();
+            var underwaterSparkSize = Option.createBuilder(Float.class)
+                    .name(Text.translatable("explosiveenhancement.underwater.sparks.size"))
+                    .tooltip(Text.translatable("explosiveenhancement.underwater.sparks.size.tooltip"))
+                    .binding(
+                            defaults.underwaterSparkSize,
+                            () -> config.underwaterSparkSize,
+                            val -> config.underwaterSparkSize = val
+                    )
+                    .controller(floatOption -> new <Number>FloatSliderController(floatOption, 0F, 10F, 0.1F))
+                    .build();
+            var underwaterSparkOpacity = Option.createBuilder(Float.class)
+                    .name(Text.translatable("explosiveenhancement.underwater.sparks.opacity"))
+                    .tooltip(Text.translatable("explosiveenhancement.underwater.sparks.opacity.tooltip"))
+                    .binding(
+                            defaults.underwaterSparkOpacity,
+                            () -> config.underwaterSparkOpacity,
+                            val -> config.underwaterSparkOpacity = val
+                    )
+                    .controller(floatOption -> new <Number>FloatSliderController(floatOption, 0F, 1F, 0.05F))
+                    .build();
             var showDefaultExplosionUnderwater = Option.createBuilder(boolean.class)
                     .name(Text.translatable("explosiveenhancement.underwater.default"))
                     .tooltip(Text.translatable("explosiveenhancement.underwater.default.tooltip"))
@@ -199,6 +219,8 @@ public class ExplosiveConfig {
             underwaterGroup.option(showUnderwaterBlast);
             underwaterGroup.option(bubbleAmount);
             underwaterGroup.option(showUnderwaterSparks);
+            underwaterGroup.option(underwaterSparkSize);
+            underwaterGroup.option(underwaterSparkOpacity);
             underwaterGroup.option(showDefaultExplosionUnderwater);
             defaultCategoryBuilder.group(underwaterGroup.build());
 
