@@ -17,6 +17,8 @@ import java.nio.file.Path;
 public class ExplosiveConfig {
 
     public static final ConfigInstance<ExplosiveConfig> INSTANCE = new GsonConfigInstance<>(ExplosiveConfig.class, Path.of("./config/explosive-config.json"));
+    
+    //TODO - Move "Mod Enabled" to be above "Debug Logs"
 
     @ConfigEntry public static boolean showBlastWave = true;
     @ConfigEntry public static boolean showFireball = true;
@@ -29,8 +31,8 @@ public class ExplosiveConfig {
     @ConfigEntry public static int bubbleAmount = 50;
     @ConfigEntry public static boolean showUnderwaterSparks = false;
     @ConfigEntry public static boolean showDefaultExplosionUnderwater = false;
-    @ConfigEntry public static boolean debugLogs = false;
     @ConfigEntry public static boolean modEnabled = true;
+    @ConfigEntry public static boolean debugLogs = false;
 
     public static Screen makeScreen(Screen parent) {
         return YetAnotherConfigLib.create(INSTANCE, (defaults, config, builder) -> {
@@ -182,17 +184,6 @@ public class ExplosiveConfig {
                     .name(Text.translatable("explosiveenhancement.extras.group"))
                     .tooltip(Text.translatable("explosiveenhancement.extras.group.tooltip"));
 
-            var debugLogs = Option.createBuilder(boolean.class)
-                    .name(Text.translatable("explosiveenhancement.extras.logs"))
-                    .tooltip(Text.translatable("explosiveenhancement.extras.logs.tooltip"))
-                    .tooltip(Text.translatable("explosiveenhancement.extras.logs.warningtooltip"))
-                    .binding(
-                            defaults.debugLogs,
-                            () -> config.debugLogs,
-                            val -> config.debugLogs = val
-                    )
-                    .controller(booleanOption -> new BooleanController(booleanOption, true))
-                    .build();
 
             var modEnabled = Option.createBuilder(boolean.class)
                     .name(Text.translatable("explosiveenhancement.extras.enabled"))
@@ -204,8 +195,19 @@ public class ExplosiveConfig {
                     )
                     .controller(booleanOption -> new BooleanController(booleanOption, true))
                     .build();
-            extrasGroup.option(debugLogs);
+            var debugLogs = Option.createBuilder(boolean.class)
+                    .name(Text.translatable("explosiveenhancement.extras.logs"))
+                    .tooltip(Text.translatable("explosiveenhancement.extras.logs.tooltip"))
+                    .tooltip(Text.translatable("explosiveenhancement.extras.logs.warningtooltip"))
+                    .binding(
+                            defaults.debugLogs,
+                            () -> config.debugLogs,
+                            val -> config.debugLogs = val
+                    )
+                    .controller(booleanOption -> new BooleanController(booleanOption, true))
+                    .build();
             extrasGroup.option(modEnabled);
+            extrasGroup.option(debugLogs);
             extrasCategoryBuilder.group(extrasGroup.build());
 
             return builder
