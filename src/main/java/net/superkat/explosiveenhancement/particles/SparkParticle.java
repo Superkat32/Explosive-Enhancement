@@ -5,6 +5,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.DefaultParticleType;
+import net.superkat.explosiveenhancement.ExplosiveConfig;
 
 @Environment(EnvType.CLIENT)
 public class SparkParticle extends SpriteBillboardParticle {
@@ -14,12 +15,12 @@ public class SparkParticle extends SpriteBillboardParticle {
         super(world, x, y, z);
         this.spriteProvider = spriteProvider;
         this.maxAge = 5;
-        this.scale = 5.3F;
+        this.scale = ExplosiveConfig.sparkSize;
 //        this.gravityStrength = 0.008F;
         this.velocityX = velocityX;
         this.velocityY = velocityY;
         this.velocityZ = velocityZ;
-        this.alpha = 0.70F;
+        this.alpha = ExplosiveConfig.sparkOpacity;
         this.setSpriteForAge(spriteProvider);
     }
 

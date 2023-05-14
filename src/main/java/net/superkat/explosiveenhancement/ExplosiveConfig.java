@@ -8,6 +8,7 @@ import dev.isxander.yacl.config.ConfigEntry;
 import dev.isxander.yacl.config.ConfigInstance;
 import dev.isxander.yacl.config.GsonConfigInstance;
 import dev.isxander.yacl.gui.controllers.BooleanController;
+import dev.isxander.yacl.gui.controllers.slider.FloatSliderController;
 import dev.isxander.yacl.gui.controllers.slider.IntegerSliderController;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
@@ -24,12 +25,16 @@ public class ExplosiveConfig {
     @ConfigEntry public static boolean showFireball = true;
     @ConfigEntry public static boolean showMushroomCloud = true;
     @ConfigEntry public static boolean showSparks = true;
+    @ConfigEntry public static float sparkSize = 5.3F;
+    @ConfigEntry public static float sparkOpacity = 0.7F;
     @ConfigEntry public static boolean showDefaultExplosion = false;
     @ConfigEntry public static boolean underwaterExplosions = true;
     @ConfigEntry public static boolean showShockwave = true;
     @ConfigEntry public static boolean showUnderwaterBlastWave = true;
     @ConfigEntry public static int bubbleAmount = 50;
     @ConfigEntry public static boolean showUnderwaterSparks = false;
+    @ConfigEntry public static float underwaterSparkSize = 4.7F;
+    @ConfigEntry public static float underwaterSparkOpacity = 0.5F;
     @ConfigEntry public static boolean showDefaultExplosionUnderwater = false;
     @ConfigEntry public static boolean modEnabled = true;
     @ConfigEntry public static boolean debugLogs = false;
@@ -84,6 +89,26 @@ public class ExplosiveConfig {
                     )
                     .controller(booleanOption -> new BooleanController(booleanOption, true))
                     .build();
+            var sparkSize = Option.createBuilder(Float.class)
+                    .name(Text.translatable("explosiveenhancement.sparks.size"))
+                    .tooltip(Text.translatable("explosiveenhancement.sparks.size.tooltip"))
+                    .binding(
+                            defaults.sparkSize,
+                            () -> config.sparkSize,
+                            val -> config.sparkSize = val
+                    )
+                    .controller(floatOption -> new <Number>FloatSliderController(floatOption, 0F, 10F, 0.1F))
+                    .build();
+            var sparkOpacity = Option.createBuilder(Float.class)
+                    .name(Text.translatable("explosiveenhancement.sparks.opacity"))
+                    .tooltip(Text.translatable("explosiveenhancement.sparks.opacity.tooltip"))
+                    .binding(
+                            defaults.sparkOpacity,
+                            () -> config.sparkOpacity,
+                            val -> config.sparkOpacity = val
+                    )
+                    .controller(floatOption -> new <Number>FloatSliderController(floatOption, 0F, 1F, 0.05F))
+                    .build();
             var showDefaultExplosion = Option.createBuilder(boolean.class)
                     .name(Text.translatable("explosiveenhancement.default.enabled"))
                     .tooltip(Text.translatable("explosiveenhancement.default.enabled.tooltip"))
@@ -98,6 +123,8 @@ public class ExplosiveConfig {
             explosionGroup.option(showFireball);
             explosionGroup.option(showMushroomCloud);
             explosionGroup.option(showSparks);
+            explosionGroup.option(sparkSize);
+            explosionGroup.option(sparkOpacity);
             explosionGroup.option(showDefaultExplosion);
             defaultCategoryBuilder.group(explosionGroup.build());
 
