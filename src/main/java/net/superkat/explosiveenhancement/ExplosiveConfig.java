@@ -18,8 +18,6 @@ import java.nio.file.Path;
 public class ExplosiveConfig {
 
     public static final ConfigInstance<ExplosiveConfig> INSTANCE = new GsonConfigInstance<>(ExplosiveConfig.class, Path.of("./config/explosive-config.json"));
-    
-    //TODO - Move "Mod Enabled" to be above "Debug Logs"
 
     @ConfigEntry public static boolean showBlastWave = true;
     @ConfigEntry public static boolean showFireball = true;
