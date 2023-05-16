@@ -52,10 +52,8 @@ public abstract class ExplosionMixin {
 					world.addParticle(ExplosiveEnhancement.SMOKE, x, y, z, 0, 0.4, 0);
 					world.addParticle(ExplosiveEnhancement.SMOKE, x, y, z, 0.15, 0.4, 0);
 					world.addParticle(ExplosiveEnhancement.SMOKE, x, y, z, 0, 0.4, 0.15);
-		//			world.addParticle(ExplosiveEnhancement.LINGER, x, y, z, 0.15, 0.3, 0.15);
 					world.addParticle(ExplosiveEnhancement.SMOKE, x, y, z, -0.15, 0.4, 0);
 					world.addParticle(ExplosiveEnhancement.SMOKE, x, y, z, 0, 0.4, -0.15);
-		//			world.addParticle(ExplosiveEnhancement.LINGER, x, y, z, -0.15, 0.3, -0.15);
 				}
 				if(ExplosiveConfig.showDefaultExplosion) {
 					world.addParticle(ParticleTypes.EXPLOSION_EMITTER, x, y, z, 1.0, 0.0, 0.0);
