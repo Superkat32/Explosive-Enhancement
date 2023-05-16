@@ -19,10 +19,11 @@ repositories {
 	maven { url "https://maven.shedaniel.me/" }
 	maven { url "https://maven.terraformersmc.com/releases/" }
 	maven { url = "https://api.modrinth.com/maven"}
-	maven {
-		name 'Xander Maven'
-		url 'https://maven.isxander.dev/releases'
-	}
+	//Uncomment to enable YACL
+//	maven {
+//		name 'Xander Maven'
+//		url 'https://maven.isxander.dev/releases'
+//	}
 }
 
 dependencies {
@@ -35,10 +36,10 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	//Mod Menu
-	modApi "com.terraformersmc:modmenu:${modmenu_version}"
+//	modApi "com.terraformersmc:modmenu:${modmenu_version}"
 
 	//YACL
-	modImplementation 'dev.isxander.yacl:yet-another-config-lib-fabric:2.5.1+1.19.4'
+//	modImplementation 'dev.isxander.yacl:yet-another-config-lib-fabric:2.5.1+1.19.4'
 
 
 	// Uncomment the following line to enable the deprecated Fabric API modules. 

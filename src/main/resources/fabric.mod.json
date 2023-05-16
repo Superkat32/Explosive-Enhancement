@@ -22,9 +22,6 @@
     ],
     "client": [
       "net.superkat.explosiveenhancement.ExplosiveEnhancementClient"
-    ],
-    "modmenu": [
-      "net.superkat.explosiveenhancement.ModMenuIntegration"
     ]
   },
   "mixins": [
@@ -34,9 +31,8 @@
   "depends": {
     "fabricloader": ">=0.14.8",
     "fabric-api": "*",
-    "minecraft": "~1.19.4",
-    "java": ">=17",
-    "yet_another_config_lib": "^2.5.0+1.19.4"
+    "minecraft": "*",
+    "java": ">=17"
   },
   "suggests": {
     "another-mod": "*"
