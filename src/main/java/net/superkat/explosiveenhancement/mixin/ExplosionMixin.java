@@ -20,6 +20,7 @@ import static net.superkat.explosiveenhancement.ExplosiveEnhancement.LOGGER;
 @Mixin(Explosion.class)
 public abstract class ExplosionMixin {
 	@Shadow @Final private Random random;
+	@Shadow @Final private double z;
 	private boolean isUnderWater = false;
 
 	@Redirect(method = "affectWorld(Z)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;addParticle(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V"))
@@ -27,7 +28,7 @@ public abstract class ExplosionMixin {
 		if(ExplosiveConfig.debugLogs) {
 			LOGGER.info("affectWorld has been called!");
 		}
-		BlockPos pos = new BlockPos((int) x, (int) y, (int) z);
+		BlockPos pos = BlockPos.ofFloored(x, y, z);
 		if(world.getFluidState(pos).isIn(FluidTags.WATER) && ExplosiveConfig.underwaterExplosions) {
 			//If underwater
 			isUnderWater = true;
