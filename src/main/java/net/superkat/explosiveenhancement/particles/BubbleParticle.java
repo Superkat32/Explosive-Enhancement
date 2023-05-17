@@ -32,6 +32,7 @@ public class BubbleParticle extends SpriteBillboardParticle {
         this.velocityZ = velZ /  this.random.nextBetween(1, 5);
         this.maxAge = 120 + this.random.nextBetween(0, 40);
         this.setSpriteForAge(spriteProvider);
+        this.age = this.maxAge;
     }
 
     public void tick() {
@@ -44,9 +45,14 @@ public class BubbleParticle extends SpriteBillboardParticle {
         } else {
             this.velocityY += 0.002;
             this.move(this.velocityX, this.velocityY, this.velocityZ);
-            this.velocityX *= 0.6500000238418579;
-            this.velocityY *= 0.8500000238418579;
-            this.velocityZ *= 0.6500000238418579;
+            this.velocityY *= 0.8200000238418579;
+            if(this.maxAge >= this.age * 0.97) {
+                this.velocityX *= 0.8300000238418579;
+                this.velocityZ *= 0.8300000238418579;
+            } else {
+                this.velocityX *= 0.6200000238418579;
+                this.velocityZ *= 0.6200000238418579;
+            }
             if (!this.world.getFluidState(new BlockPos(this.x, this.y, this.z)).isIn(FluidTags.WATER)) {
                 this.velocityY -= 0.002;
                 if(startAirTick) {
