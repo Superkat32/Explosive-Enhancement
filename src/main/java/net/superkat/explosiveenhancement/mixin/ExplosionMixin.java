@@ -27,7 +27,7 @@ public abstract class ExplosionMixin {
 		if(INSTANCE.getConfig().debugLogs) {
 			LOGGER.info("affectWorld has been called!");
 		}
-		BlockPos pos = new BlockPos(x, y, z);
+		BlockPos pos = BlockPos.ofFloored(x, y, z);
 		if(world.getFluidState(pos).isIn(FluidTags.WATER) && INSTANCE.getConfig().underwaterExplosions) {
 			//If underwater
 			isUnderWater = true;
