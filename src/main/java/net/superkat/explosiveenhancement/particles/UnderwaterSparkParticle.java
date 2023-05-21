@@ -5,7 +5,8 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.DefaultParticleType;
-import net.superkat.explosiveenhancement.ExplosiveConfig;
+
+import static net.superkat.explosiveenhancement.ExplosiveConfig.INSTANCE;
 
 @Environment(EnvType.CLIENT)
 public class UnderwaterSparkParticle extends SpriteBillboardParticle {
@@ -15,12 +16,12 @@ public class UnderwaterSparkParticle extends SpriteBillboardParticle {
         super(world, x, y, z);
         this.spriteProvider = spriteProvider;
         this.maxAge = 5;
-        this.scale = ExplosiveConfig.underwaterSparkSize;
+        this.scale = INSTANCE.getConfig().underwaterSparkSize;
 //        this.gravityStrength = 0.008F;
         this.velocityX = velocityX;
         this.velocityY = velocityY;
         this.velocityZ = velocityZ;
-        this.alpha = ExplosiveConfig.underwaterSparkOpacity;
+        this.alpha = INSTANCE.getConfig().underwaterSparkOpacity;
         this.setSpriteForAge(spriteProvider);
     }
 

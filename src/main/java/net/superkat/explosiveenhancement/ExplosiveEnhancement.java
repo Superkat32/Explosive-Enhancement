@@ -3,9 +3,8 @@ package net.superkat.explosiveenhancement;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.particle.DefaultParticleType;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,15 +25,15 @@ public class ExplosiveEnhancement implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier("explosiveenhancement", "blastwave"), BLASTWAVE);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier("explosiveenhancement", "fireball"), FIREBALL);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier("explosiveenhancement", "blank_fireball"), BLANK_FIREBALL);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier("explosiveenhancement", "smoke"), SMOKE);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier("explosiveenhancement", "bubble"), BUBBLE);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier("explosiveenhancement", "shockwave"), SHOCKWAVE);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier("explosiveenhancement", "blank_shockwave"), BLANK_SHOCKWAVE);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier("explosiveenhancement", "underwaterblastwave"), UNDERWATERBLASTWAVE);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier("explosiveenhancement", "sparks"), SPARKS);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier("explosiveenhancement", "underwatersparks"), UNDERWATERSPARKS);
+		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "blastwave"), BLASTWAVE);
+		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "fireball"), FIREBALL);
+		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "blank_fireball"), BLANK_FIREBALL);
+		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "smoke"), SMOKE);
+		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "bubble"), BUBBLE);
+		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "shockwave"), SHOCKWAVE);
+		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "blank_shockwave"), BLANK_SHOCKWAVE);
+		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "underwaterblastwave"), UNDERWATERBLASTWAVE);
+		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "sparks"), SPARKS);
+		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "underwatersparks"), UNDERWATERSPARKS);
 	}
 }
