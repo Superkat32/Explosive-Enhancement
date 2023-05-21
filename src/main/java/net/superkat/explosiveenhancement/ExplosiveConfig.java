@@ -19,23 +19,23 @@ public class ExplosiveConfig {
 
     public static final ConfigInstance<ExplosiveConfig> INSTANCE = new GsonConfigInstance<>(ExplosiveConfig.class, Path.of("./config/explosiveenhancement.json"));
 
-    @ConfigEntry public static boolean showBlastWave = true;
-    @ConfigEntry public static boolean showFireball = true;
-    @ConfigEntry public static boolean showMushroomCloud = true;
-    @ConfigEntry public static boolean showSparks = true;
-    @ConfigEntry public static float sparkSize = 5.3F;
-    @ConfigEntry public static float sparkOpacity = 0.70F;
-    @ConfigEntry public static boolean showDefaultExplosion = false;
-    @ConfigEntry public static boolean underwaterExplosions = true;
-    @ConfigEntry public static boolean showShockwave = true;
-    @ConfigEntry public static boolean showUnderwaterBlastWave = true;
-    @ConfigEntry public static int bubbleAmount = 50;
-    @ConfigEntry public static boolean showUnderwaterSparks = false;
-    @ConfigEntry public static float underwaterSparkSize = 4.0F;
-    @ConfigEntry public static float underwaterSparkOpacity = 0.30F;
-    @ConfigEntry public static boolean showDefaultExplosionUnderwater = false;
-    @ConfigEntry public static boolean modEnabled = true;
-    @ConfigEntry public static boolean debugLogs = false;
+    @ConfigEntry public boolean showBlastWave = true;
+    @ConfigEntry public boolean showFireball = true;
+    @ConfigEntry public boolean showMushroomCloud = true;
+    @ConfigEntry public boolean showSparks = true;
+    @ConfigEntry public float sparkSize = 5.3F;
+    @ConfigEntry public float sparkOpacity = 0.70F;
+    @ConfigEntry public boolean showDefaultExplosion = false;
+    @ConfigEntry public boolean underwaterExplosions = true;
+    @ConfigEntry public boolean showShockwave = true;
+    @ConfigEntry public boolean showUnderwaterBlastWave = true;
+    @ConfigEntry public int bubbleAmount = 50;
+    @ConfigEntry public boolean showUnderwaterSparks = false;
+    @ConfigEntry public float underwaterSparkSize = 4.0F;
+    @ConfigEntry public float underwaterSparkOpacity = 0.30F;
+    @ConfigEntry public boolean showDefaultExplosionUnderwater = false;
+    @ConfigEntry public boolean modEnabled = true;
+    @ConfigEntry public boolean debugLogs = false;
 
     public static Screen makeScreen(Screen parent) {
         return YetAnotherConfigLib.create(INSTANCE, (defaults, config, builder) -> {
@@ -230,7 +230,6 @@ public class ExplosiveConfig {
             var extrasGroup = OptionGroup.createBuilder()
                     .name(Text.translatable("explosiveenhancement.extras.group"))
                     .tooltip(Text.translatable("explosiveenhancement.extras.group.tooltip"));
-
 
             var modEnabled = Option.createBuilder(boolean.class)
                     .name(Text.translatable("explosiveenhancement.extras.enabled"))
