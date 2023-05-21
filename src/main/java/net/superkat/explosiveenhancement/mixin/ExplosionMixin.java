@@ -46,6 +46,8 @@ public abstract class ExplosionMixin {
 				}
 				if(ExplosiveConfig.showFireball) {
 					world.addParticle(ExplosiveEnhancement.FIREBALL, x, y + 0.5, z, 0, 0, 0);
+				} else if (ExplosiveConfig.showSparks) {
+					world.addParticle(ExplosiveEnhancement.BLANK_FIREBALL, x, y + 0.5, z, 0, 0, 0);
 				}
 				if(ExplosiveConfig.showMushroomCloud) {
 					//I'm aware DRY is a thing, but I couldn't figure out any other way to get even a similar effect that I was happy with, so unfortunately, this will have to do.
@@ -62,6 +64,8 @@ public abstract class ExplosionMixin {
 			} else {
 				if(ExplosiveConfig.showShockwave) {
 					world.addParticle(ExplosiveEnhancement.SHOCKWAVE, x, y + 0.5, z, 0, 0, 0);
+				} else if (ExplosiveConfig.showUnderwaterSparks) {
+					world.addParticle(ExplosiveEnhancement.BLANK_SHOCKWAVE, x, y + 0.5, z, 0, 0, 0);
 				}
 				if(ExplosiveConfig.showUnderwaterBlastWave) {
 					world.addParticle(ExplosiveEnhancement.UNDERWATERBLASTWAVE, x, y + 0.5, z, 0, 0, 0);
