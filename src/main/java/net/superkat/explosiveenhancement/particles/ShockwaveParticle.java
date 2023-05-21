@@ -5,8 +5,9 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.DefaultParticleType;
-import net.superkat.explosiveenhancement.ExplosiveConfig;
 import net.superkat.explosiveenhancement.ExplosiveEnhancement;
+
+import static net.superkat.explosiveenhancement.ExplosiveConfig.INSTANCE;
 
 @Environment(EnvType.CLIENT)
 public class ShockwaveParticle extends SpriteBillboardParticle {
@@ -33,7 +34,7 @@ public class ShockwaveParticle extends SpriteBillboardParticle {
         } else {
             this.velocityY -= (double)this.gravityStrength;
             this.move(this.velocityX, this.velocityY, this.velocityZ);
-            if(this.age >= this.maxAge * 0.65 && ExplosiveConfig.showUnderwaterSparks) {
+            if(this.age >= this.maxAge * 0.65 && INSTANCE.getConfig().showUnderwaterSparks) {
                 this.world.addParticle(ExplosiveEnhancement.UNDERWATERSPARKS, this.x, this.y, this.z, this.velocityX, this.velocityY, this.velocityZ);
             }
             this.setSpriteForAge(this.spriteProvider);
