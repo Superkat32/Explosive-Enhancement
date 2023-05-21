@@ -2,7 +2,7 @@ package net.superkat.explosiveenhancement.mixin;
 
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.tag.FluidTags;
+import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
@@ -20,7 +20,6 @@ import static net.superkat.explosiveenhancement.ExplosiveEnhancement.LOGGER;
 @Mixin(Explosion.class)
 public abstract class ExplosionMixin {
 	@Shadow @Final private Random random;
-	@Shadow @Final private double z;
 	private boolean isUnderWater = false;
 
 	@Redirect(method = "affectWorld(Z)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;addParticle(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V"))
@@ -28,7 +27,7 @@ public abstract class ExplosionMixin {
 		if(ExplosiveConfig.debugLogs) {
 			LOGGER.info("affectWorld has been called!");
 		}
-		BlockPos pos = BlockPos.ofFloored(x, y, z);
+		BlockPos pos = new BlockPos(x, y, z);
 		if(world.getFluidState(pos).isIn(FluidTags.WATER) && ExplosiveConfig.underwaterExplosions) {
 			//If underwater
 			isUnderWater = true;
@@ -46,8 +45,6 @@ public abstract class ExplosionMixin {
 				}
 				if(ExplosiveConfig.showFireball) {
 					world.addParticle(ExplosiveEnhancement.FIREBALL, x, y + 0.5, z, 0, 0, 0);
-				} else if (ExplosiveConfig.showSparks) {
-					world.addParticle(ExplosiveEnhancement.BLANK_FIREBALL, x, y + 0.5, z, 0, 0, 0);
 				}
 				if(ExplosiveConfig.showMushroomCloud) {
 					//I'm aware DRY is a thing, but I couldn't figure out any other way to get even a similar effect that I was happy with, so unfortunately, this will have to do.
@@ -64,8 +61,6 @@ public abstract class ExplosionMixin {
 			} else {
 				if(ExplosiveConfig.showShockwave) {
 					world.addParticle(ExplosiveEnhancement.SHOCKWAVE, x, y + 0.5, z, 0, 0, 0);
-				} else if (ExplosiveConfig.showUnderwaterSparks) {
-					world.addParticle(ExplosiveEnhancement.BLANK_SHOCKWAVE, x, y + 0.5, z, 0, 0, 0);
 				}
 				if(ExplosiveConfig.showUnderwaterBlastWave) {
 					world.addParticle(ExplosiveEnhancement.UNDERWATERBLASTWAVE, x, y + 0.5, z, 0, 0, 0);

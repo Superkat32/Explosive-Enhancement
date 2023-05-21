@@ -11,9 +11,9 @@ import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 
 @Environment(EnvType.CLIENT)
@@ -53,7 +53,7 @@ public class BubbleParticle extends SpriteBillboardParticle {
                 this.velocityX *= 0.6200000238418579;
                 this.velocityZ *= 0.6200000238418579;
             }
-            if (!this.world.getFluidState(new BlockPos((int) this.x, (int) this.y, (int) this.z)).isIn(FluidTags.WATER)) {
+            if (!this.world.getFluidState(new BlockPos(this.x, this.y, this.z)).isIn(FluidTags.WATER)) {
                 this.velocityY -= 0.002;
                 if(startAirTick) {
                     startingAirTick = this.maxAge;
