@@ -19,7 +19,6 @@ repositories {
 	maven { url "https://maven.shedaniel.me/" }
 	maven { url "https://maven.terraformersmc.com/releases/" }
 	maven { url = "https://api.modrinth.com/maven"}
-	//Uncomment to enable YACL
 	maven {
 		name 'Xander Maven'
 		url 'https://maven.isxander.dev/releases'

@@ -1,16 +1,5 @@
 package net.superkat.explosiveenhancement;
 
-//import dev.isxander.yacl.api.ConfigCategory;
-//import dev.isxander.yacl.api.Option;
-//import dev.isxander.yacl.api.OptionGroup;
-//import dev.isxander.yacl.api.YetAnotherConfigLib;
-//import dev.isxander.yacl.config.ConfigEntry;
-//import dev.isxander.yacl.config.ConfigInstance;
-//import dev.isxander.yacl.config.GsonConfigInstance;
-//import dev.isxander.yacl.gui.controllers.BooleanController;
-//import dev.isxander.yacl.gui.controllers.slider.FloatSliderController;
-//import dev.isxander.yacl.gui.controllers.slider.IntegerSliderController;
-
 import dev.isxander.yacl.api.ConfigCategory;
 import dev.isxander.yacl.api.Option;
 import dev.isxander.yacl.api.OptionGroup;
@@ -28,46 +17,25 @@ import java.nio.file.Path;
 
 public class ExplosiveConfig {
 
-    public static final ConfigInstance<ExplosiveConfig> INSTANCE = new GsonConfigInstance<>(ExplosiveConfig.class, Path.of("./config/explosive-config.json"));
-//
-//    //TODO - Move "Mod Enabled" to be above "Debug Logs"
-//
-//    public static boolean showBlastWave = true;
-//    public static boolean showFireball = true;
-//    public static boolean showMushroomCloud = true;
-//    public static boolean showSparks = true;
-//    public static float sparkSize = 5.3F;
-//    public static float sparkOpacity = 0.70F;
-//    public static boolean showDefaultExplosion = false;
-//    public static boolean underwaterExplosions = true;
-//    public static boolean showShockwave = true;
-//    public static boolean showUnderwaterBlastWave = true;
-//    public static int bubbleAmount = 50;
-//    public static boolean showUnderwaterSparks = false;
-//    public static float underwaterSparkSize = 4.0F;
-//    public static float underwaterSparkOpacity = 0.30F;
-//    public static boolean showDefaultExplosionUnderwater = false;
-//    public static boolean modEnabled = true;
-//    public static boolean debugLogs = false;
+    public static final ConfigInstance<ExplosiveConfig> INSTANCE = new GsonConfigInstance<>(ExplosiveConfig.class, Path.of("./config/explosiveenhancement.json"));
 
-    @ConfigEntry
-    public static boolean showBlastWave = true;
-    @ConfigEntry public static boolean showFireball = true;
-    @ConfigEntry public static boolean showMushroomCloud = true;
-    @ConfigEntry public static boolean showSparks = true;
-    @ConfigEntry public static float sparkSize = 5.3F;
-    @ConfigEntry public static float sparkOpacity = 0.70F;
-    @ConfigEntry public static boolean showDefaultExplosion = false;
-    @ConfigEntry public static boolean underwaterExplosions = true;
-    @ConfigEntry public static boolean showShockwave = true;
-    @ConfigEntry public static boolean showUnderwaterBlastWave = true;
-    @ConfigEntry public static int bubbleAmount = 50;
-    @ConfigEntry public static boolean showUnderwaterSparks = false;
-    @ConfigEntry public static float underwaterSparkSize = 4.0F;
-    @ConfigEntry public static float underwaterSparkOpacity = 0.30F;
-    @ConfigEntry public static boolean showDefaultExplosionUnderwater = false;
-    @ConfigEntry public static boolean modEnabled = true;
-    @ConfigEntry public static boolean debugLogs = false;
+    @ConfigEntry public boolean showBlastWave = true;
+    @ConfigEntry public boolean showFireball = true;
+    @ConfigEntry public boolean showMushroomCloud = true;
+    @ConfigEntry public boolean showSparks = true;
+    @ConfigEntry public float sparkSize = 5.3F;
+    @ConfigEntry public float sparkOpacity = 0.70F;
+    @ConfigEntry public boolean showDefaultExplosion = false;
+    @ConfigEntry public boolean underwaterExplosions = true;
+    @ConfigEntry public boolean showShockwave = true;
+    @ConfigEntry public boolean showUnderwaterBlastWave = true;
+    @ConfigEntry public int bubbleAmount = 50;
+    @ConfigEntry public boolean showUnderwaterSparks = false;
+    @ConfigEntry public float underwaterSparkSize = 4.0F;
+    @ConfigEntry public float underwaterSparkOpacity = 0.30F;
+    @ConfigEntry public boolean showDefaultExplosionUnderwater = false;
+    @ConfigEntry public boolean modEnabled = true;
+    @ConfigEntry public boolean debugLogs = false;
 
     public static Screen makeScreen(Screen parent) {
         return YetAnotherConfigLib.create(INSTANCE, (defaults, config, builder) -> {

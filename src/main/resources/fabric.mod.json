@@ -22,6 +22,9 @@
     ],
     "client": [
       "net.superkat.explosiveenhancement.ExplosiveEnhancementClient"
+    ],
+    "modmenu": [
+      "net.superkat.explosiveenhancement.ModMenuIntegration"
     ]
   },
   "mixins": [
