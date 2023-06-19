@@ -1,17 +1,15 @@
 package net.superkat.explosiveenhancement;
 
-import dev.isxander.yacl.api.ConfigCategory;
-import dev.isxander.yacl.api.Option;
-import dev.isxander.yacl.api.OptionGroup;
-import dev.isxander.yacl.api.YetAnotherConfigLib;
-import dev.isxander.yacl.config.ConfigEntry;
-import dev.isxander.yacl.config.ConfigInstance;
-import dev.isxander.yacl.config.GsonConfigInstance;
-import dev.isxander.yacl.gui.controllers.BooleanController;
-import dev.isxander.yacl.gui.controllers.slider.FloatSliderController;
-import dev.isxander.yacl.gui.controllers.slider.IntegerSliderController;
+import dev.isxander.yacl3.api.*;
+import dev.isxander.yacl3.config.ConfigEntry;
+import dev.isxander.yacl3.config.ConfigInstance;
+import dev.isxander.yacl3.config.GsonConfigInstance;
+import dev.isxander.yacl3.gui.controllers.BooleanController;
+import dev.isxander.yacl3.gui.controllers.slider.FloatSliderController;
+import dev.isxander.yacl3.gui.controllers.slider.IntegerSliderController;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 
 import java.nio.file.Path;
 
@@ -19,7 +17,8 @@ public class ExplosiveConfig {
 
     public static final ConfigInstance<ExplosiveConfig> INSTANCE = new GsonConfigInstance<>(ExplosiveConfig.class, Path.of("./config/explosiveenhancement.json"));
 
-    @ConfigEntry public boolean showBlastWave = true;
+    @ConfigEntry
+    public boolean showBlastWave = true;
     @ConfigEntry public boolean showFireball = true;
     @ConfigEntry public boolean showMushroomCloud = true;
     @ConfigEntry public boolean showSparks = true;
@@ -41,7 +40,8 @@ public class ExplosiveConfig {
         return YetAnotherConfigLib.create(INSTANCE, (defaults, config, builder) -> {
             //Default Explosion category
             var defaultCategoryBuilder = ConfigCategory.createBuilder()
-                    .name(Text.translatable("explosiveenhancement.category.default"));
+                    .name(Text.translatable("explosiveenhancement.category.default"))
+                    .tooltip(Text.literal("Example tooltip for the default category"));
 
             //Explosion particles group
             var explosionGroup = OptionGroup.createBuilder()
@@ -234,7 +234,12 @@ public class ExplosiveConfig {
 
             var modEnabled = Option.createBuilder(boolean.class)
                     .name(Text.translatable("explosiveenhancement.extras.enabled"))
-                    .tooltip(Text.translatable("explosiveenhancement.extras.enabled.tooltip"))
+                    .description(OptionDescription.createBuilder()
+                            .name(Text.literal("Description name"))
+                            .description(Text.literal("line 1"))
+                            .description(Text.literal("line 2"))
+                            .webpImage(new Identifier(ExplosiveEnhancement.MOD_ID, "config/gifs/example.webp"))
+                            .build())
                     .binding(
                             defaults.modEnabled,
                             () -> config.modEnabled,
