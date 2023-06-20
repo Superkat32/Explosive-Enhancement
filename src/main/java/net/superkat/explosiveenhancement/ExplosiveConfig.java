@@ -12,11 +12,8 @@ import net.minecraft.text.Text;
 import java.nio.file.Path;
 
 public class ExplosiveConfig {
-
-//    public static final ConfigInstance<ExplosiveConfig> INSTANCE = new GsonConfigInstance<>(ExplosiveConfig.class, Path.of("./config/explosiveenhancement.json"));
     public static final GsonConfigInstance<ExplosiveConfig> INSTANCE = GsonConfigInstance.createBuilder(ExplosiveConfig.class)
         .setPath(Path.of("./config/explosiveenhancement.json")).build();
-
 
     @ConfigEntry public boolean showBlastWave = true;
     @ConfigEntry public boolean showFireball = true;
@@ -40,8 +37,7 @@ public class ExplosiveConfig {
         return YetAnotherConfigLib.create(INSTANCE, (defaults, config, builder) -> {
             //Default Explosion category
             var defaultCategoryBuilder = ConfigCategory.createBuilder()
-                    .name(Text.translatable("explosiveenhancement.category.default"))
-                    .tooltip(Text.literal("Example tooltip for the default category"));
+                    .name(Text.translatable("explosiveenhancement.category.default"));
 
             //Explosion particles group
             var explosionGroup = OptionGroup.createBuilder()
@@ -59,8 +55,6 @@ public class ExplosiveConfig {
                             () -> config.showBlastWave,
                             val -> config.showBlastWave = val
                     )
-//                    .controller(booleanOption -> new BooleanController(booleanOption, true))
-//                    .controller(BooleanControllerBuilder::create)
                     .customController(booleanOption -> new BooleanController(booleanOption, true))
                     .build();
             var showFireball = Option.<Boolean>createBuilder()
