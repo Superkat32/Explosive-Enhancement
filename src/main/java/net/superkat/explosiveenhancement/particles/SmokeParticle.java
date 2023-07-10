@@ -13,17 +13,33 @@ public class SmokeParticle extends SpriteBillboardParticle {
 //    private final double startY;
 //    private final double startZ;
 
-    SmokeParticle(ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteProvider spriteProvider) {
+    SmokeParticle(ClientWorld world, double x, double y, double z, double velX, double velY, double velZ, SpriteProvider spriteProvider) {
         super(world, x, y, z);
         this.velocityMultiplier = 0.6F;
         this.spriteProvider = spriteProvider;
-        this.maxAge = this.random.nextInt(75) + 55;
-        this.scale = 1F;
-//        this.gravityStrength = 0.008F;
+        this.maxAge = this.random.nextInt(35);
+        if(velZ == 0) {
+            scale = (float) velX * 0.25f;
+            this.maxAge += velX * this.random.nextBetween(3, 22);
+            this.velocityX = 0;
+            this.velocityZ = 0;
+        } else if(velX == 0.15 || velX == -0.15) {
+            scale = (float) velZ * 0.25f;
+            this.maxAge += velZ * this.random.nextBetween(3, 22);
+            this.velocityX = velX * (velZ * 0.5);
+            this.velocityZ = 0;
+        } else if(velZ == 0.15 || velZ == -0.15) {
+            scale = (float) velX * 0.25f;
+            this.maxAge += velX * this.random.nextBetween(3, 22);
+            this.velocityX = 0;
+            this.velocityZ = velZ * (velX * 0.5);
+        }
+        this.velocityY = velY / 1.85;
         this.gravityStrength = 3.0E-6F;
-        this.velocityX = velocityX;
-        this.velocityY = velocityY;
-        this.velocityZ = velocityZ;
+//        this.scale = 1F;
+//        this.gravityStrength = 0.008F;
+//        this.velocityX = velX;
+//        this.velocityZ = velZ;
 //        this.setBoundingBoxSpacing(0.02F, 0.02F);
 //        this.velocityX = this.random.nextFloat() + 0.07;
 //        this.velocityY = 0;
