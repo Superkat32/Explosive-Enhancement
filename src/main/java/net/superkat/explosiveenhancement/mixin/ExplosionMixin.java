@@ -21,6 +21,7 @@ import static net.superkat.explosiveenhancement.ExplosiveEnhancement.LOGGER;
 public abstract class ExplosionMixin {
 	@Shadow @Final private Random random;
 	@Shadow @Final private float power;
+	@Shadow @Final private Explosion.DestructionType destructionType;
 	private boolean isUnderWater = false;
 
 	@Redirect(method = "affectWorld(Z)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;addParticle(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V"))
@@ -60,7 +61,7 @@ public abstract class ExplosionMixin {
 					world.addParticle(ExplosiveEnhancement.SMOKE, x, y, z, 0, 0.4, -0.15);
 				}
 				if(INSTANCE.getConfig().showDefaultExplosion) {
-					world.addParticle(ParticleTypes.EXPLOSION_EMITTER, x, y, z, 1.0, 0.0, 0.0);
+					showDefaultParticles(world, x, y, z);
 				}
 			} else {
 				if(INSTANCE.getConfig().showUnderwaterBlastWave) {
@@ -75,11 +76,20 @@ public abstract class ExplosionMixin {
 					world.addParticle(ExplosiveEnhancement.BUBBLE, x, y, z, this.random.nextBetween(1, 7) * 0.3 * this.random.nextBetween(-1, 1), this.random.nextBetween(1, 10) * 0.1, this.random.nextBetween(1, 7) * 0.3 * this.random.nextBetween(-1, 1));
 				}
 				if(INSTANCE.getConfig().showDefaultExplosionUnderwater) {
-					world.addParticle(ParticleTypes.EXPLOSION_EMITTER, x, y, z, 1.0, 0.0, 0.0);
+					showDefaultParticles(world, x, y, z);
 				}
 			}
 		} else {
+			showDefaultParticles(world, x, y, z);
+		}
+	}
+
+	public void showDefaultParticles(World world, double x, double y, double z) {
+		boolean didDestroyBlocks = this.destructionType != Explosion.DestructionType.NONE;
+		if(!(this.power < 2.0f) && didDestroyBlocks) {
 			world.addParticle(ParticleTypes.EXPLOSION_EMITTER, x, y, z, 1.0, 0.0, 0.0);
+		} else {
+			world.addParticle(ParticleTypes.EXPLOSION, x, y, z, 1.0, 0.0, 0.0);
 		}
 	}
 }
