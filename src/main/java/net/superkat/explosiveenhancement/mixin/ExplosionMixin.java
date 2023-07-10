@@ -20,6 +20,7 @@ import static net.superkat.explosiveenhancement.ExplosiveEnhancement.LOGGER;
 @Mixin(Explosion.class)
 public abstract class ExplosionMixin {
 	@Shadow @Final private Random random;
+	@Shadow @Final private float power;
 	private boolean isUnderWater = false;
 
 	@Redirect(method = "affectWorld(Z)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;addParticle(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V"))
@@ -36,17 +37,18 @@ public abstract class ExplosionMixin {
 			}
 		}
 		if(INSTANCE.getConfig().modEnabled) {
+			float power = this.power;
 			if(!isUnderWater) {
 				if(INSTANCE.getConfig().debugLogs) {
 					LOGGER.info("Particle is being shown!");
 				}
 				if(INSTANCE.getConfig().showBlastWave) {
-					world.addParticle(ExplosiveEnhancement.BLASTWAVE, x, y, z, 0, 0, 0);
+					world.addParticle(ExplosiveEnhancement.BLASTWAVE, x, y, z, power * 1.75, 0, 0);
 				}
 				if(INSTANCE.getConfig().showFireball) {
-					world.addParticle(ExplosiveEnhancement.FIREBALL, x, y + 0.5, z, 0, 0, 0);
+					world.addParticle(ExplosiveEnhancement.FIREBALL, x, y + 0.5, z, power * 1.25, 0, 0);
 				} else if (INSTANCE.getConfig().showSparks) {
-					world.addParticle(ExplosiveEnhancement.BLANK_FIREBALL, x, y + 0.5, z, 0, 0, 0);
+					world.addParticle(ExplosiveEnhancement.BLANK_FIREBALL, x, y + 0.5, z, power * 1.25, 0, 0);
 				}
 				if(INSTANCE.getConfig().showMushroomCloud) {
 					//I'm aware DRY is a thing, but I couldn't figure out any other way to get even a similar effect that I was happy with, so unfortunately, this will have to do.
@@ -61,13 +63,13 @@ public abstract class ExplosionMixin {
 					world.addParticle(ParticleTypes.EXPLOSION_EMITTER, x, y, z, 1.0, 0.0, 0.0);
 				}
 			} else {
-				if(INSTANCE.getConfig().showShockwave) {
-					world.addParticle(ExplosiveEnhancement.SHOCKWAVE, x, y + 0.5, z, 0, 0, 0);
-				} else if (INSTANCE.getConfig().showUnderwaterSparks) {
-					world.addParticle(ExplosiveEnhancement.BLANK_SHOCKWAVE, x, y + 0.5, z, 0, 0, 0);
-				}
 				if(INSTANCE.getConfig().showUnderwaterBlastWave) {
-					world.addParticle(ExplosiveEnhancement.UNDERWATERBLASTWAVE, x, y + 0.5, z, 0, 0, 0);
+					world.addParticle(ExplosiveEnhancement.UNDERWATERBLASTWAVE, x, y + 0.5, z, power * 1.75, 0, 0);
+				}
+				if(INSTANCE.getConfig().showShockwave) {
+					world.addParticle(ExplosiveEnhancement.SHOCKWAVE, x, y + 0.5, z, power * 1.25, 0, 0);
+				} else if (INSTANCE.getConfig().showUnderwaterSparks) {
+					world.addParticle(ExplosiveEnhancement.BLANK_SHOCKWAVE, x, y + 0.5, z, power * 1.25, 0, 0);
 				}
 				for(int total = INSTANCE.getConfig().bubbleAmount; total >= 1; total--) {
 					world.addParticle(ExplosiveEnhancement.BUBBLE, x, y, z, this.random.nextBetween(1, 7) * 0.3 * this.random.nextBetween(-1, 1), this.random.nextBetween(1, 10) * 0.1, this.random.nextBetween(1, 7) * 0.3 * this.random.nextBetween(-1, 1));
