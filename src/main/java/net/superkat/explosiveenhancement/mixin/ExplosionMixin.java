@@ -22,7 +22,6 @@ public abstract class ExplosionMixin {
 	@Shadow @Final private Random random;
 	@Shadow @Final private float power;
 	@Shadow @Final private Explosion.DestructionType destructionType;
-	@Shadow @Final private double y;
 	private boolean isUnderWater = false;
 
 	@Redirect(method = "affectWorld(Z)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;addParticle(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V"))

@@ -230,7 +230,7 @@ public class ExplosiveConfig {
 
             var dynamicExplosionGroup = OptionGroup.createBuilder()
                     .name(Text.translatable("explosiveenhancement.dynamic.group"))
-                    .tooltip(Text.translatable("explosiveenhancement.dynamic.group.tootlip"));
+                    .tooltip(Text.translatable("explosiveenhancement.dynamic.group.tooltip"));
 
             var dynamicExplosions = Option.createBuilder(boolean.class)
                     .name(Text.translatable("explosiveenhancement.dynamicexplosions.enabled"))
