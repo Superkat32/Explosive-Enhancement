@@ -38,7 +38,7 @@ public abstract class ExplosionMixin {
 			}
 		}
 		if(INSTANCE.getConfig().modEnabled) {
-			float power = this.power;
+			float power = INSTANCE.getConfig().dynamicSize ? this.power : 4;
 			if(!isUnderWater) {
 				if(INSTANCE.getConfig().debugLogs) {
 					LOGGER.info("Particle is being shown!");
@@ -67,6 +67,7 @@ public abstract class ExplosionMixin {
 					showDefaultParticles(world, x, y, z);
 				}
 			} else {
+				power = INSTANCE.getConfig().dynamicUnderwater ? this.power : 4;
 				if(INSTANCE.getConfig().showUnderwaterBlastWave) {
 					world.addParticle(ExplosiveEnhancement.UNDERWATERBLASTWAVE, x, y + 0.5, z, power * 1.75, 0, 0);
 				}
