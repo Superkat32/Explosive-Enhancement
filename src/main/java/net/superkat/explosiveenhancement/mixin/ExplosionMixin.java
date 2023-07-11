@@ -22,14 +22,15 @@ public abstract class ExplosionMixin {
 	@Shadow @Final private Random random;
 	@Shadow @Final private float power;
 	@Shadow @Final private Explosion.DestructionType destructionType;
+	@Shadow @Final private double y;
 	private boolean isUnderWater = false;
 
 	@Redirect(method = "affectWorld(Z)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;addParticle(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V"))
-	public void affectWorld(World world, ParticleEffect parameters, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
+	public void affectWorld(World world, ParticleEffect parameters, double x, double initY, double z, double velocityX, double velocityY, double velocityZ) {
 		if(INSTANCE.getConfig().debugLogs) {
 			LOGGER.info("affectWorld has been called!");
 		}
-		BlockPos pos = new BlockPos(x, y, z);
+		BlockPos pos = new BlockPos(x, initY, z);
 		if(world.getFluidState(pos).isIn(FluidTags.WATER) && INSTANCE.getConfig().underwaterExplosions) {
 			//If underwater
 			isUnderWater = true;
@@ -37,8 +38,9 @@ public abstract class ExplosionMixin {
 				LOGGER.info("Particle is underwater!");
 			}
 		}
+		float power = INSTANCE.getConfig().dynamicSize ? this.power : 4;
+		double y = INSTANCE.getConfig().attemptBetterSmallExplosions && power == 1 ? initY - 0.5 : initY;
 		if(INSTANCE.getConfig().modEnabled) {
-			float power = INSTANCE.getConfig().dynamicSize ? this.power : 4;
 			if(!isUnderWater) {
 				if(INSTANCE.getConfig().debugLogs) {
 					LOGGER.info("Particle is being shown!");
@@ -84,7 +86,7 @@ public abstract class ExplosionMixin {
 				}
 			}
 		} else {
-			showDefaultParticles(world, x, y, z);
+			showDefaultParticles(world, x, initY, z);
 		}
 	}
 

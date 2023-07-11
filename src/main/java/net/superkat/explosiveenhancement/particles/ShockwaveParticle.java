@@ -32,7 +32,7 @@ public class ShockwaveParticle extends SpriteBillboardParticle {
             this.velocityY -= (double)this.gravityStrength;
             this.move(this.velocityX, this.velocityY, this.velocityZ);
             if(this.age >= this.maxAge * 0.65 && INSTANCE.getConfig().showUnderwaterSparks) {
-                this.world.addParticle(ExplosiveEnhancement.UNDERWATERSPARKS, this.x, this.y, this.z, this.velocityX, this.velocityY, this.velocityZ);
+                this.world.addParticle(ExplosiveEnhancement.UNDERWATERSPARKS, this.x, this.y, this.z, scale, this.velocityY, this.velocityZ);
             }
             this.setSpriteForAge(this.spriteProvider);
         }

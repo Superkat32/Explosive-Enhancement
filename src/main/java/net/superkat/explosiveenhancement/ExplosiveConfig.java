@@ -36,6 +36,7 @@ public class ExplosiveConfig {
     @ConfigEntry public boolean showDefaultExplosionUnderwater = false;
     @ConfigEntry public boolean dynamicSize = true;
     @ConfigEntry public boolean dynamicUnderwater = true;
+    @ConfigEntry public boolean attemptBetterSmallExplosions = true;
     @ConfigEntry public boolean modEnabled = true;
     @ConfigEntry public boolean debugLogs = false;
 
@@ -251,9 +252,20 @@ public class ExplosiveConfig {
                     )
                     .controller(booleanOption -> new BooleanController(booleanOption, true))
                     .build();
+            var attemptBetterSmallExplosions = Option.createBuilder(boolean.class)
+                    .name(Text.translatable("explosiveenhancement.bettersmallexplosions.enabled"))
+                    .tooltip(Text.translatable("explosiveenhancement.bettersmallexplosions.enabled.tooltip"))
+                    .binding(
+                            defaults.attemptBetterSmallExplosions,
+                            () -> config.attemptBetterSmallExplosions,
+                            val -> config.attemptBetterSmallExplosions = val
+                    )
+                    .controller(booleanOption -> new BooleanController(booleanOption, true))
+                    .build();
 
             dynamicExplosionGroup.option(dynamicExplosions);
             dynamicExplosionGroup.option(dynamicUnderwater);
+            dynamicExplosionGroup.option(attemptBetterSmallExplosions);
             dynamicCategoryBuilder.group(dynamicExplosionGroup.build());
 
 
