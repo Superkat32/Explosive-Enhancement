@@ -19,11 +19,8 @@ public class BlastWaveParticle extends SpriteBillboardParticle {
 
     BlastWaveParticle(ClientWorld world, double x, double y, double z, double velX, double velY, double velZ, SpriteProvider sprites) {
         super(world, x, y + 0.5, z, 0.0, 0.0, 0.0);
-//        this.field_28787 = true;
-        this.scale = 7F;
+        this.scale = (float) velX;
         this.setVelocity(0D, 0D, 0D);
-//        this.velocityY *= 0.009999999776482582;
-//        this.velocityY -= 0.2;
         this.maxAge = 15;
         this.sprites = sprites;
         this.setSpriteForAge(sprites);

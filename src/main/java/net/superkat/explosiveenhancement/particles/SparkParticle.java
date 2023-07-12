@@ -12,15 +12,20 @@ import static net.superkat.explosiveenhancement.ExplosiveConfig.INSTANCE;
 public class SparkParticle extends SpriteBillboardParticle {
     private final SpriteProvider spriteProvider;
 
-    SparkParticle(ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteProvider spriteProvider) {
+    SparkParticle(ClientWorld world, double x, double y, double z, double velX, double velY, double velZ, SpriteProvider spriteProvider) {
         super(world, x, y, z);
         this.spriteProvider = spriteProvider;
         this.maxAge = 5;
-        this.scale = INSTANCE.getConfig().sparkSize;
+        if(velX == 0) {
+            this.scale = INSTANCE.getConfig().sparkSize;
+        } else {
+            this.scale = (float) (velX / 0.94f * INSTANCE.getConfig().sparkSize);
+        }
+        this.setVelocity(0D, 0D, 0D);
 //        this.gravityStrength = 0.008F;
-        this.velocityX = velocityX;
-        this.velocityY = velocityY;
-        this.velocityZ = velocityZ;
+//        this.velocityX = velocityX;
+//        this.velocityY = velocityY;
+//        this.velocityZ = velocityZ;
         this.alpha = INSTANCE.getConfig().sparkOpacity;
         this.setSpriteForAge(spriteProvider);
     }

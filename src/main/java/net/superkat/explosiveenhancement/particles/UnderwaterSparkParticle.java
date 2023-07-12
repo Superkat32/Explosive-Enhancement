@@ -12,15 +12,21 @@ import static net.superkat.explosiveenhancement.ExplosiveConfig.INSTANCE;
 public class UnderwaterSparkParticle extends SpriteBillboardParticle {
     private final SpriteProvider spriteProvider;
 
-    UnderwaterSparkParticle(ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteProvider spriteProvider) {
+    UnderwaterSparkParticle(ClientWorld world, double x, double y, double z, double velX, double velY, double velZ, SpriteProvider spriteProvider) {
         super(world, x, y, z);
         this.spriteProvider = spriteProvider;
         this.maxAge = 5;
-        this.scale = INSTANCE.getConfig().underwaterSparkSize;
-//        this.gravityStrength = 0.008F;
-        this.velocityX = velocityX;
-        this.velocityY = velocityY;
-        this.velocityZ = velocityZ;
+        if(velX == 0) {
+            this.scale = INSTANCE.getConfig().underwaterSparkSize;
+        } else {
+            this.scale = (float) (velX / 0.94f * INSTANCE.getConfig().underwaterSparkSize);
+        }
+        this.setVelocity(0D, 0D, 0D);
+//        this.scale = INSTANCE.getConfig().underwaterSparkSize;
+////        this.gravityStrength = 0.008F;
+//        this.velocityX = velocityX;
+//        this.velocityY = velocityY;
+//        this.velocityZ = velocityZ;
         this.alpha = INSTANCE.getConfig().underwaterSparkOpacity;
         this.setSpriteForAge(spriteProvider);
     }
