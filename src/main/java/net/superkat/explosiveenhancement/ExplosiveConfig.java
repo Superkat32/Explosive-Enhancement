@@ -30,6 +30,9 @@ public class ExplosiveConfig {
     @ConfigEntry public float underwaterSparkSize = 4.0F;
     @ConfigEntry public float underwaterSparkOpacity = 0.30F;
     @ConfigEntry public boolean showDefaultExplosionUnderwater = false;
+    @ConfigEntry public boolean dynamicSize = true;
+    @ConfigEntry public boolean dynamicUnderwater = true;
+    @ConfigEntry public boolean attemptBetterSmallExplosions = true;
     @ConfigEntry public boolean modEnabled = true;
     @ConfigEntry public boolean debugLogs = false;
 
@@ -252,6 +255,57 @@ public class ExplosiveConfig {
             underwaterGroup.option(showDefaultExplosionUnderwater);
             defaultCategoryBuilder.group(underwaterGroup.build());
 
+            var dynamicCategoryBuilder = ConfigCategory.createBuilder()
+                    .name(Text.translatable("explosiveenhancement.category.dynamic"));
+
+            var dynamicExplosionGroup = OptionGroup.createBuilder()
+                    .name(Text.translatable("explosiveenhancement.dynamic.group"))
+                    .description(OptionDescription.createBuilder()
+                            .text(Text.translatable("explosiveenhancement.dynamic.group.tooltip"))
+                            .build());
+
+            var dynamicExplosions = Option.<Boolean>createBuilder()
+                    .name(Text.translatable("explosiveenhancement.dynamicexplosions.enabled"))
+                    .description(OptionDescription.createBuilder()
+                            .text(Text.translatable("explosiveenhancement.dynamicexplosions.enabled.tooltip"))
+                            .build())
+                    .binding(
+                            defaults.dynamicSize,
+                            () -> config.dynamicSize,
+                            val -> config.dynamicSize = val
+                    )
+                    .customController(booleanOption -> new BooleanController(booleanOption, true))
+                    .build();
+            var dynamicUnderwater = Option.<Boolean>createBuilder()
+                    .name(Text.translatable("explosiveenhancement.dynamicunderwater.enabled"))
+                    .description(OptionDescription.createBuilder()
+                            .text(Text.translatable("explosiveenhancement.dynamicunderwater.enabled.tooltip"))
+                            .build())
+                    .binding(
+                            defaults.dynamicUnderwater,
+                            () -> config.dynamicUnderwater,
+                            val -> config.dynamicUnderwater = val
+                    )
+                    .customController(booleanOption -> new BooleanController(booleanOption, true))
+                    .build();
+            var attemptBetterSmallExplosions = Option.<Boolean>createBuilder()
+                    .name(Text.translatable("explosiveenhancement.bettersmallexplosions.enabled"))
+                    .description(OptionDescription.createBuilder()
+                            .text(Text.translatable("explosiveenhancement.bettersmallexplosions.enabled.tooltip"))
+                            .build())
+                    .binding(
+                            defaults.attemptBetterSmallExplosions,
+                            () -> config.attemptBetterSmallExplosions,
+                            val -> config.attemptBetterSmallExplosions = val
+                    )
+                    .customController(booleanOption -> new BooleanController(booleanOption, true))
+                    .build();
+
+            dynamicExplosionGroup.option(dynamicExplosions);
+            dynamicExplosionGroup.option(dynamicUnderwater);
+            dynamicExplosionGroup.option(attemptBetterSmallExplosions);
+            dynamicCategoryBuilder.group(dynamicExplosionGroup.build());
+
 
 
             var extrasCategoryBuilder = ConfigCategory.createBuilder()
@@ -296,6 +350,7 @@ public class ExplosiveConfig {
             return builder
                     .title(Text.translatable("explosiveenhancement.title"))
                     .category(defaultCategoryBuilder.build())
+                    .category(dynamicCategoryBuilder.build())
                     .category(extrasCategoryBuilder.build());
         }).generateScreen(parent);
     }

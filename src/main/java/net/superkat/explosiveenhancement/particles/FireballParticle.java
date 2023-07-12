@@ -13,15 +13,12 @@ import static net.superkat.explosiveenhancement.ExplosiveConfig.INSTANCE;
 public class FireballParticle extends SpriteBillboardParticle {
     private final SpriteProvider spriteProvider;
 
-    FireballParticle(ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteProvider spriteProvider) {
+    FireballParticle(ClientWorld world, double x, double y, double z, double velX, double velY, double velZ, SpriteProvider spriteProvider) {
         super(world, x, y, z);
         this.spriteProvider = spriteProvider;
         this.maxAge = 9;
-        this.scale = 5F;
-//        this.gravityStrength = 0.008F;
-        this.velocityX = velocityX;
-        this.velocityY = velocityY;
-        this.velocityZ = velocityZ;
+        this.scale = (float) velX;
+        this.setVelocity(0D, 0D, 0D);
         this.setSpriteForAge(spriteProvider);
     }
 
@@ -35,7 +32,7 @@ public class FireballParticle extends SpriteBillboardParticle {
             this.velocityY -= (double)this.gravityStrength;
             this.move(this.velocityX, this.velocityY, this.velocityZ);
             if(this.age >= this.maxAge * 0.65 && INSTANCE.getConfig().showSparks) {
-                this.world.addParticle(ExplosiveEnhancement.SPARKS, this.x, this.y, this.z, this.velocityX, this.velocityY, this.velocityZ);
+                this.world.addParticle(ExplosiveEnhancement.SPARKS, this.x, this.y, this.z, scale, this.velocityY, this.velocityZ);
             }
             this.setSpriteForAge(this.spriteProvider);
         }
