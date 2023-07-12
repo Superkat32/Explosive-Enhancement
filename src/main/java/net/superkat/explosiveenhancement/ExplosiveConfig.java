@@ -34,6 +34,9 @@ public class ExplosiveConfig {
     @ConfigEntry public float underwaterSparkSize = 4.0F;
     @ConfigEntry public float underwaterSparkOpacity = 0.30F;
     @ConfigEntry public boolean showDefaultExplosionUnderwater = false;
+    @ConfigEntry public boolean dynamicSize = true;
+    @ConfigEntry public boolean dynamicUnderwater = true;
+    @ConfigEntry public boolean attemptBetterSmallExplosions = true;
     @ConfigEntry public boolean modEnabled = true;
     @ConfigEntry public boolean debugLogs = false;
 
@@ -222,6 +225,49 @@ public class ExplosiveConfig {
             underwaterGroup.option(showDefaultExplosionUnderwater);
             defaultCategoryBuilder.group(underwaterGroup.build());
 
+            var dynamicCategoryBuilder = ConfigCategory.createBuilder()
+                    .name(Text.translatable("explosiveenhancement.category.dynamic"));
+
+            var dynamicExplosionGroup = OptionGroup.createBuilder()
+                    .name(Text.translatable("explosiveenhancement.dynamic.group"))
+                    .tooltip(Text.translatable("explosiveenhancement.dynamic.group.tooltip"));
+
+            var dynamicExplosions = Option.createBuilder(boolean.class)
+                    .name(Text.translatable("explosiveenhancement.dynamicexplosions.enabled"))
+                    .tooltip(Text.translatable("explosiveenhancement.dynamicexplosions.enabled.tooltip"))
+                    .binding(
+                            defaults.dynamicSize,
+                            () -> config.dynamicSize,
+                            val -> config.dynamicSize = val
+                    )
+                    .controller(booleanOption -> new BooleanController(booleanOption, true))
+                    .build();
+            var dynamicUnderwater = Option.createBuilder(boolean.class)
+                    .name(Text.translatable("explosiveenhancement.dynamicunderwater.enabled"))
+                    .tooltip(Text.translatable("explosiveenhancement.dynamicunderwater.enabled.tooltip"))
+                    .binding(
+                            defaults.dynamicUnderwater,
+                            () -> config.dynamicUnderwater,
+                            val -> config.dynamicUnderwater = val
+                    )
+                    .controller(booleanOption -> new BooleanController(booleanOption, true))
+                    .build();
+            var attemptBetterSmallExplosions = Option.createBuilder(boolean.class)
+                    .name(Text.translatable("explosiveenhancement.bettersmallexplosions.enabled"))
+                    .tooltip(Text.translatable("explosiveenhancement.bettersmallexplosions.enabled.tooltip"))
+                    .binding(
+                            defaults.attemptBetterSmallExplosions,
+                            () -> config.attemptBetterSmallExplosions,
+                            val -> config.attemptBetterSmallExplosions = val
+                    )
+                    .controller(booleanOption -> new BooleanController(booleanOption, true))
+                    .build();
+
+            dynamicExplosionGroup.option(dynamicExplosions);
+            dynamicExplosionGroup.option(dynamicUnderwater);
+            dynamicExplosionGroup.option(attemptBetterSmallExplosions);
+            dynamicCategoryBuilder.group(dynamicExplosionGroup.build());
+
 
 
             var extrasCategoryBuilder = ConfigCategory.createBuilder()
@@ -259,6 +305,7 @@ public class ExplosiveConfig {
             return builder
                     .title(Text.translatable("explosiveenhancement.title"))
                     .category(defaultCategoryBuilder.build())
+                    .category(dynamicCategoryBuilder.build())
                     .category(extrasCategoryBuilder.build());
         }).generateScreen(parent);
     }
