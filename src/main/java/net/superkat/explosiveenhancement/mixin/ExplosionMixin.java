@@ -21,7 +21,6 @@ import static net.superkat.explosiveenhancement.ExplosiveEnhancement.LOGGER;
 public abstract class ExplosionMixin {
 	@Shadow @Final private Random random;
 	@Shadow @Final private float power;
-	@Shadow @Final private Explosion.DestructionType destructionType;
 
 	@Shadow public abstract boolean shouldDestroy();
 
@@ -32,7 +31,7 @@ public abstract class ExplosionMixin {
 		if(INSTANCE.getConfig().debugLogs) {
 			LOGGER.info("affectWorld has been called!");
 		}
-		BlockPos pos = BlockPos.ofFloored(x, y, z);
+		BlockPos pos = BlockPos.ofFloored(x, initY, z);
 		if(world.getFluidState(pos).isIn(FluidTags.WATER) && INSTANCE.getConfig().underwaterExplosions) {
 			//If underwater
 			isUnderWater = true;
