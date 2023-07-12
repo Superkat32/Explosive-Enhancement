@@ -56,6 +56,7 @@ public abstract class ExplosionMixin {
 					//I'm aware DRY is a thing, but I couldn't figure out any other way to get even a similar effect that I was happy with, so unfortunately, this will have to do.
 					//x, y, z, [size(power)/velX], velY, [size(power)/velZ]
 					//This is to allow for dynamic smoke depending on the explosion's power
+                    //The smoke particle factory (should be) able to determine if the velX/velZ is the size or actual velocity
 					world.addParticle(ExplosiveEnhancement.SMOKE, x, y, z, power, power * 0.25, 0);
 					world.addParticle(ExplosiveEnhancement.SMOKE, x, y, z, power, power * 0.4, 0);
 
