@@ -41,7 +41,8 @@
   "explosiveenhancement.underwater.default.tooltip": "The vanilla Minecraft particles",
 
 
-  "explosiveenhancement.category.dynamic": "Dynamics",
+
+  "explosiveenhancement.category.dynamic": "Sizing",
 
   "explosiveenhancement.dynamic.group": "Dynamic Explosions",
   "explosiveenhancement.dynamic.group.tooltip": "Dynamic explosion sizing options",
@@ -51,6 +52,7 @@
   "explosiveenhancement.dynamicunderwater.enabled.tooltip": "Change the size of an underwater explosion depending on its power",
   "explosiveenhancement.bettersmallexplosions.enabled": "Attempt Better Small Explosions",
   "explosiveenhancement.bettersmallexplosions.enabled.tooltip": "If an explosion's power is equal to 1(wither skull, ghast fireball), the explosion's y coordinate will be lowered by a small amount for a better looking effect",
+
 
 
   "explosiveenhancement.category.extras": "Extras",
