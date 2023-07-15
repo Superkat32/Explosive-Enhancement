@@ -4,6 +4,7 @@ import dev.isxander.yacl3.api.*;
 import dev.isxander.yacl3.config.ConfigEntry;
 import dev.isxander.yacl3.config.GsonConfigInstance;
 import dev.isxander.yacl3.gui.controllers.BooleanController;
+import dev.isxander.yacl3.gui.controllers.slider.DoubleSliderController;
 import dev.isxander.yacl3.gui.controllers.slider.FloatSliderController;
 import dev.isxander.yacl3.gui.controllers.slider.IntegerSliderController;
 import net.minecraft.client.gui.screen.Screen;
@@ -33,6 +34,7 @@ public class ExplosiveConfig {
     @ConfigEntry public boolean dynamicSize = true;
     @ConfigEntry public boolean dynamicUnderwater = true;
     @ConfigEntry public boolean attemptBetterSmallExplosions = true;
+    @ConfigEntry public double smallExplosionYOffset = -0.5;
     @ConfigEntry public boolean modEnabled = true;
     @ConfigEntry public boolean debugLogs = false;
 
@@ -84,18 +86,6 @@ public class ExplosiveConfig {
                     )
                     .customController(booleanOption -> new BooleanController(booleanOption, true))
                     .build();
-            var showSparks = Option.<Boolean>createBuilder()
-                    .name(Text.translatable("explosiveenhancement.sparks.enabled"))
-                    .description(OptionDescription.createBuilder()
-                            .text(Text.translatable("explosiveenhancement.sparks.enabled.tooltip"))
-                            .build())
-                    .binding(
-                            defaults.showSparks,
-                            () -> config.showSparks,
-                            val -> config.showSparks = val
-                    )
-                    .customController(booleanOption -> new BooleanController(booleanOption, true))
-                    .build();
             var sparkSize = Option.<Float>createBuilder()
                     .name(Text.translatable("explosiveenhancement.sparks.size"))
                     .description(OptionDescription.createBuilder()
@@ -106,6 +96,7 @@ public class ExplosiveConfig {
                             () -> config.sparkSize,
                             val -> config.sparkSize = val
                     )
+                    .available(true)
                     .customController(floatOption -> new <Number>FloatSliderController(floatOption, 0F, 10F, 0.1F))
                     .build();
             var sparkOpacity = Option.<Float>createBuilder()
@@ -118,7 +109,22 @@ public class ExplosiveConfig {
                             () -> config.sparkOpacity,
                             val -> config.sparkOpacity = val
                     )
+                    .available(true)
                     .customController(floatOption -> new <Number>FloatSliderController(floatOption, 0.00F, 1.00F, 0.05F))
+                    .build();
+            var showSparks = Option.<Boolean>createBuilder()
+                    .name(Text.translatable("explosiveenhancement.sparks.enabled"))
+                    .description(OptionDescription.createBuilder()
+                            .text(Text.translatable("explosiveenhancement.sparks.enabled.tooltip"))
+                            .build())
+                    .binding(
+                            defaults.showSparks,
+                            () -> config.showSparks,
+                            val -> config.showSparks = val
+                    )
+                    .listener((opt, val) -> sparkSize.setAvailable(val))
+                    .listener((opt, val) -> sparkOpacity.setAvailable(val))
+                    .customController(booleanOption -> new BooleanController(booleanOption, true))
                     .build();
             var showDefaultExplosion = Option.<Boolean>createBuilder()
                     .name(Text.translatable("explosiveenhancement.default.enabled"))
@@ -196,18 +202,6 @@ public class ExplosiveConfig {
                     )
                     .customController(integerOption -> new <Number>IntegerSliderController(integerOption, 0, 500, 5))
                     .build();
-            var showUnderwaterSparks = Option.<Boolean>createBuilder()
-                    .name(Text.translatable("explosiveenhancement.underwater.sparks"))
-                    .description(OptionDescription.createBuilder()
-                            .text(Text.translatable("explosiveenhancement.underwater.sparks.tooltip"))
-                            .build())
-                    .binding(
-                            defaults.showUnderwaterSparks,
-                            () -> config.showUnderwaterSparks,
-                            val -> config.showUnderwaterSparks = val
-                    )
-                    .customController(booleanOption -> new BooleanController(booleanOption, true))
-                    .build();
             var underwaterSparkSize = Option.<Float>createBuilder()
                     .name(Text.translatable("explosiveenhancement.underwater.sparks.size"))
                     .description(OptionDescription.createBuilder()
@@ -218,6 +212,7 @@ public class ExplosiveConfig {
                             () -> config.underwaterSparkSize,
                             val -> config.underwaterSparkSize = val
                     )
+                    .available(false)
                     .customController(floatOption -> new <Number>FloatSliderController(floatOption, 0F, 10F, 0.1F))
                     .build();
             var underwaterSparkOpacity = Option.<Float>createBuilder()
@@ -230,7 +225,22 @@ public class ExplosiveConfig {
                             () -> config.underwaterSparkOpacity,
                             val -> config.underwaterSparkOpacity = val
                     )
+                    .available(false)
                     .customController(floatOption -> new <Number>FloatSliderController(floatOption, 0.00F, 1.00F, 0.05F))
+                    .build();
+            var showUnderwaterSparks = Option.<Boolean>createBuilder()
+                    .name(Text.translatable("explosiveenhancement.underwater.sparks"))
+                    .description(OptionDescription.createBuilder()
+                            .text(Text.translatable("explosiveenhancement.underwater.sparks.tooltip"))
+                            .build())
+                    .binding(
+                            defaults.showUnderwaterSparks,
+                            () -> config.showUnderwaterSparks,
+                            val -> config.showUnderwaterSparks = val
+                    )
+                    .listener((opt, val) -> underwaterSparkSize.setAvailable(val))
+                    .listener((opt, val) -> underwaterSparkOpacity.setAvailable(val))
+                    .customController(booleanOption -> new BooleanController(booleanOption, true))
                     .build();
             var showDefaultExplosionUnderwater = Option.<Boolean>createBuilder()
                     .name(Text.translatable("explosiveenhancement.underwater.default"))
@@ -288,6 +298,19 @@ public class ExplosiveConfig {
                     )
                     .customController(booleanOption -> new BooleanController(booleanOption, true))
                     .build();
+            var smallExplosionYOffset = Option.<Double>createBuilder()
+                    .name(Text.translatable("explosiveenhancement.yoffset"))
+                    .description(OptionDescription.createBuilder()
+                            .text(Text.translatable("explosiveenhancement.yoffset.tooltip"))
+                            .build())
+                    .binding(
+                            defaults.smallExplosionYOffset,
+                            () -> config.smallExplosionYOffset,
+                            val -> config.smallExplosionYOffset = val
+                    )
+                    .available(true)
+                    .customController(doubleOption -> new <Number>DoubleSliderController(doubleOption, -1.0, 0, 0.1))
+                    .build();
             var attemptBetterSmallExplosions = Option.<Boolean>createBuilder()
                     .name(Text.translatable("explosiveenhancement.bettersmallexplosions.enabled"))
                     .description(OptionDescription.createBuilder()
@@ -298,12 +321,14 @@ public class ExplosiveConfig {
                             () -> config.attemptBetterSmallExplosions,
                             val -> config.attemptBetterSmallExplosions = val
                     )
+                    .listener((opt, val) -> smallExplosionYOffset.setAvailable(val))
                     .customController(booleanOption -> new BooleanController(booleanOption, true))
                     .build();
 
             dynamicExplosionGroup.option(dynamicExplosions);
             dynamicExplosionGroup.option(dynamicUnderwater);
             dynamicExplosionGroup.option(attemptBetterSmallExplosions);
+            dynamicExplosionGroup.option(smallExplosionYOffset);
             dynamicCategoryBuilder.group(dynamicExplosionGroup.build());
 
 

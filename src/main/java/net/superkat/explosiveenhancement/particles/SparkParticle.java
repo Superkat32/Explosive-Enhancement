@@ -19,7 +19,7 @@ public class SparkParticle extends SpriteBillboardParticle {
         if(velX == 0) {
             this.scale = INSTANCE.getConfig().sparkSize;
         } else {
-            this.scale = (float) (velX / 0.94f * INSTANCE.getConfig().sparkSize);
+            this.scale = (float) (INSTANCE.getConfig().sparkSize * (velX * 0.25f));
         }
         this.setVelocity(0D, 0D, 0D);
 //        this.gravityStrength = 0.008F;

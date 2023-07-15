@@ -19,7 +19,7 @@ public class UnderwaterSparkParticle extends SpriteBillboardParticle {
         if(velX == 0) {
             this.scale = INSTANCE.getConfig().underwaterSparkSize;
         } else {
-            this.scale = (float) (velX / 0.94f * INSTANCE.getConfig().underwaterSparkSize);
+            this.scale = (float) (INSTANCE.getConfig().underwaterSparkSize * (velX * 0.25f));
         }
         this.setVelocity(0D, 0D, 0D);
 //        this.scale = INSTANCE.getConfig().underwaterSparkSize;

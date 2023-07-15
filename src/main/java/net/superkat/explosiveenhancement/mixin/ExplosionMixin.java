@@ -40,7 +40,7 @@ public abstract class ExplosionMixin {
 			}
 		}
 		float power = INSTANCE.getConfig().dynamicSize ? this.power : 4;
-		double y = INSTANCE.getConfig().attemptBetterSmallExplosions && power == 1 ? initY - 0.5 : initY;
+		double y = INSTANCE.getConfig().attemptBetterSmallExplosions && power == 1 ? initY + INSTANCE.getConfig().smallExplosionYOffset : initY;
 		if(INSTANCE.getConfig().modEnabled) {
 			if(!isUnderWater) {
 				if(INSTANCE.getConfig().debugLogs) {
