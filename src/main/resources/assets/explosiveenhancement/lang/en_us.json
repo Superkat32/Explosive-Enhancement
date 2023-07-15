@@ -52,6 +52,8 @@
   "explosiveenhancement.dynamicunderwater.enabled.tooltip": "Change the size of an underwater explosion depending on its power",
   "explosiveenhancement.bettersmallexplosions.enabled": "Attempt Better Small Explosions",
   "explosiveenhancement.bettersmallexplosions.enabled.tooltip": "If an explosion's power is equal to 1(wither skull, ghast fireball), the explosion's y coordinate will be lowered by a small amount for a sometimes better looking effect",
+  "explosiveenhancement.yoffset": "Small Explosions Y Offset",
+  "explosiveenhancement.yoffset.tooltip": "The y offset for small explosions",
 
 
 
