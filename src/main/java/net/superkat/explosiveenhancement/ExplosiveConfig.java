@@ -9,6 +9,7 @@ import dev.isxander.yacl3.gui.controllers.slider.FloatSliderController;
 import dev.isxander.yacl3.gui.controllers.slider.IntegerSliderController;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 
 import java.nio.file.Path;
 
@@ -50,22 +51,11 @@ public class ExplosiveConfig {
                     .description(OptionDescription.createBuilder()
                             .text(Text.translatable("explosiveenhancement.explosion.group.tooltip"))
                             .build());
-            var showBlastWave = Option.<Boolean>createBuilder()
-                    .name(Text.translatable("explosiveenhancement.blastwave.enabled"))
-                    .description(OptionDescription.createBuilder()
-                            .text(Text.translatable("explosiveenhancement.blastwave.enabled.tooltip"))
-                            .build())
-                    .binding(
-                            defaults.showBlastWave,
-                            () -> config.showBlastWave,
-                            val -> config.showBlastWave = val
-                    )
-                    .customController(booleanOption -> new BooleanController(booleanOption, true))
-                    .build();
             var showFireball = Option.<Boolean>createBuilder()
                     .name(Text.translatable("explosiveenhancement.fireball.enabled"))
                     .description(OptionDescription.createBuilder()
                             .text(Text.translatable("explosiveenhancement.fireball.enabled.tooltip"))
+                            .webpImage(new Identifier("explosiveenhancement", "config/images/fireball.webp"))
                             .build())
                     .binding(
                             defaults.showFireball,
@@ -74,10 +64,24 @@ public class ExplosiveConfig {
                     )
                     .customController(booleanOption -> new BooleanController(booleanOption, true))
                     .build();
+            var showBlastWave = Option.<Boolean>createBuilder()
+                    .name(Text.translatable("explosiveenhancement.blastwave.enabled"))
+                    .description(OptionDescription.createBuilder()
+                            .text(Text.translatable("explosiveenhancement.blastwave.enabled.tooltip"))
+                            .webpImage(new Identifier("explosiveenhancement", "config/images/blastwave.webp"))
+                            .build())
+                    .binding(
+                            defaults.showBlastWave,
+                            () -> config.showBlastWave,
+                            val -> config.showBlastWave = val
+                    )
+                    .customController(booleanOption -> new BooleanController(booleanOption, true))
+                    .build();
             var showMushroomCloud = Option.<Boolean>createBuilder()
                     .name(Text.translatable("explosiveenhancement.mushroomcloud.enabled"))
                     .description(OptionDescription.createBuilder()
                             .text(Text.translatable("explosiveenhancement.mushroomcloud.enabled.tooltip"))
+                            .webpImage(new Identifier("explosiveenhancement", "config/images/mushroomcloud.webp"))
                             .build())
                     .binding(
                             defaults.showMushroomCloud,
@@ -116,6 +120,7 @@ public class ExplosiveConfig {
                     .name(Text.translatable("explosiveenhancement.sparks.enabled"))
                     .description(OptionDescription.createBuilder()
                             .text(Text.translatable("explosiveenhancement.sparks.enabled.tooltip"))
+                            .webpImage(new Identifier("explosiveenhancement", "config/images/sparks.webp"))
                             .build())
                     .binding(
                             defaults.showSparks,
@@ -138,8 +143,8 @@ public class ExplosiveConfig {
                     )
                     .customController(booleanOption -> new BooleanController(booleanOption, true))
                     .build();
-            explosionGroup.option(showBlastWave);
             explosionGroup.option(showFireball);
+            explosionGroup.option(showBlastWave);
             explosionGroup.option(showMushroomCloud);
             explosionGroup.option(showSparks);
             explosionGroup.option(sparkSize);
@@ -169,6 +174,7 @@ public class ExplosiveConfig {
                     .name(Text.translatable("explosiveenhancement.underwater.shockwave"))
                     .description(OptionDescription.createBuilder()
                             .text(Text.translatable("explosiveenhancement.underwater.shockwave.tooltip"))
+                            .webpImage(new Identifier("explosiveenhancement", "config/images/shockwave.webp"))
                             .build())
                     .binding(
                             defaults.showShockwave,
@@ -181,6 +187,7 @@ public class ExplosiveConfig {
                     .name(Text.translatable("explosiveenhancement.underwater.blast"))
                     .description(OptionDescription.createBuilder()
                             .text(Text.translatable("explosiveenhancement.underwater.blast.tooltip"))
+                            .webpImage(new Identifier("explosiveenhancement", "config/images/underwaterblast.webp"))
                             .build())
                     .binding(
                             defaults.showUnderwaterBlastWave,
@@ -194,6 +201,7 @@ public class ExplosiveConfig {
                     .description(OptionDescription.createBuilder()
                             .text(Text.translatable("explosiveenhancement.underwater.bubbleamount.tooltip"))
                             .text(Text.translatable("explosiveenhancement.underwater.bubbleamount.warningtooltip"))
+                            .webpImage(new Identifier("explosiveenhancement", "config/images/bubbles.webp"))
                             .build())
                     .binding(
                             defaults.bubbleAmount,
@@ -278,6 +286,7 @@ public class ExplosiveConfig {
                     .name(Text.translatable("explosiveenhancement.dynamicexplosions.enabled"))
                     .description(OptionDescription.createBuilder()
                             .text(Text.translatable("explosiveenhancement.dynamicexplosions.enabled.tooltip"))
+                            .webpImage(new Identifier("explosiveenhancement", "config/images/dynamicexplosions.webp"))
                             .build())
                     .binding(
                             defaults.dynamicSize,
