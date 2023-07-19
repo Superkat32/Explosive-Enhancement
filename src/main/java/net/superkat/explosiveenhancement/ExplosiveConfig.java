@@ -240,6 +240,7 @@ public class ExplosiveConfig {
                     .name(Text.translatable("explosiveenhancement.underwater.sparks"))
                     .description(OptionDescription.createBuilder()
                             .text(Text.translatable("explosiveenhancement.underwater.sparks.tooltip"))
+                            .webpImage(new Identifier("explosiveenhancement", "config/images/underwatersparks.webp"))
                             .build())
                     .binding(
                             defaults.showUnderwaterSparks,
@@ -299,6 +300,7 @@ public class ExplosiveConfig {
                     .name(Text.translatable("explosiveenhancement.dynamicunderwater.enabled"))
                     .description(OptionDescription.createBuilder()
                             .text(Text.translatable("explosiveenhancement.dynamicunderwater.enabled.tooltip"))
+                            .webpImage(new Identifier("explosiveenhancement", "config/images/dynamicunderwater.webp"))
                             .build())
                     .binding(
                             defaults.dynamicUnderwater,
