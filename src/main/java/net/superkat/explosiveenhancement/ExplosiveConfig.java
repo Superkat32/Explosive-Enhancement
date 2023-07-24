@@ -9,7 +9,6 @@ import dev.isxander.yacl3.gui.controllers.slider.FloatSliderController;
 import dev.isxander.yacl3.gui.controllers.slider.IntegerSliderController;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 
 import java.nio.file.Path;
 
@@ -55,7 +54,6 @@ public class ExplosiveConfig {
                     .name(Text.translatable("explosiveenhancement.fireball.enabled"))
                     .description(OptionDescription.createBuilder()
                             .text(Text.translatable("explosiveenhancement.fireball.enabled.tooltip"))
-                            .webpImage(new Identifier("explosiveenhancement", "config/images/fireball.webp"))
                             .build())
                     .binding(
                             defaults.showFireball,
@@ -68,7 +66,6 @@ public class ExplosiveConfig {
                     .name(Text.translatable("explosiveenhancement.blastwave.enabled"))
                     .description(OptionDescription.createBuilder()
                             .text(Text.translatable("explosiveenhancement.blastwave.enabled.tooltip"))
-                            .webpImage(new Identifier("explosiveenhancement", "config/images/blastwave.webp"))
                             .build())
                     .binding(
                             defaults.showBlastWave,
@@ -81,7 +78,6 @@ public class ExplosiveConfig {
                     .name(Text.translatable("explosiveenhancement.mushroomcloud.enabled"))
                     .description(OptionDescription.createBuilder()
                             .text(Text.translatable("explosiveenhancement.mushroomcloud.enabled.tooltip"))
-                            .webpImage(new Identifier("explosiveenhancement", "config/images/mushroomcloud.webp"))
                             .build())
                     .binding(
                             defaults.showMushroomCloud,
@@ -120,7 +116,6 @@ public class ExplosiveConfig {
                     .name(Text.translatable("explosiveenhancement.sparks.enabled"))
                     .description(OptionDescription.createBuilder()
                             .text(Text.translatable("explosiveenhancement.sparks.enabled.tooltip"))
-                            .webpImage(new Identifier("explosiveenhancement", "config/images/sparks.webp"))
                             .build())
                     .binding(
                             defaults.showSparks,
@@ -174,7 +169,6 @@ public class ExplosiveConfig {
                     .name(Text.translatable("explosiveenhancement.underwater.shockwave"))
                     .description(OptionDescription.createBuilder()
                             .text(Text.translatable("explosiveenhancement.underwater.shockwave.tooltip"))
-                            .webpImage(new Identifier("explosiveenhancement", "config/images/shockwave.webp"))
                             .build())
                     .binding(
                             defaults.showShockwave,
@@ -187,7 +181,6 @@ public class ExplosiveConfig {
                     .name(Text.translatable("explosiveenhancement.underwater.blast"))
                     .description(OptionDescription.createBuilder()
                             .text(Text.translatable("explosiveenhancement.underwater.blast.tooltip"))
-                            .webpImage(new Identifier("explosiveenhancement", "config/images/underwaterblast.webp"))
                             .build())
                     .binding(
                             defaults.showUnderwaterBlastWave,
@@ -201,7 +194,6 @@ public class ExplosiveConfig {
                     .description(OptionDescription.createBuilder()
                             .text(Text.translatable("explosiveenhancement.underwater.bubbleamount.tooltip"))
                             .text(Text.translatable("explosiveenhancement.underwater.bubbleamount.warningtooltip"))
-                            .webpImage(new Identifier("explosiveenhancement", "config/images/bubbles.webp"))
                             .build())
                     .binding(
                             defaults.bubbleAmount,
@@ -240,7 +232,6 @@ public class ExplosiveConfig {
                     .name(Text.translatable("explosiveenhancement.underwater.sparks"))
                     .description(OptionDescription.createBuilder()
                             .text(Text.translatable("explosiveenhancement.underwater.sparks.tooltip"))
-                            .webpImage(new Identifier("explosiveenhancement", "config/images/underwatersparks.webp"))
                             .build())
                     .binding(
                             defaults.showUnderwaterSparks,
@@ -287,7 +278,6 @@ public class ExplosiveConfig {
                     .name(Text.translatable("explosiveenhancement.dynamicexplosions.enabled"))
                     .description(OptionDescription.createBuilder()
                             .text(Text.translatable("explosiveenhancement.dynamicexplosions.enabled.tooltip"))
-                            .webpImage(new Identifier("explosiveenhancement", "config/images/dynamicexplosions.webp"))
                             .build())
                     .binding(
                             defaults.dynamicSize,
@@ -300,7 +290,6 @@ public class ExplosiveConfig {
                     .name(Text.translatable("explosiveenhancement.dynamicunderwater.enabled"))
                     .description(OptionDescription.createBuilder()
                             .text(Text.translatable("explosiveenhancement.dynamicunderwater.enabled.tooltip"))
-                            .webpImage(new Identifier("explosiveenhancement", "config/images/dynamicunderwater.webp"))
                             .build())
                     .binding(
                             defaults.dynamicUnderwater,
