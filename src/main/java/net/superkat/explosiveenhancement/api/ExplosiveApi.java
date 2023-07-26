@@ -76,7 +76,7 @@ public interface ExplosiveApi {
                 }
             } else {
                 if(config.debugLogs) {
-                    LOGGER.info("particle is being shown!");
+                    LOGGER.info("Particle is being shown!");
                 }
                 if(config.showBlastWave) {
                     world.addParticle(ExplosiveEnhancement.BLASTWAVE, isImportant, x, y, z, power * 1.75, 0, 0);
@@ -104,7 +104,7 @@ public interface ExplosiveApi {
                 }
             }
             if(config.debugLogs) {
-                LOGGER.info("particle finished!");
+                LOGGER.info("Particle finished!");
             }
         }
     }

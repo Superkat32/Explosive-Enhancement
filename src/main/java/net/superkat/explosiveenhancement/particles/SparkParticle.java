@@ -22,10 +22,6 @@ public class SparkParticle extends SpriteBillboardParticle {
             this.scale = (float) (INSTANCE.getConfig().sparkSize * (velX * 0.25f));
         }
         this.setVelocity(0D, 0D, 0D);
-//        this.gravityStrength = 0.008F;
-//        this.velocityX = velocityX;
-//        this.velocityY = velocityY;
-//        this.velocityZ = velocityZ;
         this.alpha = INSTANCE.getConfig().sparkOpacity;
         this.setSpriteForAge(spriteProvider);
     }

@@ -39,17 +39,6 @@ public class SmokeParticle extends SpriteBillboardParticle {
         }
         this.velocityY = velY / 1.85;
         this.gravityStrength = 3.0E-6F;
-//        this.scale = 1F;
-//        this.gravityStrength = 0.008F;
-//        this.velocityX = velX;
-//        this.velocityZ = velZ;
-//        this.setBoundingBoxSpacing(0.02F, 0.02F);
-//        this.velocityX = this.random.nextFloat() + 0.07;
-//        this.velocityY = 0;
-//        this.velocityZ = this.random.nextFloat() + 0.07;
-//        this.startX = x;
-//        this.startY = y;
-//        this.startZ = z;
         this.collidesWithWorld = true;
         this.setSpriteForAge(spriteProvider);
     }
@@ -62,20 +51,6 @@ public class SmokeParticle extends SpriteBillboardParticle {
         if (this.age++ >= this.maxAge) {
             this.markDead();
         } else {
-//            if (this.age == 1) {
-//                switch (direction) {
-//                    case 2 -> {
-//                        this.velocityX = this.velocityX * -1;
-//                    }
-//                    case 3 -> {
-//                        this.velocityZ = this.velocityZ * -1;
-//                    }
-//                    case 4 -> {
-//                        this.velocityX = this.velocityX * -1;
-//                        this.velocityZ = this.velocityZ * -1;
-//                    }
-//                }
-//            }
             this.setSpriteForAge(this.spriteProvider);
             if (this.age == 12) {
                 this.velocityX = 0;
