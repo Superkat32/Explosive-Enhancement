@@ -1,9 +1,7 @@
 package net.superkat.explosiveenhancement.mixin;
 
-import net.minecraft.particle.ParticleEffect;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 import net.superkat.explosiveenhancement.api.ExplosiveApi;
@@ -11,36 +9,42 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static net.superkat.explosiveenhancement.ExplosiveConfig.INSTANCE;
 import static net.superkat.explosiveenhancement.ExplosiveEnhancement.LOGGER;
 
 @Mixin(Explosion.class)
 public abstract class ExplosionMixin {
-	@Shadow @Final private Random random;
+	@Shadow @Final private World world;
+	@Shadow @Final private double y;
+	@Shadow @Final private double x;
+	@Shadow @Final private double z;
 	@Shadow @Final private float power;
-
 	@Shadow public abstract boolean shouldDestroy();
-
 	private boolean isUnderWater = false;
-
-	//TODO - Change redirect to inject and cancel
-	@Redirect(method = "affectWorld(Z)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;addParticle(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V"))
-	public void affectWorld(World world, ParticleEffect parameters, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
+	@Inject(method = "affectWorld(Z)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;addParticle(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V"), cancellable = true)
+	public void affectWorld(boolean particles, CallbackInfo ci) {
 //		if(INSTANCE.getConfig().debugLogs) {
 //			LOGGER.info("affectWorld has been called!");
 //		}
-		BlockPos pos = BlockPos.ofFloored(x, y, z);
-		if(INSTANCE.getConfig().underwaterExplosions && world.getFluidState(pos).isIn(FluidTags.WATER)) {
-			//If underwater
-			isUnderWater = true;
+		if(INSTANCE.getConfig().modEnabled) {
 			if(INSTANCE.getConfig().debugLogs) {
-				LOGGER.info("Particle is underwater!");
+				LOGGER.info("affectWorld has been called!");
 			}
+			BlockPos pos = BlockPos.ofFloored(this.x, this.y, this.z);
+			if(INSTANCE.getConfig().underwaterExplosions && this.world.getFluidState(pos).isIn(FluidTags.WATER)) {
+				//If underwater
+				isUnderWater = true;
+				if(INSTANCE.getConfig().debugLogs) {
+					LOGGER.info("particle is underwater!");
+				}
+			}
+			ExplosiveApi.spawnParticles(world, x, y, z, power, isUnderWater, this.shouldDestroy());
+			ci.cancel();
 		}
 //		ExplosiveApi.spawnParticles(world, x, y, z, this.power, isUnderWater, this.shouldDestroy(), true, false);
-		ExplosiveApi.spawnParticles(world, x, y, z, power, isUnderWater, this.shouldDestroy());
 //		float power = INSTANCE.getConfig().dynamicSize ? this.power : 4;
 //		double y = INSTANCE.getConfig().attemptBetterSmallExplosions && power == 1 ? initY + INSTANCE.getConfig().smallExplosionYOffset : initY;
 //		if(INSTANCE.getConfig().modEnabled) {

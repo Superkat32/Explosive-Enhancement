@@ -51,25 +51,32 @@ public interface ExplosiveApi {
      * @param isImportant Renders from afar
      */
     static void spawnParticles(World world, double x, double y, double z, float power, boolean isUnderWater, boolean didDestroyBlocks, boolean allowVanilla, boolean isImportant) {
-        LOGGER.info("yay");
         ExplosiveConfig config = ExplosiveConfig.INSTANCE.getConfig(); //Thanks Andrew Grant!!!
         if(config.debugLogs) {
-            LOGGER.info("affectWorld has been called!");
+            LOGGER.info("ExplosiveApi has been called!");
         }
-//        BlockPos pos = BlockPos.ofFloored(x, y, z);
-//        if(config.underwaterExplosions && world.getFluidState(pos).isIn(FluidTags.WATER)) {
-//            //If underwater
-//            isUnderWater = true;
-//            if(config.debugLogs) {
-//                LOGGER.info("Particle is underwater!");
-//            }
-//        }
         power = config.dynamicSize ? power : 4;
         y = config.attemptBetterSmallExplosions && power == 1 ? y + config.smallExplosionYOffset : y;
         if(config.modEnabled) {
-            if(!isUnderWater) {
+            if (isUnderWater) {
+                power = config.dynamicUnderwater ? power : 4;
+                if(config.showUnderwaterBlastWave) {
+                    world.addParticle(ExplosiveEnhancement.UNDERWATERBLASTWAVE, isImportant, x, y + 0.5, z, power * 1.75, 0, 0);
+                }
+                if(config.showShockwave) {
+                    world.addParticle(ExplosiveEnhancement.SHOCKWAVE, isImportant, x, y + 0.5, z, power * 1.25, 0, 0);
+                } else if (config.showUnderwaterSparks) {
+                    world.addParticle(ExplosiveEnhancement.BLANK_SHOCKWAVE, isImportant, x, y + 0.5, z, power * 1.25, 0, 0);
+                }
+                for(int total = config.bubbleAmount; total >= 1; total--) {
+                    world.addParticle(ExplosiveEnhancement.BUBBLE, isImportant, x, y, z, nextBetween(1, 7) * 0.3 * nextBetween(-1, 1), nextBetween(1, 10) * 0.1, nextBetween(1, 7) * 0.3 * nextBetween(-1, 1));
+                }
+                if(config.showDefaultExplosionUnderwater) {
+                    showDefaultParticles(world, x, y, z, power, didDestroyBlocks, allowVanilla, isImportant);
+                }
+            } else {
                 if(config.debugLogs) {
-                    LOGGER.info("Particle is being shown!");
+                    LOGGER.info("particle is being shown!");
                 }
                 if(config.showBlastWave) {
                     world.addParticle(ExplosiveEnhancement.BLASTWAVE, isImportant, x, y, z, power * 1.75, 0, 0);
@@ -95,26 +102,10 @@ public interface ExplosiveApi {
                 if(config.showDefaultExplosion) {
                     showDefaultParticles(world, x, y, z, power, didDestroyBlocks, allowVanilla, isImportant);
                 }
-            } else {
-                power = config.dynamicUnderwater ? power : 4;
-                if(config.showUnderwaterBlastWave) {
-                    world.addParticle(ExplosiveEnhancement.UNDERWATERBLASTWAVE, isImportant, x, y + 0.5, z, power * 1.75, 0, 0);
-                }
-                if(config.showShockwave) {
-                    world.addParticle(ExplosiveEnhancement.SHOCKWAVE, isImportant, x, y + 0.5, z, power * 1.25, 0, 0);
-                } else if (config.showUnderwaterSparks) {
-                    world.addParticle(ExplosiveEnhancement.BLANK_SHOCKWAVE, isImportant, x, y + 0.5, z, power * 1.25, 0, 0);
-                }
-                for(int total = config.bubbleAmount; total >= 1; total--) {
-                    world.addParticle(ExplosiveEnhancement.BUBBLE, isImportant, x, y, z, nextBetween(1, 7) * 0.3 * nextBetween(-1, 1), nextBetween(1, 10) * 0.1, nextBetween(1, 7) * 0.3 * nextBetween(-1, 1));
-                }
-                if(config.showDefaultExplosionUnderwater) {
-                    showDefaultParticles(world, x, y, z, power, didDestroyBlocks, allowVanilla, isImportant);
-                }
             }
-        } else {
-            //TODO - Replace redirect with inject and cancel!!!!
-            showDefaultParticles(world, x, y, z, power, didDestroyBlocks, allowVanilla, isImportant);
+            if(config.debugLogs) {
+                LOGGER.info("particle finished!");
+            }
         }
     }
 
