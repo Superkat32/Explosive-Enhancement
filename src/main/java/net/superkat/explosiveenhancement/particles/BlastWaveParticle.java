@@ -21,7 +21,7 @@ public class BlastWaveParticle extends SpriteBillboardParticle {
         super(world, x, y + 0.5, z, 0.0, 0.0, 0.0);
         this.scale = (float) velX;
         this.setVelocity(0D, 0D, 0D);
-        this.maxAge = 15;
+        this.maxAge = (int) (15 + (Math.floor(velX / 5)));
         this.sprites = sprites;
         this.setSpriteForAge(sprites);
     }

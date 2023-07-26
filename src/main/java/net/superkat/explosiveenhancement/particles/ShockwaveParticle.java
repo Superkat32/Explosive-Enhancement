@@ -16,7 +16,7 @@ public class ShockwaveParticle extends SpriteBillboardParticle {
     ShockwaveParticle(ClientWorld world, double x, double y, double z, double velX, double velY, double velZ, SpriteProvider spriteProvider) {
         super(world, x, y, z);
         this.spriteProvider = spriteProvider;
-        this.maxAge = 9;
+        this.maxAge = (int) (9 + Math.floor(velX / 5));
         this.scale = (float) velX;
         this.setVelocity(0D, 0D, 0D);
         this.setSpriteForAge(spriteProvider);

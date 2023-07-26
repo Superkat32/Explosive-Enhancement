@@ -15,7 +15,7 @@ public class SparkParticle extends SpriteBillboardParticle {
     SparkParticle(ClientWorld world, double x, double y, double z, double velX, double velY, double velZ, SpriteProvider spriteProvider) {
         super(world, x, y, z);
         this.spriteProvider = spriteProvider;
-        this.maxAge = 5;
+        this.maxAge = (int) (5 + Math.floor(velX / 5));
         if(velX == 0) {
             this.scale = INSTANCE.getConfig().sparkSize;
         } else {
