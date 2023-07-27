@@ -12,12 +12,14 @@ import static net.superkat.explosiveenhancement.ExplosiveConfig.INSTANCE;
 @Environment(EnvType.CLIENT)
 public class ShockwaveParticle extends SpriteBillboardParticle {
     private final SpriteProvider spriteProvider;
+    boolean important;
 
     ShockwaveParticle(ClientWorld world, double x, double y, double z, double velX, double velY, double velZ, SpriteProvider spriteProvider) {
         super(world, x, y, z);
         this.spriteProvider = spriteProvider;
         this.maxAge = (int) (9 + Math.floor(velX / 5));
         this.scale = (float) velX;
+        important = velY == 1;
         this.setVelocity(0D, 0D, 0D);
         this.setSpriteForAge(spriteProvider);
     }
@@ -32,7 +34,7 @@ public class ShockwaveParticle extends SpriteBillboardParticle {
             this.velocityY -= (double)this.gravityStrength;
             this.move(this.velocityX, this.velocityY, this.velocityZ);
             if(this.age >= this.maxAge * 0.65 && INSTANCE.getConfig().showUnderwaterSparks) {
-                this.world.addParticle(ExplosiveEnhancement.UNDERWATERSPARKS, this.x, this.y, this.z, scale, this.velocityY, this.velocityZ);
+                this.world.addParticle(ExplosiveEnhancement.UNDERWATERSPARKS, important, this.x, this.y, this.z, scale, this.velocityY, this.velocityZ);
             }
             this.setSpriteForAge(this.spriteProvider);
         }
