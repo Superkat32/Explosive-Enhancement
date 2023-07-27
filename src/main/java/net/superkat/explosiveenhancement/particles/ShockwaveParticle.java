@@ -6,8 +6,7 @@ import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.DefaultParticleType;
 import net.superkat.explosiveenhancement.ExplosiveEnhancement;
-
-import static net.superkat.explosiveenhancement.ExplosiveConfig.INSTANCE;
+import net.superkat.explosiveenhancement.ExplosiveEnhancementClient;
 
 @Environment(EnvType.CLIENT)
 public class ShockwaveParticle extends SpriteBillboardParticle {
@@ -33,7 +32,8 @@ public class ShockwaveParticle extends SpriteBillboardParticle {
         } else {
             this.velocityY -= (double)this.gravityStrength;
             this.move(this.velocityX, this.velocityY, this.velocityZ);
-            if(this.age >= this.maxAge * 0.65 && INSTANCE.getConfig().showUnderwaterSparks) {
+            var config = ExplosiveEnhancementClient.getConfig();
+            if(this.age >= this.maxAge * 0.65 && config.showUnderwaterSparks) {
                 this.world.addParticle(ExplosiveEnhancement.UNDERWATERSPARKS, important, this.x, this.y, this.z, scale, this.velocityY, this.velocityZ);
             }
             this.setSpriteForAge(this.spriteProvider);

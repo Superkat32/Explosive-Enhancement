@@ -4,8 +4,8 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
-import net.superkat.explosiveenhancement.ExplosiveConfig;
 import net.superkat.explosiveenhancement.ExplosiveEnhancement;
+import net.superkat.explosiveenhancement.ExplosiveEnhancementClient;
 
 import static net.superkat.explosiveenhancement.ExplosiveEnhancement.LOGGER;
 
@@ -51,7 +51,7 @@ public interface ExplosiveApi {
      * @param isImportant Render from far away - ignores the user's config for this specific option
      */
     static void spawnParticles(World world, double x, double y, double z, float power, boolean isUnderWater, boolean didDestroyBlocks, boolean isImportant) {
-        ExplosiveConfig config = ExplosiveConfig.INSTANCE.getConfig(); //Thanks Andrew Grant!!!
+        var config = ExplosiveEnhancementClient.getConfig();
         if(config.modEnabled) {
             if(config.debugLogs) { LOGGER.info("ExplosiveApi has been called!"); }
             power = config.dynamicSize ? power : 4;

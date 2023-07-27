@@ -5,8 +5,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.DefaultParticleType;
-
-import static net.superkat.explosiveenhancement.ExplosiveConfig.INSTANCE;
+import net.superkat.explosiveenhancement.ExplosiveEnhancementClient;
 
 @Environment(EnvType.CLIENT)
 public class SparkParticle extends SpriteBillboardParticle {
@@ -14,15 +13,16 @@ public class SparkParticle extends SpriteBillboardParticle {
 
     SparkParticle(ClientWorld world, double x, double y, double z, double velX, double velY, double velZ, SpriteProvider spriteProvider) {
         super(world, x, y, z);
+        var config = ExplosiveEnhancementClient.getConfig();
         this.spriteProvider = spriteProvider;
         this.maxAge = (int) (5 + Math.floor(velX / 5));
         if(velX == 0) {
-            this.scale = INSTANCE.getConfig().sparkSize;
+            this.scale = config.sparkSize;
         } else {
-            this.scale = (float) (INSTANCE.getConfig().sparkSize * (velX * 0.25f));
+            this.scale = (float) (config.sparkSize * (velX * 0.25f));
         }
         this.setVelocity(0D, 0D, 0D);
-        this.alpha = INSTANCE.getConfig().sparkOpacity;
+        this.alpha = config.sparkOpacity;
         this.setSpriteForAge(spriteProvider);
     }
 
