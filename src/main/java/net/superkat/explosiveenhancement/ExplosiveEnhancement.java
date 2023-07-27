@@ -25,6 +25,7 @@ public class ExplosiveEnhancement implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		//Please git I am begging you not to break
 		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "blastwave"), BLASTWAVE);
 		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "fireball"), FIREBALL);
 		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "blank_fireball"), BLANK_FIREBALL);
