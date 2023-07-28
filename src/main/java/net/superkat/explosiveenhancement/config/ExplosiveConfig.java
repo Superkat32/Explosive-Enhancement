@@ -1,4 +1,4 @@
-package net.superkat.explosiveenhancement;
+package net.superkat.explosiveenhancement.config;
 
 import dev.isxander.yacl.api.ConfigCategory;
 import dev.isxander.yacl.api.Option;
@@ -16,7 +16,7 @@ import net.minecraft.text.Text;
 
 import java.nio.file.Path;
 
-public class ExplosiveConfig {
+public class ExplosiveConfig extends ExplosiveNoYACLConfig{
 
     public static final ConfigInstance<ExplosiveConfig> INSTANCE = new GsonConfigInstance<>(ExplosiveConfig.class, Path.of("./config/explosiveenhancement.json"));
 
