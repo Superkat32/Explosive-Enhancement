@@ -14,7 +14,7 @@ public class ExplosiveEnhancementClient implements ClientModInitializer {
         //Loads the config, powered by YACL
         //If YACL isn't found, then the "config" will only be the default settings
         //This is to allow developers using the API to not have to worry about an extra dependency
-        if(FabricLoader.getInstance().isModLoaded("yet_another_config_lib_v3")) {
+        if(FabricLoader.getInstance().isModLoaded("yet-another-config-lib")) {
             ExplosiveConfig.INSTANCE.load();
         } else if(!FabricLoader.getInstance().isDevelopmentEnvironment()) {
             ExplosiveEnhancement.LOGGER.warn("YetAnotherConfigLib is not installed! If you wish to edit the config, please install it!");
@@ -34,7 +34,7 @@ public class ExplosiveEnhancementClient implements ClientModInitializer {
 
     public static ExplosiveNoYACLConfig getConfig() {
         var config = new ExplosiveNoYACLConfig();
-        if(FabricLoader.getInstance().isModLoaded("yet_another_config_lib_v3")) {
+        if(FabricLoader.getInstance().isModLoaded("yet-another-config-lib")) {
             config = new ExplosiveConfig();
         }
         return config;

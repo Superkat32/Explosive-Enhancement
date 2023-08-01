@@ -333,4 +333,8 @@ public class ExplosiveConfig extends ExplosiveNoYACLConfig{
         }).generateScreen(parent);
     }
 
+    public static ExplosiveConfig getInstance() {
+        return INSTANCE.getConfig();
+    }
+
 }
