@@ -24,7 +24,7 @@
       "net.superkat.explosiveenhancement.ExplosiveEnhancementClient"
     ],
     "modmenu": [
-      "net.superkat.explosiveenhancement.ModMenuIntegration"
+      "net.superkat.explosiveenhancement.config.ModMenuIntegration"
     ]
   },
   "mixins": [

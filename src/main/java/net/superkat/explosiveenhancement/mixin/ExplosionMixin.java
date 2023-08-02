@@ -2,11 +2,10 @@ package net.superkat.explosiveenhancement.mixin;
 
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
-import net.superkat.explosiveenhancement.ExplosiveEnhancementClient;
 import net.superkat.explosiveenhancement.api.ExplosiveApi;
+import net.superkat.explosiveenhancement.config.ExplosiveConfig;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -15,10 +14,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static net.superkat.explosiveenhancement.ExplosiveEnhancement.LOGGER;
+//import static net.superkat.explosiveenhancement.ExplosiveEnhancementClient.config;
 
 @Mixin(Explosion.class)
 public abstract class ExplosionMixin {
-	@Shadow @Final private Random random;
 	@Shadow @Final private float power;
 	@Shadow @Final private Explosion.DestructionType destructionType;
 	@Shadow @Final private double x;
@@ -28,10 +27,11 @@ public abstract class ExplosionMixin {
 	private boolean isUnderWater = false;
 	@Inject(method = "affectWorld(Z)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;addParticle(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V"), cancellable = true)
 	public void affectWorld(boolean particles, CallbackInfo ci) {
-		var config = ExplosiveEnhancementClient.getConfig();
+//		ExplosiveConfig config = ExplosiveEnhancementClient.getConfig();
 //		if(FabricLoader.getInstance().isModLoaded("yet_another_config_lib_v3")) {
 //			config = ExplosiveConfig.INSTANCE.getConfig(); //Thanks Andrew Grant!!!
 //		}
+		ExplosiveConfig config = ExplosiveConfig.INSTANCE;
 		if (config.modEnabled) {
 			if (config.debugLogs) {
 				LOGGER.info("affectWorld has been called!");

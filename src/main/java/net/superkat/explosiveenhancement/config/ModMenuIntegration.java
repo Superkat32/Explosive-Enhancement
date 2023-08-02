@@ -1,12 +1,15 @@
-package net.superkat.explosiveenhancement;
+package net.superkat.explosiveenhancement.config;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
-import net.superkat.explosiveenhancement.config.ExplosiveConfig;
+import net.superkat.explosiveenhancement.ExplosiveEnhancementClient;
 
 public class ModMenuIntegration implements ModMenuApi {
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
-        return ExplosiveConfig::makeScreen;
+        if(!ExplosiveEnhancementClient.YaclLoaded()) {
+            return null;
+        }
+        return YaclIntegration::makeScreen;
     }
 }

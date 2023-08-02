@@ -5,7 +5,8 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.DefaultParticleType;
-import net.superkat.explosiveenhancement.ExplosiveEnhancementClient;
+
+import static net.superkat.explosiveenhancement.ExplosiveEnhancementClient.config;
 
 @Environment(EnvType.CLIENT)
 public class UnderwaterSparkParticle extends SpriteBillboardParticle {
@@ -13,7 +14,7 @@ public class UnderwaterSparkParticle extends SpriteBillboardParticle {
 
     UnderwaterSparkParticle(ClientWorld world, double x, double y, double z, double velX, double velY, double velZ, SpriteProvider spriteProvider) {
         super(world, x, y, z);
-        var config = ExplosiveEnhancementClient.getConfig();
+//        var config = ExplosiveEnhancementClient.getConfig();
         this.spriteProvider = spriteProvider;
         this.maxAge = (int) (5 + Math.floor(velX / 5));
         if(velX == 0) {
