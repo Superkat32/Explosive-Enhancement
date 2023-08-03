@@ -15,7 +15,7 @@ import net.superkat.explosiveenhancement.ExplosiveEnhancementClient;
 public class YaclIntegration {
     public static Screen makeScreen(Screen parent) {
         ExplosiveConfig config = ExplosiveEnhancementClient.config;
-        ExplosiveConfig defaults = ExplosiveConfig.INSTANCE;
+        ExplosiveConfig defaults = new ExplosiveConfig();
         var yacl = YetAnotherConfigLib.createBuilder()
                 .title(Text.of("title"))
                 .save(config::save);
@@ -305,12 +305,5 @@ public class YaclIntegration {
         yacl.category(extrasCategoryBuilder.build());
 
         return yacl.build().generateScreen(parent);
-
-//            return builder
-//                    .title(Text.translatable("explosiveenhancement.title"))
-//                    .category(defaultCategoryBuilder.build())
-//                    .category(dynamicCategoryBuilder.build())
-//                    .category(extrasCategoryBuilder.build());
-//        }).generateScreen(parent);
     }
 }
