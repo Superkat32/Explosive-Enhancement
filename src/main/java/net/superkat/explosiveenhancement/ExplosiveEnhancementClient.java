@@ -31,6 +31,6 @@ public class ExplosiveEnhancementClient implements ClientModInitializer {
     }
 
     public static boolean YaclLoaded() {
-        return FabricLoader.getInstance().isModLoaded("yet-another-config-lib");
+        return FabricLoader.getInstance().isModLoaded("yet_another_config_lib_v3");
     }
 }
