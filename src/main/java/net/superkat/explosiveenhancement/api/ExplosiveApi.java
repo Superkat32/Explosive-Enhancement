@@ -52,7 +52,6 @@ public interface ExplosiveApi {
      * @param isImportant Render from far away - ignores the user's config for this specific option
      */
     static void spawnParticles(World world, double x, double y, double z, float power, boolean isUnderWater, boolean didDestroyBlocks, boolean isImportant) {
-//        var config = ExplosiveEnhancementClient.getConfig();
         ExplosiveConfig config = ExplosiveEnhancementClient.config;
         if(config.modEnabled) {
             if(config.debugLogs) { LOGGER.info("ExplosiveApi has been called!"); }
@@ -108,7 +107,7 @@ public interface ExplosiveApi {
         }
     }
 
-    static void showDefaultParticles(World world, double x, double y, double z, float power, boolean didDestroyBlocks, boolean isImportant) {
+    private static void showDefaultParticles(World world, double x, double y, double z, float power, boolean didDestroyBlocks, boolean isImportant) {
         if(!(power < 2.0f) && didDestroyBlocks) {
             world.addParticle(ParticleTypes.EXPLOSION_EMITTER, isImportant, x, y, z, 1.0, 0.0, 0.0);
         } else {
