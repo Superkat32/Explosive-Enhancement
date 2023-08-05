@@ -4,8 +4,8 @@ import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
-import net.superkat.explosiveenhancement.ExplosiveEnhancementClient;
 import net.superkat.explosiveenhancement.api.ExplosiveApi;
+import net.superkat.explosiveenhancement.config.ExplosiveConfig;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -28,7 +28,7 @@ public abstract class ExplosionMixin {
 	private boolean isUnderWater = false;
 	@Inject(method = "affectWorld(Z)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;addParticle(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V"), cancellable = true)
 	public void affectWorld(boolean particles, CallbackInfo ci) {
-		var config = ExplosiveEnhancementClient.getConfig();
+		ExplosiveConfig config = ExplosiveConfig.INSTANCE;
 		if (config.modEnabled) {
 			if (config.debugLogs) {
 				LOGGER.info("affectWorld has been called!");
