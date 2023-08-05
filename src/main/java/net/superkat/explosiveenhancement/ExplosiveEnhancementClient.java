@@ -4,19 +4,17 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.superkat.explosiveenhancement.config.ExplosiveConfig;
-import net.superkat.explosiveenhancement.config.ExplosiveNoYACLConfig;
 import net.superkat.explosiveenhancement.particles.*;
 
 public class ExplosiveEnhancementClient implements ClientModInitializer {
 
+    public static ExplosiveConfig config = ExplosiveConfig.INSTANCE;
+
     @Override
     public void onInitializeClient() {
-        //Loads the config, powered by YACL
-        //If YACL isn't found, then the "config" will only be the default settings
-        //This is to allow developers using the API to not have to worry about an extra dependency
-        if(FabricLoader.getInstance().isModLoaded("yet_another_config_lib_v3")) {
-            ExplosiveConfig.INSTANCE.load();
-        } else if(!FabricLoader.getInstance().isDevelopmentEnvironment()) {
+        //Loads the config, GUI powered by YACL
+        ExplosiveConfig.load();
+        if(!FabricLoader.getInstance().isDevelopmentEnvironment() && !YaclLoaded()) {
             ExplosiveEnhancement.LOGGER.warn("YetAnotherConfigLib is not installed! If you wish to edit the config, please install it!");
         }
 
@@ -32,11 +30,7 @@ public class ExplosiveEnhancementClient implements ClientModInitializer {
         ParticleFactoryRegistry.getInstance().register(ExplosiveEnhancement.UNDERWATERSPARKS, UnderwaterSparkParticle.Factory::new);
     }
 
-    public static ExplosiveNoYACLConfig getConfig() {
-        var config = new ExplosiveNoYACLConfig();
-        if(FabricLoader.getInstance().isModLoaded("yet_another_config_lib_v3")) {
-            config = new ExplosiveConfig();
-        }
-        return config;
+    public static boolean YaclLoaded() {
+        return FabricLoader.getInstance().isModLoaded("yet_another_config_lib_v3");
     }
 }

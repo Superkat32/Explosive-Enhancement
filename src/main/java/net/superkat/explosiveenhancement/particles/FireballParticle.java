@@ -6,7 +6,8 @@ import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.DefaultParticleType;
 import net.superkat.explosiveenhancement.ExplosiveEnhancement;
-import net.superkat.explosiveenhancement.ExplosiveEnhancementClient;
+
+import static net.superkat.explosiveenhancement.ExplosiveEnhancementClient.config;
 
 @Environment(EnvType.CLIENT)
 public class FireballParticle extends SpriteBillboardParticle {
@@ -32,7 +33,6 @@ public class FireballParticle extends SpriteBillboardParticle {
         } else {
             this.velocityY -= (double)this.gravityStrength;
             this.move(this.velocityX, this.velocityY, this.velocityZ);
-            var config = ExplosiveEnhancementClient.getConfig();
             if(this.age >= this.maxAge * 0.65 && config.showSparks) {
                 this.world.addParticle(ExplosiveEnhancement.SPARKS, important, this.x, this.y, this.z, scale, this.velocityY, this.velocityZ);
             }
