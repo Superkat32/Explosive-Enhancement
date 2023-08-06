@@ -49,7 +49,7 @@ public interface ExplosiveApi {
      * @param power The effect's size
      * @param isUnderWater Show the underwater effect
      * @param didDestroyBlocks Helps to determine the particle type for the vanilla particles
-     * @param isImportant Render from far away - ignores the user's config for this specific option
+     * @param isImportant Render from far away - if true, ignores the user's config for this specific option
      */
     static void spawnParticles(World world, double x, double y, double z, float power, boolean isUnderWater, boolean didDestroyBlocks, boolean isImportant) {
         ExplosiveConfig config = ExplosiveEnhancementClient.config;
@@ -57,6 +57,7 @@ public interface ExplosiveApi {
             if(config.debugLogs) { LOGGER.info("ExplosiveApi has been called!"); }
             power = config.dynamicSize ? power : 4;
             y = config.attemptBetterSmallExplosions && power == 1 ? y + config.smallExplosionYOffset : y;
+            isImportant = isImportant || config.alwaysShow;
             float blastwavePower = power * 1.75f;
             float fireballPower = power * 1.25f;
             float smokePower = power * 0.4f;

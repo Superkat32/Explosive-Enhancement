@@ -285,6 +285,16 @@ public class YaclIntegration {
                 )
                 .controller(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
+        var alwaysShow = Option.createBuilder(boolean.class)
+                .name(Text.translatable("explosiveenhancement.extras.alwaysshow"))
+                .tooltip(Text.translatable("explosiveenhancement.extras.alwaysshow.tooltip"))
+                .binding(
+                        defaults.alwaysShow,
+                        () -> config.alwaysShow,
+                        val -> config.alwaysShow = val
+                )
+                .controller(booleanOption -> new BooleanController(booleanOption, true))
+                .build();
         var debugLogs = Option.createBuilder(boolean.class)
                 .name(Text.translatable("explosiveenhancement.extras.logs"))
                 .tooltip(Text.translatable("explosiveenhancement.extras.logs.tooltip"))
@@ -297,6 +307,7 @@ public class YaclIntegration {
                 .controller(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
         extrasGroup.option(modEnabled);
+        extrasGroup.option(alwaysShow);
         extrasGroup.option(debugLogs);
         extrasCategoryBuilder.group(extrasGroup.build());
 
