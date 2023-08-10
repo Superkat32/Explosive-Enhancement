@@ -61,10 +61,12 @@
 
   "explosiveenhancement.extras.group": "Extras",
   "explosiveenhancement.extras.group.tooltip": "Extra options",
+  "explosiveenhancement.extras.enabled": "Mod Enabled",
+  "explosiveenhancement.extras.enabled.tooltip": "Should the mod be enabled?",
+  "explosiveenhancement.extras.alwaysshow": "Always Show Particles",
+  "explosiveenhancement.extras.alwaysshow.tooltip": "If enabled, the explosion particles will render from further away AND on lower particle settings. Use wisely!",
   "explosiveenhancement.extras.logs": "Debug Logs",
   "explosiveenhancement.extras.logs.tooltip": "Extra console logs to help debug, if needed",
-  "explosiveenhancement.extras.logs.warningtooltip": "§cWarning§r: Will spam logs!",
-  "explosiveenhancement.extras.enabled": "Mod Enabled",
-  "explosiveenhancement.extras.enabled.tooltip": "Should the mod be enabled?"
+  "explosiveenhancement.extras.logs.warningtooltip": "§cWarning§r: Will spam logs!"
 
 }
