@@ -309,6 +309,7 @@ public class YaclIntegration {
         dynamicCategoryBuilder.group(dynamicExplosionGroup.build());
 
 
+
         var extrasCategoryBuilder = ConfigCategory.createBuilder()
                 .name(Text.translatable("explosiveenhancement.category.extras"));
 
@@ -331,6 +332,18 @@ public class YaclIntegration {
                 )
                 .customController(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
+        var alwaysShow = Option.<Boolean>createBuilder()
+                .name(Text.translatable("explosiveenhancement.extras.alwaysshow"))
+                .description(OptionDescription.createBuilder()
+                        .text(Text.translatable("explosiveenhancement.extras.alwaysshow.tooltip"))
+                        .build())
+                .binding(
+                        defaults.alwaysShow,
+                        () -> config.alwaysShow,
+                        val -> config.alwaysShow = val
+                )
+                .customController(booleanOption -> new BooleanController(booleanOption, true))
+                .build();
         var debugLogs = Option.<Boolean>createBuilder()
                 .name(Text.translatable("explosiveenhancement.extras.logs"))
                 .description(OptionDescription.createBuilder()
@@ -345,6 +358,7 @@ public class YaclIntegration {
                 .customController(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
         extrasGroup.option(modEnabled);
+        extrasGroup.option(alwaysShow);
         extrasGroup.option(debugLogs);
         extrasCategoryBuilder.group(extrasGroup.build());
 
