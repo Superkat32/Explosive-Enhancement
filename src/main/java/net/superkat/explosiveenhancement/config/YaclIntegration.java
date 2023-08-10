@@ -332,7 +332,7 @@ public class YaclIntegration {
                 )
                 .customController(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
-        var alwaysShow = Option.createBuilder(boolean.class)
+        var alwaysShow = Option.<Boolean>createBuilder()
                 .name(Text.translatable("explosiveenhancement.extras.alwaysshow"))
                 .description(OptionDescription.createBuilder()
                         .text(Text.translatable("explosiveenhancement.extras.alwaysshow.tooltip"))
