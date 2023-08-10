@@ -16,7 +16,7 @@ import static net.superkat.explosiveenhancement.ExplosiveEnhancement.LOGGER;
 import static net.superkat.explosiveenhancement.ExplosiveEnhancementClient.config;
 
 @Mixin(Explosion.class)
-public abstract class ExplosionMixin implements ExplosiveApi {
+public abstract class ExplosionMixin {
 	@Shadow @Final private float power;
 	@Shadow @Final private double x;
 	@Shadow @Final private double y;
