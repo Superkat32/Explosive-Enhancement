@@ -35,6 +35,7 @@ public class ExplosiveConfig {
     public boolean attemptBetterSmallExplosions = true;
     public double smallExplosionYOffset = -0.5;
     public boolean modEnabled = true;
+    public boolean alwaysShow = false;
     public boolean debugLogs = false;
 
     public static ExplosiveConfig load() {

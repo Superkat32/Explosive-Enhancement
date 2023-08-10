@@ -7,9 +7,9 @@ import net.superkat.explosiveenhancement.ExplosiveEnhancementClient;
 public class ModMenuIntegration implements ModMenuApi {
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
-        if(!ExplosiveEnhancementClient.YaclLoaded()) {
-            return null;
+        if(ExplosiveEnhancementClient.YaclLoaded()) {
+            return YaclIntegration::makeScreen;
         }
-        return YaclIntegration::makeScreen;
+        return parent -> null;  
     }
 }
