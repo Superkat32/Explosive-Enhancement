@@ -13,14 +13,17 @@ public class ExplosiveHandler {
         ExplosiveConfig config = ExplosiveEnhancementClient.config;
         if(config.modEnabled) {
             if(config.debugLogs) { LOGGER.info("ExplosiveApi has been called!"); }
-            power = config.dynamicSize ? power : 4;
+            if(isUnderWater) {
+                power = config.dynamicUnderwater ? power : 4;
+            } else {
+                power = config.dynamicSize ? power : 4;
+            }
             y = config.attemptBetterSmallExplosions && power == 1 ? y + config.smallExplosionYOffset : y;
             isImportant = isImportant || config.alwaysShow;
             float blastwavePower = power * 1.75f;
             float fireballPower = power * 1.25f;
             float smokePower = power * 0.4f;
             if (isUnderWater) {
-                power = config.dynamicUnderwater ? power : 4;
                 if(config.showUnderwaterBlastWave) {
                     world.addParticle(ExplosiveEnhancement.UNDERWATERBLASTWAVE, isImportant, x, y + 0.5, z, blastwavePower, 0, 0);
                 }
