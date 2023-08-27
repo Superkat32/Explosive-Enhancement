@@ -38,6 +38,11 @@ public class ExplosiveConfig {
     public boolean alwaysShow = false;
     public boolean debugLogs = false;
 
+    //The following two methods were borrowed and slightly edited
+    //with permission from Enjarai's absolutely amazing Do A Barrel Roll mod.
+    //Please check it out!
+    // https://github.com/enjarai/do-a-barrel-roll
+
     public static ExplosiveConfig load() {
         ExplosiveConfig config = null;
         if(file.exists()) {
