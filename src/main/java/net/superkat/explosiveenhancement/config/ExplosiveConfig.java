@@ -1,18 +1,25 @@
 package net.superkat.explosiveenhancement.config;
 
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.fabricmc.loader.api.FabricLoader;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 
 public class ExplosiveConfig {
 
-    public static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-    public static final Path CONFIG_FILE = FabricLoader.getInstance().getConfigDir().resolve("explosiveenhancement.json");
-    public static File file = CONFIG_FILE.toFile();
+    public static final Gson GSON = new GsonBuilder()
+            .setPrettyPrinting()
+            .serializeNulls()
+            .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+            .create();
+    public static final Path PATH = FabricLoader.getInstance().getConfigDir().resolve("explosiveenhancement.json");
+    public static File file = PATH.toFile();
     public static ExplosiveConfig INSTANCE = load();
 
     public boolean showBlastWave = true;
@@ -38,7 +45,7 @@ public class ExplosiveConfig {
     public boolean alwaysShow = false;
     public boolean debugLogs = false;
 
-    //The following two methods were borrowed and slightly edited
+    //The following two methods and the above static variables were borrowed and slightly edited
     //with permission from Enjarai's absolutely amazing Do A Barrel Roll mod.
     //Please check it out!
     // https://github.com/enjarai/do-a-barrel-roll
@@ -64,7 +71,7 @@ public class ExplosiveConfig {
     }
 
     public void save() {
-        try (Writer writer = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8)) {
+        try (Writer writer = Files.newBufferedWriter(PATH, StandardCharsets.UTF_8, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.CREATE)) {
             GSON.toJson(this, writer);
         } catch (IOException e) {
             e.printStackTrace();
