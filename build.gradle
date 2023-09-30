@@ -38,7 +38,11 @@ dependencies {
 	modApi "com.terraformersmc:modmenu:${modmenu_version}"
 
 	//YACL
-	modImplementation "dev.isxander.yacl:yet-another-config-lib-fabric:${yacl_version}"
+	modImplementation("dev.isxander.yacl:yet-another-config-lib-fabric:${yacl_version}") {
+		exclude(group: "org.quiltmc.parsers")
+		exclude(group: "com.twelvemonkeys.common")
+		exclude(group: "com.twelvemonkeys.imageio")
+	}
 
 
 	// Uncomment the following line to enable the deprecated Fabric API modules.
