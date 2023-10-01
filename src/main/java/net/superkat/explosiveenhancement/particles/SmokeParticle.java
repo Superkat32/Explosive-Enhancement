@@ -5,13 +5,13 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.util.math.MathHelper;
+
+import static net.superkat.explosiveenhancement.ExplosiveEnhancementClient.config;
 
 @Environment(EnvType.CLIENT)
 public class SmokeParticle extends SpriteBillboardParticle {
     private final SpriteProvider spriteProvider;
-//    private final double startX;
-//    private final double startY;
-//    private final double startZ;
 
     SmokeParticle(ClientWorld world, double x, double y, double z, double velX, double velY, double velZ, SpriteProvider spriteProvider) {
         super(world, x, y, z);
@@ -39,43 +39,17 @@ public class SmokeParticle extends SpriteBillboardParticle {
         }
         this.velocityY = velY / 1.85;
         this.gravityStrength = 3.0E-6F;
-//        this.scale = 1F;
-//        this.gravityStrength = 0.008F;
-//        this.velocityX = velX;
-//        this.velocityZ = velZ;
-//        this.setBoundingBoxSpacing(0.02F, 0.02F);
-//        this.velocityX = this.random.nextFloat() + 0.07;
-//        this.velocityY = 0;
-//        this.velocityZ = this.random.nextFloat() + 0.07;
-//        this.startX = x;
-//        this.startY = y;
-//        this.startZ = z;
         this.collidesWithWorld = true;
         this.setSpriteForAge(spriteProvider);
     }
 
     public void tick() {
-//        int direction = this.random.nextBetween(1, 4);
         this.prevPosX = this.x;
         this.prevPosY = this.y;
         this.prevPosZ = this.z;
         if (this.age++ >= this.maxAge) {
             this.markDead();
         } else {
-//            if (this.age == 1) {
-//                switch (direction) {
-//                    case 2 -> {
-//                        this.velocityX = this.velocityX * -1;
-//                    }
-//                    case 3 -> {
-//                        this.velocityZ = this.velocityZ * -1;
-//                    }
-//                    case 4 -> {
-//                        this.velocityX = this.velocityX * -1;
-//                        this.velocityZ = this.velocityZ * -1;
-//                    }
-//                }
-//            }
             this.setSpriteForAge(this.spriteProvider);
             if (this.age == 12) {
                 this.velocityX = 0;
@@ -88,6 +62,18 @@ public class SmokeParticle extends SpriteBillboardParticle {
 
     public ParticleTextureSheet getType() {
         return ParticleTextureSheet.PARTICLE_SHEET_TRANSLUCENT;
+    }
+
+    //Makes the particle emissive
+    @Override
+    protected int getBrightness(float tint) {
+        if(config.emissiveExplosion && this.age <= this.maxAge * 0.12) {
+            return 15728880;
+        } else if (config.emissiveExplosion && this.age <= this.maxAge * 0.17) {
+            return MathHelper.clamp(super.getBrightness(tint) + this.age + 30, super.getBrightness(tint), 15728880);
+        } else {
+            return super.getBrightness(tint);
+        }
     }
 
     @Environment(EnvType.CLIENT)
