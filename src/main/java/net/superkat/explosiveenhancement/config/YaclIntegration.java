@@ -332,6 +332,30 @@ public class YaclIntegration {
                 )
                 .customController(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
+        var emissiveExplosion = Option.<Boolean>createBuilder()
+                .name(Text.translatable("explosiveenhancement.extras.emissive"))
+                .description(OptionDescription.createBuilder()
+                        .text(Text.translatable("explosiveenhancement.extras.emissive.tooltip"))
+                        .build())
+                .binding(
+                        defaults.emissiveExplosion,
+                        () -> config.emissiveExplosion,
+                        val -> config.emissiveExplosion = val
+                )
+                .customController(booleanOption -> new BooleanController(booleanOption, true))
+                .build();
+        var emissiveWaterExplosion = Option.<Boolean>createBuilder()
+                .name(Text.translatable("explosiveenhancement.extras.emissivewater"))
+                .description(OptionDescription.createBuilder()
+                        .text(Text.translatable("explosiveenhancement.extras.emissivewater.tooltip"))
+                        .build())
+                .binding(
+                        defaults.emissiveWaterExplosion,
+                        () -> config.emissiveWaterExplosion,
+                        val -> config.emissiveWaterExplosion = val
+                )
+                .customController(booleanOption -> new BooleanController(booleanOption, true))
+                .build();
         var alwaysShow = Option.<Boolean>createBuilder()
                 .name(Text.translatable("explosiveenhancement.extras.alwaysshow"))
                 .description(OptionDescription.createBuilder()
@@ -358,6 +382,8 @@ public class YaclIntegration {
                 .customController(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
         extrasGroup.option(modEnabled);
+        extrasGroup.option(emissiveExplosion);
+        extrasGroup.option(emissiveWaterExplosion);
         extrasGroup.option(alwaysShow);
         extrasGroup.option(debugLogs);
         extrasCategoryBuilder.group(extrasGroup.build());

@@ -44,6 +44,12 @@ public class SparkParticle extends SpriteBillboardParticle {
         return ParticleTextureSheet.PARTICLE_SHEET_TRANSLUCENT;
     }
 
+    //Makes the particle emissive
+    @Override
+    protected int getBrightness(float tint) {
+        return config.emissiveExplosion ? 15728880 : super.getBrightness(tint);
+    }
+
     @Environment(EnvType.CLIENT)
     public static class Factory implements ParticleFactory<DefaultParticleType> {
         private final SpriteProvider spriteProvider;

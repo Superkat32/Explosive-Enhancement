@@ -5,13 +5,13 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.util.math.MathHelper;
+
+import static net.superkat.explosiveenhancement.ExplosiveEnhancementClient.config;
 
 @Environment(EnvType.CLIENT)
 public class SmokeParticle extends SpriteBillboardParticle {
     private final SpriteProvider spriteProvider;
-//    private final double startX;
-//    private final double startY;
-//    private final double startZ;
 
     SmokeParticle(ClientWorld world, double x, double y, double z, double velX, double velY, double velZ, SpriteProvider spriteProvider) {
         super(world, x, y, z);
@@ -44,7 +44,6 @@ public class SmokeParticle extends SpriteBillboardParticle {
     }
 
     public void tick() {
-//        int direction = this.random.nextBetween(1, 4);
         this.prevPosX = this.x;
         this.prevPosY = this.y;
         this.prevPosZ = this.z;
@@ -63,6 +62,18 @@ public class SmokeParticle extends SpriteBillboardParticle {
 
     public ParticleTextureSheet getType() {
         return ParticleTextureSheet.PARTICLE_SHEET_TRANSLUCENT;
+    }
+
+    //Makes the particle emissive
+    @Override
+    protected int getBrightness(float tint) {
+        if(config.emissiveExplosion && this.age <= this.maxAge * 0.12) {
+            return 15728880;
+        } else if (config.emissiveExplosion && this.age <= this.maxAge * 0.17) {
+            return MathHelper.clamp(super.getBrightness(tint) + this.age + 30, super.getBrightness(tint), 15728880);
+        } else {
+            return super.getBrightness(tint);
+        }
     }
 
     @Environment(EnvType.CLIENT)
