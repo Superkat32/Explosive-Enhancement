@@ -285,6 +285,26 @@ public class YaclIntegration {
                 )
                 .controller(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
+        var emissiveExplosion = Option.createBuilder(boolean.class)
+                .name(Text.translatable("explosiveenhancement.extras.emissive"))
+                .tooltip(Text.translatable("explosiveenhancement.extras.emissive.tooltip"))
+                .binding(
+                        defaults.emissiveExplosion,
+                        () -> config.emissiveExplosion,
+                        val -> config.emissiveExplosion = val
+                )
+                .controller(booleanOption -> new BooleanController(booleanOption, true))
+                .build();
+        var emissiveWaterExplosion = Option.createBuilder(boolean.class)
+                .name(Text.translatable("explosiveenhancement.extras.emissivewater"))
+                .tooltip(Text.translatable("explosiveenhancement.extras.emissivewater.tooltip"))
+                .binding(
+                        defaults.emissiveWaterExplosion,
+                        () -> config.emissiveWaterExplosion,
+                        val -> config.emissiveWaterExplosion = val
+                )
+                .controller(booleanOption -> new BooleanController(booleanOption, true))
+                .build();
         var alwaysShow = Option.createBuilder(boolean.class)
                 .name(Text.translatable("explosiveenhancement.extras.alwaysshow"))
                 .tooltip(Text.translatable("explosiveenhancement.extras.alwaysshow.tooltip"))
@@ -307,6 +327,8 @@ public class YaclIntegration {
                 .controller(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
         extrasGroup.option(modEnabled);
+        extrasGroup.option(emissiveExplosion);
+        extrasGroup.option(emissiveWaterExplosion);
         extrasGroup.option(alwaysShow);
         extrasGroup.option(debugLogs);
         extrasCategoryBuilder.group(extrasGroup.build());
