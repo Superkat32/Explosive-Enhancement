@@ -342,7 +342,7 @@ public class YaclIntegration {
                         () -> config.emissiveExplosion,
                         val -> config.emissiveExplosion = val
                 )
-                .controller(booleanOption -> new BooleanController(booleanOption, true))
+                .customController(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
         var emissiveWaterExplosion = Option.<Boolean>createBuilder()
                 .name(Text.translatable("explosiveenhancement.extras.emissivewater"))
@@ -354,7 +354,7 @@ public class YaclIntegration {
                         () -> config.emissiveWaterExplosion,
                         val -> config.emissiveWaterExplosion = val
                 )
-                .controller(booleanOption -> new BooleanController(booleanOption, true))
+                .customController(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
         var alwaysShow = Option.<Boolean>createBuilder()
                 .name(Text.translatable("explosiveenhancement.extras.alwaysshow"))

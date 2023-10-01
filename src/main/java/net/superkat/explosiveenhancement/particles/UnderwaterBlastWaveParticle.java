@@ -22,7 +22,7 @@ public class UnderwaterBlastWaveParticle extends BlastWaveParticle{
     //emissive underwater explosion is turned off and emissive explosion is turned on
     @Override
     protected int getBrightness(float tint) {
-        BlockPos blockPos = new BlockPos(this.x, this.y, this.z);
+        BlockPos blockPos = BlockPos.ofFloored(this.x, this.y, this.z);
         return config.emissiveWaterExplosion ? 15728880 : this.world.isChunkLoaded(blockPos) ? WorldRenderer.getLightmapCoordinates(this.world, blockPos) : 0;
 //        return config.emissiveWaterExplosion ? 15728880 : super.getBrightness(tint);
     }
