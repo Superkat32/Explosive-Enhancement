@@ -12,6 +12,8 @@ import net.minecraft.util.math.Quaternion;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3f;
 
+import static net.superkat.explosiveenhancement.ExplosiveEnhancementClient.config;
+
 @Environment(EnvType.CLIENT)
 public class BlastWaveParticle extends SpriteBillboardParticle {
     private final SpriteProvider sprites;
@@ -74,6 +76,12 @@ public class BlastWaveParticle extends SpriteBillboardParticle {
     @Override
     public ParticleTextureSheet getType() {
         return ParticleTextureSheet.PARTICLE_SHEET_TRANSLUCENT;
+    }
+
+    //Makes the particle emissive
+    @Override
+    protected int getBrightness(float tint) {
+        return config.emissiveExplosion ? 15728880 : super.getBrightness(tint);
     }
 
     @Override

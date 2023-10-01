@@ -42,6 +42,8 @@ public class ExplosiveConfig {
     public boolean attemptBetterSmallExplosions = true;
     public double smallExplosionYOffset = -0.5;
     public boolean modEnabled = true;
+    public boolean emissiveExplosion = true;
+    public boolean emissiveWaterExplosion = true;
     public boolean alwaysShow = false;
     public boolean debugLogs = false;
 

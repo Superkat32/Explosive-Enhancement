@@ -45,6 +45,12 @@ public class ShockwaveParticle extends SpriteBillboardParticle {
         return ParticleTextureSheet.PARTICLE_SHEET_TRANSLUCENT;
     }
 
+    //Makes the particle emissive
+    @Override
+    protected int getBrightness(float tint) {
+        return config.emissiveWaterExplosion ? 15728880 : super.getBrightness(tint);
+    }
+
     @Environment(EnvType.CLIENT)
     public static class Factory implements ParticleFactory<DefaultParticleType> {
         private final SpriteProvider spriteProvider;
