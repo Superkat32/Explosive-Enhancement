@@ -1,10 +1,10 @@
 package net.superkat.explosiveenhancement;
 
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.superkat.explosiveenhancement.config.ExplosiveConfig;
+
+import java.util.Random;
 
 import static net.superkat.explosiveenhancement.ExplosiveEnhancement.LOGGER;
 
@@ -78,7 +78,7 @@ public class ExplosiveHandler {
     }
 
     private static int nextBetween(int min, int max) {
-        return MathHelper.nextBetween(Random.create(), min, max);
+        return new Random().nextInt(min, max);
     }
 
 }

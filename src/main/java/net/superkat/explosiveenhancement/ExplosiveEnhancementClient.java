@@ -2,7 +2,6 @@ package net.superkat.explosiveenhancement;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
-import net.fabricmc.loader.api.FabricLoader;
 import net.superkat.explosiveenhancement.config.ExplosiveConfig;
 import net.superkat.explosiveenhancement.particles.*;
 
@@ -12,11 +11,7 @@ public class ExplosiveEnhancementClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        //Loads the config, GUI powered by YACL
         ExplosiveConfig.load();
-        if(!FabricLoader.getInstance().isDevelopmentEnvironment() && !YaclLoaded()) {
-            ExplosiveEnhancement.LOGGER.warn("YetAnotherConfigLib is not installed! If you wish to edit the config, please install it!");
-        }
 
         ParticleFactoryRegistry.getInstance().register(ExplosiveEnhancement.BLASTWAVE, BlastWaveParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(ExplosiveEnhancement.FIREBALL, FireballParticle.Factory::new);
@@ -28,9 +23,5 @@ public class ExplosiveEnhancementClient implements ClientModInitializer {
         ParticleFactoryRegistry.getInstance().register(ExplosiveEnhancement.BLANK_SHOCKWAVE, ShockwaveParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(ExplosiveEnhancement.UNDERWATERBLASTWAVE, UnderwaterBlastWaveParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(ExplosiveEnhancement.UNDERWATERSPARKS, UnderwaterSparkParticle.Factory::new);
-    }
-
-    public static boolean YaclLoaded() {
-        return FabricLoader.getInstance().isModLoaded("yet-another-config-lib");
     }
 }

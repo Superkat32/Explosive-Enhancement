@@ -26,15 +26,15 @@ public class ExplosiveEnhancement implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		//Please git I am begging you not to break
-		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "blastwave"), BLASTWAVE);
-		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "fireball"), FIREBALL);
-		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "blank_fireball"), BLANK_FIREBALL);
-		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "smoke"), SMOKE);
-		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "bubble"), BUBBLE);
-		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "shockwave"), SHOCKWAVE);
-		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "blank_shockwave"), BLANK_SHOCKWAVE);
-		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "underwaterblastwave"), UNDERWATERBLASTWAVE);
-		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "sparks"), SPARKS);
-		Registry.register(Registry.PARTICLE_TYPE, new Identifier("explosiveenhancement", "underwatersparks"), UNDERWATERSPARKS);
+		Registry.register(Registry.PARTICLE_TYPE, new Identifier(MOD_ID, "blastwave"), BLASTWAVE);
+		Registry.register(Registry.PARTICLE_TYPE, new Identifier(MOD_ID, "fireball"), FIREBALL);
+		Registry.register(Registry.PARTICLE_TYPE, new Identifier(MOD_ID, "blank_fireball"), BLANK_FIREBALL);
+		Registry.register(Registry.PARTICLE_TYPE, new Identifier(MOD_ID, "smoke"), SMOKE);
+		Registry.register(Registry.PARTICLE_TYPE, new Identifier(MOD_ID, "bubble"), BUBBLE);
+		Registry.register(Registry.PARTICLE_TYPE, new Identifier(MOD_ID, "shockwave"), SHOCKWAVE);
+		Registry.register(Registry.PARTICLE_TYPE, new Identifier(MOD_ID, "blank_shockwave"), BLANK_SHOCKWAVE);
+		Registry.register(Registry.PARTICLE_TYPE, new Identifier(MOD_ID, "underwaterblastwave"), UNDERWATERBLASTWAVE);
+		Registry.register(Registry.PARTICLE_TYPE, new Identifier(MOD_ID, "sparks"), SPARKS);
+		Registry.register(Registry.PARTICLE_TYPE, new Identifier(MOD_ID, "underwatersparks"), UNDERWATERSPARKS);
 	}
 }

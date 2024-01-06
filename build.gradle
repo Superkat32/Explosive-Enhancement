@@ -38,7 +38,7 @@ dependencies {
 	modApi "com.terraformersmc:modmenu:${modmenu_version}"
 
 	//YACL
-	modImplementation "dev.isxander:yet-another-config-lib:${yacl_version}"
+//	modImplementation "dev.isxander:yet-another-config-lib:${yacl_version}"
 
 
 	// Uncomment the following line to enable the deprecated Fabric API modules.

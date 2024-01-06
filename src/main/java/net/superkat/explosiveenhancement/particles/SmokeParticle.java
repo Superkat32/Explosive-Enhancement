@@ -21,19 +21,19 @@ public class SmokeParticle extends SpriteBillboardParticle {
         if(velZ == 0) {
             //for the particles going straight up
             scale = (float) velX * 0.25f;
-            this.maxAge += velX * this.random.nextBetween(3, 22);
+            this.maxAge += velX * this.random.nextInt(3, 22);
             this.velocityX = 0;
             this.velocityZ = 0;
         } else if(velX == 0.15 || velX == -0.15) {
             //for the particles where velZ is used as the power variable
             scale = (float) velZ * 0.25f;
-            this.maxAge += velZ * this.random.nextBetween(3, 22);
+            this.maxAge += velZ * this.random.nextInt(3, 22);
             this.velocityX = velX * (velZ * 0.5);
             this.velocityZ = 0;
         } else if(velZ == 0.15 || velZ == -0.15) {
             //for the particles where velX is used for the power variable
             scale = (float) velX * 0.25f;
-            this.maxAge += velX * this.random.nextBetween(3, 22);
+            this.maxAge += velX * this.random.nextInt(3, 22);
             this.velocityX = 0;
             this.velocityZ = velZ * (velX * 0.5);
         }

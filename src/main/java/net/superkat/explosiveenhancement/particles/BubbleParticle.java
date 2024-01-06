@@ -20,17 +20,17 @@ import net.minecraft.util.math.BlockPos;
 public class BubbleParticle extends SpriteBillboardParticle {
     private final SpriteProvider spriteProvider;
     int startingAirTick = 0;
-    int extraTimeBeforePopping = this.random.nextBetween(1, 10);
+    int extraTimeBeforePopping = this.random.nextInt(1, 10);
     boolean startAirTick = true;
     BubbleParticle(ClientWorld clientWorld, double x, double y, double z, double velX, double velY, double velZ, SpriteProvider spriteProvider) {
         super(clientWorld, x, y, z);
         this.spriteProvider = spriteProvider;
         this.setBoundingBoxSpacing(0.02F, 0.02F);
         this.scale *= this.random.nextFloat() * 1.5F + 0.2F;
-        this.velocityX = velX / this.random.nextBetween(1, 5);
-        this.velocityY = velY / this.random.nextBetween((int) 1.4, (int) 4.5);
-        this.velocityZ = velZ /  this.random.nextBetween(1, 5);
-        this.maxAge = 120 + this.random.nextBetween(0, 40);
+        this.velocityX = velX / this.random.nextInt(1, 5);
+        this.velocityY = velY / this.random.nextInt((int) 1.4, (int) 4.5);
+        this.velocityZ = velZ /  this.random.nextInt(1, 5);
+        this.maxAge = 120 + this.random.nextInt(0, 40);
         this.setSpriteForAge(spriteProvider);
         this.age = this.maxAge;
     }
