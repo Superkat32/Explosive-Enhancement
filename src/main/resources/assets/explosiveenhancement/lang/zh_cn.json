@@ -1,0 +1,76 @@
+{
+  "explosiveenhancement.title": "爆炸动画增强 配置",
+
+  "explosiveenhancement.category.default": "粒子效果",
+
+  "explosiveenhancement.explosion.group": "爆炸",
+  "explosiveenhancement.explosion.group.tooltip": "爆炸粒子选项",
+  "explosiveenhancement.blastwave.enabled": "爆炸波粒子",
+  "explosiveenhancement.blastwave.enabled.tooltip": "一个位于地面的扁平水平橙色大圆圈。",
+  "explosiveenhancement.fireball.enabled": "火球粒子",
+  "explosiveenhancement.fireball.enabled.tooltip": "一个垂直的橙色大圆圈。",
+  "explosiveenhancement.mushroomcloud.enabled": "蘑菇云粒子",
+  "explosiveenhancement.mushroomcloud.enabled.tooltip": "蘑菇形状的烟。",
+  "explosiveenhancement.sparks.enabled": "火花粒子",
+  "explosiveenhancement.sparks.enabled.tooltip": "爆炸后出现的白色线条。",
+  "explosiveenhancement.sparks.size": "火花大小",
+  "explosiveenhancement.sparks.size.tooltip": "控制火花粒子的大小。",
+  "explosiveenhancement.sparks.opacity": "火花不透明度",
+  "explosiveenhancement.sparks.opacity.tooltip": "控制火花粒子的不透明度。",
+  "explosiveenhancement.default.enabled": "默认爆炸粒子",
+  "explosiveenhancement.default.enabled.tooltip": "原版Minecraft的爆炸粒子。",
+
+  "explosiveenhancement.underwater.group": "水下爆炸",
+  "explosiveenhancement.underwater.group.tooltip": "水下爆炸选项",
+  "explosiveenhancement.underwater.enabled": "水下爆炸",
+  "explosiveenhancement.underwater.enabled.tooltip": "是否给予位于水下的爆炸特殊效果？如果禁用，则与上方的爆炸效果相同；如果启用，在水下发生的爆炸将使用本选项下的子选项。",
+  "explosiveenhancement.underwater.shockwave": "冲击波粒子",
+  "explosiveenhancement.underwater.shockwave.tooltip": "淡蓝色的垂直圆圈，与普通爆炸的火球粒子相同。",
+  "explosiveenhancement.underwater.blast": "水下爆炸波粒子",
+  "explosiveenhancement.underwater.blast.tooltip": "一个水平的蓝色大圆圈，类似于爆炸波粒子。",
+  "explosiveenhancement.underwater.bubbleamount": "气泡量",
+  "explosiveenhancement.underwater.bubbleamount.tooltip": "爆炸后随机产生的气泡。",
+  "explosiveenhancement.underwater.bubbleamount.warningtooltip": "§c警告§r：过多的气泡可能会造成卡顿！",
+  "explosiveenhancement.underwater.sparks": "火花粒子",
+  "explosiveenhancement.underwater.sparks.tooltip": "爆炸后出现的白色线条。",
+  "explosiveenhancement.underwater.sparks.size": "火花大小",
+  "explosiveenhancement.underwater.sparks.size.tooltip": "控制火花粒子的大小。",
+  "explosiveenhancement.underwater.sparks.opacity": "火花不透明度",
+  "explosiveenhancement.underwater.sparks.opacity.tooltip": "控制火花粒子的不透明度。",
+  "explosiveenhancement.underwater.default": "默认爆炸粒子",
+  "explosiveenhancement.underwater.default.tooltip": "原版Minecraft的爆炸粒子。",
+
+
+
+  "explosiveenhancement.category.dynamic": "尺寸",
+
+  "explosiveenhancement.dynamic.group": "动态爆炸",
+  "explosiveenhancement.dynamic.group.tooltip": "动态爆炸尺寸设置",
+  "explosiveenhancement.dynamicexplosions.enabled": "动态爆炸尺寸",
+  "explosiveenhancement.dynamicexplosions.enabled.tooltip": "根据爆炸的等级更改尺寸。",
+  "explosiveenhancement.dynamicunderwater.enabled": "动态水下爆炸尺寸",
+  "explosiveenhancement.dynamicunderwater.enabled.tooltip": "根据水下爆炸的等级更改尺寸。",
+  "explosiveenhancement.bettersmallexplosions.enabled": "尝试更好小爆炸",
+  "explosiveenhancement.bettersmallexplosions.enabled.tooltip": "如果爆炸的等级等于1（凋灵之首、恶魂火球），y坐标将被些许减少以提供更好的效果。",
+  "explosiveenhancement.yoffset": "小爆炸y偏移量",
+  "explosiveenhancement.yoffset.tooltip": "小爆炸的y轴偏移量。",
+
+
+
+  "explosiveenhancement.category.extras": "附加",
+
+  "explosiveenhancement.extras.group": "附加",
+  "explosiveenhancement.extras.group.tooltip": "附加选项",
+  "explosiveenhancement.extras.enabled": "启用模组",
+  "explosiveenhancement.extras.enabled.tooltip": "是否启用本模组？",
+  "explosiveenhancement.extras.emissive": "爆炸发光",
+  "explosiveenhancement.extras.emissive.tooltip": "普通爆炸是否发光？",
+  "explosiveenhancement.extras.emissivewater": "水下爆炸发光",
+  "explosiveenhancement.extras.emissivewater.tooltip": "水下爆炸是否发光？",
+  "explosiveenhancement.extras.alwaysshow": "始终显示粒子",
+  "explosiveenhancement.extras.alwaysshow.tooltip": "I如果启用，爆炸粒子将从大约两倍远的距离并以更低的质量进行渲染。请慎用！",
+  "explosiveenhancement.extras.logs": "调试日志",
+  "explosiveenhancement.extras.logs.tooltip": "额外的调试用控制台日志，如需。",
+  "explosiveenhancement.extras.logs.warningtooltip": "§c警告§r：会使日志刷屏！"
+
+}
