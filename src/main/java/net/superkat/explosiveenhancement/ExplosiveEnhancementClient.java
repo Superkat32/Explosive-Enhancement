@@ -4,11 +4,18 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.superkat.explosiveenhancement.config.ExplosiveConfig;
-import net.superkat.explosiveenhancement.particles.*;
+import net.superkat.explosiveenhancement.particles.normal.BlastWaveParticle;
+import net.superkat.explosiveenhancement.particles.normal.FireballParticle;
+import net.superkat.explosiveenhancement.particles.normal.SmokeParticle;
+import net.superkat.explosiveenhancement.particles.normal.SparkParticle;
+import net.superkat.explosiveenhancement.particles.underwater.BubbleParticle;
+import net.superkat.explosiveenhancement.particles.underwater.ShockwaveParticle;
+import net.superkat.explosiveenhancement.particles.underwater.UnderwaterBlastWaveParticle;
+import net.superkat.explosiveenhancement.particles.underwater.UnderwaterSparkParticle;
 
 public class ExplosiveEnhancementClient implements ClientModInitializer {
 
-    public static ExplosiveConfig config = ExplosiveConfig.INSTANCE;
+    public static ExplosiveConfig CONFIG = ExplosiveConfig.INSTANCE;
 
     @Override
     public void onInitializeClient() {
@@ -31,6 +38,10 @@ public class ExplosiveEnhancementClient implements ClientModInitializer {
     }
 
     public static boolean YaclLoaded() {
-        return FabricLoader.getInstance().isModLoaded("yet_another_config_lib_v3");
+        //? if (<=1.19.3) {
+        return FabricLoader.getInstance().isModLoaded("yet-another-config-lib");
+        //} else {
+//        return FabricLoader.getInstance().isModLoaded("yet_another_config_lib_v3");
+        //?}
     }
 }

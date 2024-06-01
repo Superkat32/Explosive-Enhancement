@@ -1,12 +1,12 @@
-package net.superkat.explosiveenhancement.particles;
+package net.superkat.explosiveenhancement.particles.normal;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particle.SimpleParticleType;
+import net.minecraft.particle.ParticleEffect;
 
-import static net.superkat.explosiveenhancement.ExplosiveEnhancementClient.config;
+import static net.superkat.explosiveenhancement.ExplosiveEnhancementClient.CONFIG;
 
 @Environment(EnvType.CLIENT)
 public class SparkParticle extends SpriteBillboardParticle {
@@ -14,16 +14,15 @@ public class SparkParticle extends SpriteBillboardParticle {
 
     SparkParticle(ClientWorld world, double x, double y, double z, double velX, double velY, double velZ, SpriteProvider spriteProvider) {
         super(world, x, y, z);
-//        var config = ExplosiveEnhancementClient.getConfig();
         this.spriteProvider = spriteProvider;
         this.maxAge = (int) (5 + Math.floor(velX / 5));
         if(velX == 0) {
-            this.scale = config.sparkSize;
+            this.scale = CONFIG.sparkSize;
         } else {
-            this.scale = (float) (config.sparkSize * (velX * 0.25f));
+            this.scale = (float) (CONFIG.sparkSize * (velX * 0.25f));
         }
-        this.setVelocity(0D, 0D, 0D);
-        this.alpha = config.sparkOpacity;
+        this.setVelocity(0, 0, 0);
+        this.alpha = CONFIG.sparkOpacity;
         this.setSpriteForAge(spriteProvider);
     }
 
@@ -47,19 +46,13 @@ public class SparkParticle extends SpriteBillboardParticle {
     //Makes the particle emissive
     @Override
     protected int getBrightness(float tint) {
-        return config.emissiveExplosion ? 15728880 : super.getBrightness(tint);
+        return CONFIG.emissiveExplosion ? 15728880 : super.getBrightness(tint);
     }
 
     @Environment(EnvType.CLIENT)
-    public static class Factory implements ParticleFactory<SimpleParticleType> {
-        private final SpriteProvider spriteProvider;
-
-        public Factory(SpriteProvider spriteProvider) {
-            this.spriteProvider = spriteProvider;
-        }
-
-        public Particle createParticle(SimpleParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
-            return new SparkParticle(clientWorld, d, e, f, g, h, i, this.spriteProvider);
+    public record Factory<T extends ParticleEffect>(SpriteProvider sprites) implements ParticleFactory<T> {
+        public Particle createParticle(T type, ClientWorld world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+            return new SparkParticle(world, x, y, z, xSpeed, ySpeed, zSpeed, sprites);
         }
     }
 }

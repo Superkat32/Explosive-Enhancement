@@ -1,13 +1,13 @@
-package net.superkat.explosiveenhancement.particles;
+package net.superkat.explosiveenhancement.particles.underwater;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particle.SimpleParticleType;
+import net.minecraft.particle.ParticleEffect;
 import net.superkat.explosiveenhancement.ExplosiveEnhancement;
 
-import static net.superkat.explosiveenhancement.ExplosiveEnhancementClient.config;
+import static net.superkat.explosiveenhancement.ExplosiveEnhancementClient.CONFIG;
 
 @Environment(EnvType.CLIENT)
 public class ShockwaveParticle extends SpriteBillboardParticle {
@@ -17,10 +17,10 @@ public class ShockwaveParticle extends SpriteBillboardParticle {
     ShockwaveParticle(ClientWorld world, double x, double y, double z, double velX, double velY, double velZ, SpriteProvider spriteProvider) {
         super(world, x, y, z);
         this.spriteProvider = spriteProvider;
-        this.maxAge = (int) (9 + Math.floor(velX / 5));
         this.scale = (float) velX;
-        important = velY == 1;
-        this.setVelocity(0D, 0D, 0D);
+        this.maxAge = (int) (9 + Math.floor(this.scale / 5));
+        important = CONFIG.alwaysShow;
+        this.setVelocity(0, 0, 0);
         this.setSpriteForAge(spriteProvider);
     }
 
@@ -33,8 +33,7 @@ public class ShockwaveParticle extends SpriteBillboardParticle {
         } else {
             this.velocityY -= (double)this.gravityStrength;
             this.move(this.velocityX, this.velocityY, this.velocityZ);
-//            var config = ExplosiveEnhancementClient.getConfig();
-            if(this.age >= this.maxAge * 0.65 && config.showUnderwaterSparks) {
+            if(this.age >= this.maxAge * 0.65 && CONFIG.showUnderwaterSparks) {
                 this.world.addParticle(ExplosiveEnhancement.UNDERWATERSPARKS, important, this.x, this.y, this.z, scale, this.velocityY, this.velocityZ);
             }
             this.setSpriteForAge(this.spriteProvider);
@@ -48,19 +47,13 @@ public class ShockwaveParticle extends SpriteBillboardParticle {
     //Makes the particle emissive
     @Override
     protected int getBrightness(float tint) {
-        return config.emissiveWaterExplosion ? 15728880 : super.getBrightness(tint);
+        return CONFIG.emissiveWaterExplosion ? 15728880 : super.getBrightness(tint);
     }
 
     @Environment(EnvType.CLIENT)
-    public static class Factory implements ParticleFactory<SimpleParticleType> {
-        private final SpriteProvider spriteProvider;
-
-        public Factory(SpriteProvider spriteProvider) {
-            this.spriteProvider = spriteProvider;
-        }
-
-        public Particle createParticle(SimpleParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
-            return new ShockwaveParticle(clientWorld, d, e, f, g, h, i, this.spriteProvider);
+    public record Factory<T extends ParticleEffect>(SpriteProvider sprites) implements ParticleFactory<T> {
+        public Particle createParticle(T type, ClientWorld world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+            return new ShockwaveParticle(world, x, y, z, xSpeed, ySpeed, zSpeed, sprites);
         }
     }
 }
