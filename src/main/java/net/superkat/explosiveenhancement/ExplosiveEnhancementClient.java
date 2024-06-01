@@ -15,7 +15,7 @@ public class ExplosiveEnhancementClient implements ClientModInitializer {
         //Loads the config, GUI powered by YACL
         ExplosiveConfig.load();
         if(!FabricLoader.getInstance().isDevelopmentEnvironment() && !YaclLoaded()) {
-            ExplosiveEnhancement.LOGGER.warn("YetAnotherConfigLib is not installed! If you wish to edit the config, please install it!");
+            ExplosiveEnhancement.LOGGER.warn("[Explosive Enhancement]: YetAnotherConfigLib is not installed! If you wish to edit Explosive Enhancement's config, please install it!");
         }
 
         ParticleFactoryRegistry.getInstance().register(ExplosiveEnhancement.BLASTWAVE, BlastWaveParticle.Factory::new);

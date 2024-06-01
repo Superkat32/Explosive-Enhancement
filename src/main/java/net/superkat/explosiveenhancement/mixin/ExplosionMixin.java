@@ -1,9 +1,9 @@
 package net.superkat.explosiveenhancement.mixin;
 
-import net.minecraft.registry.tag.FluidTags;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.particle.ParticleEffect;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
+import net.superkat.explosiveenhancement.api.ExplosionParticleType;
 import net.superkat.explosiveenhancement.api.ExplosiveApi;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -22,24 +22,17 @@ public abstract class ExplosionMixin {
 	@Shadow @Final private double y;
 	@Shadow @Final private double z;
 	@Shadow @Final private float power;
+	@Shadow @Final private ParticleEffect particle;
+	@Shadow @Final private ParticleEffect emitterParticle;
 	@Shadow public abstract boolean shouldDestroy();
 
-	private boolean isUnderWater = false;
 	@Inject(method = "affectWorld(Z)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;addParticle(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V"), cancellable = true)
-	public void affectWorld(boolean particles, CallbackInfo ci) {
+	public void explosiveenhancement$spawnExplosiveParticles(boolean particles, CallbackInfo ci) {
 		if (config.modEnabled) {
-			if (config.debugLogs) {
-				LOGGER.info("affectWorld has been called!");
-			}
-			BlockPos pos = BlockPos.ofFloored(this.x, this.y, this.z);
-			if (config.underwaterExplosions && this.world.getFluidState(pos).isIn(FluidTags.WATER)) {
-				//If underwater
-				isUnderWater = true;
-				if (config.debugLogs) {
-					LOGGER.info("particle is underwater!");
-				}
-			}
-			ExplosiveApi.spawnParticles(world, x, y, z, power, isUnderWater, this.shouldDestroy());
+			if (config.debugLogs) { LOGGER.info("affectWorld has been called!"); }
+
+			ExplosionParticleType explosionParticleType = ExplosiveApi.determineParticleType(world, x, y, z, particle, emitterParticle);
+			ExplosiveApi.spawnParticles(world, x, y, z, power, explosionParticleType, this.shouldDestroy());
 			ci.cancel();
 		}
 	}

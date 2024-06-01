@@ -7,7 +7,7 @@ import net.minecraft.client.particle.ParticleFactory;
 import net.minecraft.client.particle.SpriteProvider;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.util.math.BlockPos;
 
 import static net.superkat.explosiveenhancement.ExplosiveEnhancementClient.config;
@@ -28,8 +28,8 @@ public class UnderwaterBlastWaveParticle extends BlastWaveParticle{
     }
 
     @Environment(EnvType.CLIENT)
-    public record Factory(SpriteProvider sprites) implements ParticleFactory<DefaultParticleType> {
-        public Particle createParticle(DefaultParticleType type, ClientWorld world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+    public record Factory(SpriteProvider sprites) implements ParticleFactory<SimpleParticleType> {
+        public Particle createParticle(SimpleParticleType type, ClientWorld world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
             return new UnderwaterBlastWaveParticle(world, x, y, z, xSpeed, ySpeed, zSpeed, sprites);
         }
     }

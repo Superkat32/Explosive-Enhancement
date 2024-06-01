@@ -1,84 +1,154 @@
 package net.superkat.explosiveenhancement;
 
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.random.Random;
+import net.minecraft.registry.tag.FluidTags;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.superkat.explosiveenhancement.config.ExplosiveConfig;
+import net.superkat.explosiveenhancement.api.ExplosionParticleType;
 
 import static net.superkat.explosiveenhancement.ExplosiveEnhancement.LOGGER;
+import static net.superkat.explosiveenhancement.ExplosiveEnhancementClient.config;
 
 public class ExplosiveHandler {
-    public static void spawnParticles(World world, double x, double y, double z, float power, boolean isUnderWater, boolean didDestroyBlocks, boolean isImportant) {
-        ExplosiveConfig config = ExplosiveEnhancementClient.config;
+    public static void spawnParticles(World world, double x, double y, double z, float power, ExplosionParticleType explosionParticleType, boolean didDestroyBlocks, boolean isImportant) {
         if(config.modEnabled) {
-            if(config.debugLogs) { LOGGER.info("ExplosiveApi has been called!"); }
-            if(isUnderWater) {
-                power = config.dynamicUnderwater ? power : 4;
-            } else {
-                power = config.dynamicSize ? power : 4;
+            if(config.debugLogs) {
+                LOGGER.info("ExplosiveHandler has been called!");
+                LOGGER.info("Minecraft particle settings: " + MinecraftClient.getInstance().options.getParticles().getValue());
             }
-            y = config.attemptBetterSmallExplosions && power == 1 ? y + config.smallExplosionYOffset : y;
-            isImportant = isImportant || config.alwaysShow;
-            float blastwavePower = power * 1.75f;
-            float fireballPower = power * 1.25f;
-            float smokePower = power * 0.4f;
-            if (isUnderWater) {
-                if(config.showUnderwaterBlastWave) {
-                    world.addParticle(ExplosiveEnhancement.UNDERWATERBLASTWAVE, isImportant, x, y + 0.5, z, blastwavePower, 0, 0);
-                }
-                if(config.showShockwave) {
-                    world.addParticle(ExplosiveEnhancement.SHOCKWAVE, isImportant, x, y + 0.5, z, fireballPower, isImportant ? 1 : 0, 0);
-                } else if (config.showUnderwaterSparks) {
-                    world.addParticle(ExplosiveEnhancement.BLANK_SHOCKWAVE, isImportant, x, y + 0.5, z, fireballPower, isImportant ? 1 : 0, 0);
-                }
-                for(int total = config.bubbleAmount; total >= 1; total--) {
-                    world.addParticle(ExplosiveEnhancement.BUBBLE, isImportant, x, y, z, nextBetween(1, 7) * 0.3 * nextBetween(-1, 1), nextBetween(1, 10) * 0.1, nextBetween(1, 7) * 0.3 * nextBetween(-1, 1));
-                }
-                if(config.showDefaultExplosionUnderwater) {
-                    showDefaultParticles(world, x, y, z, power, didDestroyBlocks, isImportant);
-                }
-            } else {
-                if(config.debugLogs) { LOGGER.info("Particle is being shown!"); }
-                if(config.showBlastWave) {
-                    world.addParticle(ExplosiveEnhancement.BLASTWAVE, isImportant, x, y, z, blastwavePower, 0, 0);
-                }
-                if(config.showFireball) {
-                    world.addParticle(ExplosiveEnhancement.FIREBALL, isImportant, x, y + 0.5, z, fireballPower, isImportant ? 1 : 0, 0);
-                } else if (config.showSparks) {
-                    world.addParticle(ExplosiveEnhancement.BLANK_FIREBALL, isImportant, x, y + 0.5, z, fireballPower, isImportant ? 1 : 0, 0);
-                }
-                if(config.showMushroomCloud) {
-                    //I'm aware DRY is a thing, but I couldn't figure out any other way to get even a similar effect that I was happy with, so unfortunately, this will have to do.
-                    //x, y, z, [size(power)/velX], velY, [size(power)/velZ]
-                    //This is to allow for dynamic smoke depending on the explosion's power
-                    //The smoke particle factory (should be) able to determine if the velX/velZ is the size or actual velocity
-                    world.addParticle(ExplosiveEnhancement.SMOKE, isImportant, x, y, z, power, power * 0.25, 0);
-                    world.addParticle(ExplosiveEnhancement.SMOKE, isImportant, x, y, z, power, smokePower, 0);
 
-                    world.addParticle(ExplosiveEnhancement.SMOKE, isImportant, x, y, z, 0.15, smokePower, power);
-                    world.addParticle(ExplosiveEnhancement.SMOKE, isImportant, x, y, z, -0.15, smokePower, power);
-                    world.addParticle(ExplosiveEnhancement.SMOKE, isImportant, x, y, z, power, smokePower, 0.15);
-                    world.addParticle(ExplosiveEnhancement.SMOKE, isImportant, x, y, z, power, smokePower, -0.15);
-                }
-                if(config.showDefaultExplosion) {
-                    showDefaultParticles(world, x, y, z, power, didDestroyBlocks, isImportant);
-                }
+            switch(explosionParticleType) {
+                case NORMAL -> spawnExplosionParticles(world, x, y, z, power, didDestroyBlocks, isImportant);
+                case WATER -> spawnUnderwaterExplosionParticles(world, x, y, z, power, didDestroyBlocks, isImportant);
+                case WIND -> spawnWindExplosionParticles(world, x, y, z, power, didDestroyBlocks, isImportant);
             }
-            if(config.debugLogs) { LOGGER.info("Particle finished!"); }
+
+            if(config.debugLogs) { LOGGER.info("ExplosiveHandler finished!"); }
         }
     }
 
-    private static void showDefaultParticles(World world, double x, double y, double z, float power, boolean didDestroyBlocks, boolean isImportant) {
-        if(!(power < 2.0f) && didDestroyBlocks) {
-            world.addParticle(ParticleTypes.EXPLOSION_EMITTER, isImportant, x, y, z, 1.0, 0.0, 0.0);
+    public static ExplosionParticleType determineParticleType(World world, double x, double y, double z, ParticleEffect particle, ParticleEffect emitterParticle) {
+        if(config.underwaterExplosions && blockIsInWater(world, x, y, z)) {
+            return ExplosionParticleType.WATER;
+        } else if (particlesAreWindGust(particle, emitterParticle)) {
+            return ExplosionParticleType.WIND;
         } else {
-            world.addParticle(ParticleTypes.EXPLOSION, isImportant, x, y, z, 1.0, 0.0, 0.0);
+            return ExplosionParticleType.NORMAL;
         }
     }
 
-    private static int nextBetween(int min, int max) {
-        return MathHelper.nextBetween(Random.create(), min, max);
+    /**
+     * Checks if the coordinates are underwater.
+     *
+     * @param world The world to check in.
+     * @param x The x coordinate to check.
+     * @param y The y coordinate to check.
+     * @param z The z coordinate to check.
+     * @return If the given coordinates are underwater or not.
+     */
+    public static boolean blockIsInWater(World world, double x, double y, double z) {
+        BlockPos pos = BlockPos.ofFloored(x, y, z);
+        return config.underwaterExplosions && world.getFluidState(pos).isIn(FluidTags.WATER);
     }
 
+    /**
+     * Checks if the particles are Minecraft's wind gust particles.
+     *
+     * @param particle The particle if the explosion power is small.
+     * @param emitterParticle The particle if the explosion power is high.
+     * @return If the particles are Minecraft's wind gust particles.
+     *
+     * @see ParticleTypes#GUST_EMITTER_SMALL
+     * @see ParticleTypes#GUST_EMITTER_LARGE
+     */
+    public static boolean particlesAreWindGust(ParticleEffect particle, ParticleEffect emitterParticle) {
+        return particle == ParticleTypes.GUST_EMITTER_SMALL && emitterParticle == ParticleTypes.GUST_EMITTER_LARGE;
+    }
+
+    public static void spawnExplosionParticles(World world, double x, double y, double z, float power, boolean didDestroyBlocks, boolean isImportant) {
+        power = config.dynamicSize ? power : 4;
+        y = config.attemptBetterSmallExplosions && power == 1 ? y + config.smallExplosionYOffset : y;
+        isImportant = isImportant || config.alwaysShow;
+        float blastwavePower = power * 1.75f;
+        float fireballPower = power * 1.25f;
+        float smokePower = power * 0.4f;
+
+        if(config.showBlastWave) {
+            world.addParticle(ExplosiveEnhancement.BLASTWAVE, isImportant, x, y, z, blastwavePower, 0, 0);
+        }
+
+        if(config.showFireball) {
+            world.addParticle(ExplosiveEnhancement.FIREBALL, isImportant, x, y + 0.5, z, fireballPower, isImportant ? 1 : 0, 0);
+        } else if (config.showSparks) {
+            world.addParticle(ExplosiveEnhancement.BLANK_FIREBALL, isImportant, x, y + 0.5, z, fireballPower, isImportant ? 1 : 0, 0);
+        }
+
+        if(config.showMushroomCloud) {
+            //I'm aware DRY is a thing, but I couldn't figure out any other way to get even a similar effect that I was happy with, so unfortunately, this will have to do.
+            //x, y, z, [size(power)/velX], velY, [size(power)/velZ]
+            //This is to allow for dynamic smoke depending on the explosion's power
+            //The smoke particle factory (should be) able to determine if the velX/velZ is the size or actual velocity
+            world.addParticle(ExplosiveEnhancement.SMOKE, isImportant, x, y, z, power, power * 0.25, 0);
+            world.addParticle(ExplosiveEnhancement.SMOKE, isImportant, x, y, z, power, smokePower, 0);
+
+            world.addParticle(ExplosiveEnhancement.SMOKE, isImportant, x, y, z, 0.15, smokePower, power);
+            world.addParticle(ExplosiveEnhancement.SMOKE, isImportant, x, y, z, -0.15, smokePower, power);
+            world.addParticle(ExplosiveEnhancement.SMOKE, isImportant, x, y, z, power, smokePower, 0.15);
+            world.addParticle(ExplosiveEnhancement.SMOKE, isImportant, x, y, z, power, smokePower, -0.15);
+        }
+
+        if(config.showDefaultExplosion) {
+            spawnVanillaParticles(world, x, y, z, power, didDestroyBlocks, isImportant, false);
+        }
+    }
+
+    public static void spawnUnderwaterExplosionParticles(World world, double x, double y, double z, float power, boolean didDestroyBlocks, boolean isImportant) {
+        power = config.dynamicUnderwater ? power : 4;
+        y = config.attemptBetterSmallExplosions && power == 1 ? y + config.smallExplosionYOffset : y;
+        isImportant = isImportant || config.alwaysShow;
+        float blastwavePower = power * 1.75f;
+        float fireballPower = power * 1.25f;
+
+        if(config.showUnderwaterBlastWave) {
+            world.addParticle(ExplosiveEnhancement.UNDERWATERBLASTWAVE, isImportant, x, y + 0.5, z, blastwavePower, 0, 0);
+        }
+
+        if(config.showShockwave) {
+            world.addParticle(ExplosiveEnhancement.SHOCKWAVE, isImportant, x, y + 0.5, z, fireballPower, isImportant ? 1 : 0, 0);
+        } else if (config.showUnderwaterSparks) {
+            world.addParticle(ExplosiveEnhancement.BLANK_SHOCKWAVE, isImportant, x, y + 0.5, z, fireballPower, isImportant ? 1 : 0, 0);
+        }
+
+        for(int total = config.bubbleAmount; total >= 1; total--) {
+            spawnBubble(world, x, y, z, isImportant);
+        }
+
+        if(config.showDefaultExplosionUnderwater) {
+            spawnVanillaParticles(world, x, y, z, power, didDestroyBlocks, isImportant, false);
+        }
+    }
+
+    private static void spawnBubble(World world, double x, double y, double z, boolean isImportant) {
+        double velX = world.random.nextBetween(1, 7) * 0.3 * world.random.nextBetween(-1, 1);
+        double velY = world.random.nextBetween(1, 10) * 0.1;
+        double velZ = world.random.nextBetween(1, 7) * 0.3 * world.random.nextBetween(-1, 1);
+        world.addParticle(ExplosiveEnhancement.BUBBLE, isImportant, x, y, z, velX, velY, velZ);
+    }
+
+    public static void spawnWindExplosionParticles(World world, double x, double y, double z, float power, boolean didDestroyBlocks, boolean isImportant) {
+        spawnVanillaParticles(world, x, y, z, power, didDestroyBlocks, isImportant, true);
+    }
+
+    private static void spawnVanillaParticles(World world, double x, double y, double z, float power, boolean didDestroyBlocks, boolean isImportant, boolean wind) {
+        ParticleEffect particle = wind ? ParticleTypes.GUST_EMITTER_SMALL : ParticleTypes.EXPLOSION;
+        ParticleEffect emitter = wind ? ParticleTypes.GUST_EMITTER_LARGE : ParticleTypes.EXPLOSION_EMITTER;
+
+        if(!(power < 2.0f) && didDestroyBlocks) {
+            world.addParticle(emitter, isImportant, x, y, z, 1.0, 0.0, 0.0);
+        } else {
+            world.addParticle(particle, isImportant, x, y, z, 1.0, 0.0, 0.0);
+        }
+    }
 }
