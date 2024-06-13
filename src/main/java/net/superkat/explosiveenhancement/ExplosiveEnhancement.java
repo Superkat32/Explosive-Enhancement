@@ -26,15 +26,15 @@ public class ExplosiveEnhancement implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "blastwave"), BLASTWAVE);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "fireball"), FIREBALL);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "blank_fireball"), BLANK_FIREBALL);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "smoke"), SMOKE);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "bubble"), BUBBLE);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "shockwave"), SHOCKWAVE);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "blank_shockwave"), BLANK_SHOCKWAVE);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "underwaterblastwave"), UNDERWATERBLASTWAVE);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "sparks"), SPARKS);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "underwatersparks"), UNDERWATERSPARKS);
+		Registry.register(Registries.PARTICLE_TYPE, Identifier.of(MOD_ID, "blastwave"), BLASTWAVE);
+		Registry.register(Registries.PARTICLE_TYPE, Identifier.of(MOD_ID, "fireball"), FIREBALL);
+		Registry.register(Registries.PARTICLE_TYPE, Identifier.of(MOD_ID, "blank_fireball"), BLANK_FIREBALL);
+		Registry.register(Registries.PARTICLE_TYPE, Identifier.of(MOD_ID, "smoke"), SMOKE);
+		Registry.register(Registries.PARTICLE_TYPE, Identifier.of(MOD_ID, "bubble"), BUBBLE);
+		Registry.register(Registries.PARTICLE_TYPE, Identifier.of(MOD_ID, "shockwave"), SHOCKWAVE);
+		Registry.register(Registries.PARTICLE_TYPE, Identifier.of(MOD_ID, "blank_shockwave"), BLANK_SHOCKWAVE);
+		Registry.register(Registries.PARTICLE_TYPE, Identifier.of(MOD_ID, "underwaterblastwave"), UNDERWATERBLASTWAVE);
+		Registry.register(Registries.PARTICLE_TYPE, Identifier.of(MOD_ID, "sparks"), SPARKS);
+		Registry.register(Registries.PARTICLE_TYPE, Identifier.of(MOD_ID, "underwatersparks"), UNDERWATERSPARKS);
 	}
 }
