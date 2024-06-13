@@ -28,12 +28,14 @@ public abstract class ExplosionMixin {
 
 	@Inject(method = "affectWorld(Z)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;addParticle(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V"), cancellable = true)
 	public void explosiveenhancement$spawnExplosiveParticles(boolean particles, CallbackInfo ci) {
-		if (config.modEnabled) {
-			if (config.debugLogs) { LOGGER.info("affectWorld has been called!"); }
+		if (config.modEnabled && particles) {
+			if (config.debugLogs) { LOGGER.info("[Explosive Enhancement]: affectWorld has been called!"); }
 
 			ExplosionParticleType explosionParticleType = ExplosiveApi.determineParticleType(world, x, y, z, particle, emitterParticle);
-			ExplosiveApi.spawnParticles(world, x, y, z, power, explosionParticleType, this.shouldDestroy());
-			ci.cancel();
+			if(explosionParticleType != ExplosionParticleType.WIND) { //allows normal wind particles to be shown until I add special effect
+				ExplosiveApi.spawnParticles(world, x, y, z, power, explosionParticleType, this.shouldDestroy());
+				ci.cancel();
+			}
 		}
 	}
 }

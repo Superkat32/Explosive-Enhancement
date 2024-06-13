@@ -1,6 +1,7 @@
 package net.superkat.explosiveenhancement;
 
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.option.ParticlesMode;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.tag.FluidTags;
@@ -16,13 +17,22 @@ public class ExplosiveHandler {
         if(config.modEnabled) {
             if(config.debugLogs) {
                 LOGGER.info("ExplosiveHandler has been called!");
-                LOGGER.info("Minecraft particle settings: " + MinecraftClient.getInstance().options.getParticles().getValue());
+                LOGGER.info("Explosive Enhancement Enabled: " + config.modEnabled);
+                ParticlesMode particlesMode = MinecraftClient.getInstance().options.getParticles().getValue();
+                LOGGER.info("Minecraft particle settings: " + particlesMode);
+                if(particlesMode == ParticlesMode.MINIMAL) {
+                    //This is the cause of most issues, so giving the user a hint may help reduce bug reports
+                    LOGGER.warn("[Explosive Enhancement]: Minecraft's particle settings is set to Minimal! This means that no explosion particles will be shown.");
+                } else if (particlesMode == ParticlesMode.DECREASED) {
+                    //This would have been helpful for me and saved me a good 5 minutes of my life
+                    LOGGER.warn("[Explosive Enhancement]: Minecraft's particle settings is set to Decreased! This means that some explosions particles may not always be shown.");
+                }
             }
 
             switch(explosionParticleType) {
                 case NORMAL -> spawnExplosionParticles(world, x, y, z, power, didDestroyBlocks, isImportant);
                 case WATER -> spawnUnderwaterExplosionParticles(world, x, y, z, power, didDestroyBlocks, isImportant);
-                case WIND -> spawnWindExplosionParticles(world, x, y, z, power, didDestroyBlocks, isImportant);
+                case WIND -> spawnWindExplosionParticles(world, x, y, z, power, didDestroyBlocks, isImportant); //unused for now
             }
 
             if(config.debugLogs) { LOGGER.info("ExplosiveHandler finished!"); }
@@ -30,10 +40,11 @@ public class ExplosiveHandler {
     }
 
     public static ExplosionParticleType determineParticleType(World world, double x, double y, double z, ParticleEffect particle, ParticleEffect emitterParticle) {
-        if(config.underwaterExplosions && blockIsInWater(world, x, y, z)) {
-            return ExplosionParticleType.WATER;
-        } else if (particlesAreWindGust(particle, emitterParticle)) {
+        //TODO - Wind takes priority over water for now, but water should take priority over wind in the future
+        if (particlesAreWindGust(particle, emitterParticle)) {
             return ExplosionParticleType.WIND;
+        } else if(config.underwaterExplosions && blockIsInWater(world, x, y, z)) {
+            return ExplosionParticleType.WATER;
         } else {
             return ExplosionParticleType.NORMAL;
         }
@@ -138,6 +149,7 @@ public class ExplosiveHandler {
     }
 
     public static void spawnWindExplosionParticles(World world, double x, double y, double z, float power, boolean didDestroyBlocks, boolean isImportant) {
+        //This should never be called until I add a special wind effect
         spawnVanillaParticles(world, x, y, z, power, didDestroyBlocks, isImportant, true);
     }
 

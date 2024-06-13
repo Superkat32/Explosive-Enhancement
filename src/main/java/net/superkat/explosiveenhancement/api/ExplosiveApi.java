@@ -16,7 +16,7 @@ public interface ExplosiveApi {
      * @param power The explosion's power.
      * @param explosionParticleType The explosion particle effect to show(water, wind, or normal).
      *
-     * @since Explosive Enhancement 1.3
+     * @since Explosive Enhancement 1.2.3
      */
     static void spawnParticles(World world, double x, double y, double z, float power, ExplosionParticleType explosionParticleType) {
         spawnParticles(world, x, y, z, power, explosionParticleType, true, false);
@@ -33,7 +33,7 @@ public interface ExplosiveApi {
      * @param explosionParticleType The explosion particle effect to show(water, wind, or normal).
      * @param didDestroyBlocks Used to help determine the particle type for the vanilla particles.
      *
-     * @since Explosive Enhancement 1.3
+     * @since Explosive Enhancement 1.2.3
      */
     static void spawnParticles(World world, double x, double y, double z, float power, ExplosionParticleType explosionParticleType, boolean didDestroyBlocks) {
         spawnParticles(world, x, y, z, power, explosionParticleType, didDestroyBlocks, false);
@@ -51,7 +51,7 @@ public interface ExplosiveApi {
      * @param didDestroyBlocks Used to help determine the particle type for the vanilla particles.
      * @param isImportant Renders the effect from further away AND on lower particle settings. If true, the user's config option is ignored, otherwise it refers to the user's config option.
      *
-     * @since Explosive Enhancement 1.3
+     * @since Explosive Enhancement 1.2.3
      */
     static void spawnParticles(World world, double x, double y, double z, float power, ExplosionParticleType explosionParticleType, boolean didDestroyBlocks, boolean isImportant) {
         ExplosiveHandler.spawnParticles(world, x, y, z, power, explosionParticleType, didDestroyBlocks, isImportant);
@@ -72,14 +72,13 @@ public interface ExplosiveApi {
      * @param emitterParticle The explosion's normal particle(normally an emitter particle) for a higher explosion power.
      * @return The appropriate ExplosionParticleType depending on the particles or coordinates given.
      *
-     * @since Explosive Enhancement 1.3
+     * @since Explosive Enhancement 1.2.3
      */
     static ExplosionParticleType determineParticleType(World world, double x, double y, double z, ParticleEffect particle, ParticleEffect emitterParticle) {
         return ExplosiveHandler.determineParticleType(world, x, y, z, particle, emitterParticle);
     }
 
     /**
-     * @deprecated
      * Spawn Explosive Enhancement's particles while still keeping the user's config options
      *
      * @param world The world to spawn the effect in
@@ -95,7 +94,6 @@ public interface ExplosiveApi {
     }
 
     /**
-     * @deprecated
      * Spawn Explosive Enhancement's particles while still keeping the user's config options
      *
      * @param world The world to spawn the effect in
@@ -113,7 +111,6 @@ public interface ExplosiveApi {
     }
 
     /**
-     * @deprecated
      * Spawn Explosive Enhancement's particles while still keeping the user's config options
      * @param world The world to spawn the effect in
      * @param x The effect's x coordinate
