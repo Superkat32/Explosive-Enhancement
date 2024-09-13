@@ -1,0 +1,76 @@
+{
+  "explosiveenhancement.title": "Configuración de Explosive Enhancement",
+
+  "explosiveenhancement.category.default": "Partículas",
+
+  "explosiveenhancement.explosion.group": "Explosiones",
+  "explosiveenhancement.explosion.group.tooltip": "Opciones de las partículas de explosión",
+  "explosiveenhancement.blastwave.enabled": "Partícula de Onda Expansiva",
+  "explosiveenhancement.blastwave.enabled.tooltip": "Un círculo naranja horizontal que aparece a ras del suelo",
+  "explosiveenhancement.fireball.enabled": "Partícula de Bola de Fuego",
+  "explosiveenhancement.fireball.enabled.tooltip": "Esfera ígnea que se expande desde el centro de la explosión",
+  "explosiveenhancement.mushroomcloud.enabled": "Partículas de Humo en forma de Hongo",
+  "explosiveenhancement.mushroomcloud.enabled.tooltip": "Humo en forma de hongo que se eleva tras la explosión",
+  "explosiveenhancement.sparks.enabled": "Partícula de Destello",
+  "explosiveenhancement.sparks.enabled.tooltip": "Destellos blancos visibles en el momento de la explosión",
+  "explosiveenhancement.sparks.size": "Tamaño de los Destellos",
+  "explosiveenhancement.sparks.size.tooltip": "Controla el tamaño de la partícula de Destello",
+  "explosiveenhancement.sparks.opacity": "Opacidad de los Destellos",
+  "explosiveenhancement.sparks.opacity.tooltip": "Controla la opacidad de la partícula de Destello",
+  "explosiveenhancement.default.enabled": "Partículas predeterminadas de Explosión",
+  "explosiveenhancement.default.enabled.tooltip": "Las partículas de explosión predeterminadas de Minecraft",
+
+  "explosiveenhancement.underwater.group": "Explosiones bajo el agua",
+  "explosiveenhancement.underwater.group.tooltip": "Opciones de explosiones acuáticas",
+  "explosiveenhancement.underwater.enabled": "Explosiones bajo el agua",
+  "explosiveenhancement.underwater.enabled.tooltip": "¿Debería haber un efecto especial para las explosiones bajo el agua? Si se desactiva, la explosión se verá idéntica a la configuración de explosión preestablecida. Si está habilitada, la explosión utilizará las opciones en esta categoría.",
+  "explosiveenhancement.underwater.shockwave": "Partícula de Onda de Choque",
+  "explosiveenhancement.underwater.shockwave.tooltip": "Un halo vertical con un toque azul, similar a la partícula de Bola de Fuego",
+  "explosiveenhancement.underwater.blast": "Partícula de Onda Expansiva subacuática",
+  "explosiveenhancement.underwater.blast.tooltip": "Un gran círculo azulado horizontal, similar a la partícula de onda expansiva",
+  "explosiveenhancement.underwater.bubbleamount": "Cantidad de Burbujas",
+  "explosiveenhancement.underwater.bubbleamount.tooltip": "Pequeñas burbujas que explotan después de un tiempo",
+  "explosiveenhancement.underwater.bubbleamount.warningtooltip": "§cAdvertencia§r: ¡Demasiadas burbujas pueden causar perdida de FPS!",
+  "explosiveenhancement.underwater.sparks": "Partícula de Destello",
+  "explosiveenhancement.underwater.sparks.tooltip": "Destellos blancos visibles en el momento de la explosión",
+  "explosiveenhancement.underwater.sparks.size": "Tamaño del Destello",
+  "explosiveenhancement.underwater.sparks.size.tooltip": "Controla el tamaño de la partícula de Destello",
+  "explosiveenhancement.underwater.sparks.opacity": "Opacidad del Destello",
+  "explosiveenhancement.underwater.sparks.opacity.tooltip": "Controla la opacidad de la partícula de Destello",
+  "explosiveenhancement.underwater.default": "Partículas predeterminadas de Explosión",
+  "explosiveenhancement.underwater.default.tooltip": "Las partículas de explosión predeterminadas de Minecraft",
+
+
+
+  "explosiveenhancement.category.dynamic": "Dimensionamiento",
+
+  "explosiveenhancement.dynamic.group": "Explosiones Dinámicas",
+  "explosiveenhancement.dynamic.group.tooltip": "Opciones de redimensionamiento de explosiones dinámicas",
+  "explosiveenhancement.dynamicexplosions.enabled": "Dimensionamiento Dinámico de Explosiones",
+  "explosiveenhancement.dynamicexplosions.enabled.tooltip": "Cambia el tamaño de una explosión dependiendo de su potencia",
+  "explosiveenhancement.dynamicunderwater.enabled": "Dimensionamiento Dinámico de Explosiones acuáticas",
+  "explosiveenhancement.dynamicunderwater.enabled.tooltip": "Cambia el tamaño de una explosión acuática dependiendo de su potencia",
+  "explosiveenhancement.bettersmallexplosions.enabled": "Intentar Mejorar las Explosiones Pequeñas",
+  "explosiveenhancement.bettersmallexplosions.enabled.tooltip": "Si la potencia de una explosión es igual a 1 (calavera de wither, bola de fuego de ghast), la coordenada 'y' de la explosión se reducirá en una pequeña cantidad para obtener un efecto visual que, a veces, es mejor",
+  "explosiveenhancement.yoffset": "Desplazamiento en Y de las Explosiones Pequeñas",
+  "explosiveenhancement.yoffset.tooltip": "El desplazamiento en el eje Y de las explosiones pequeñas",
+
+
+
+  "explosiveenhancement.category.extras": "Extras",
+
+  "explosiveenhancement.extras.group": "Extras",
+  "explosiveenhancement.extras.group.tooltip": "Opciones adicionales",
+  "explosiveenhancement.extras.enabled": "Mod Habilitado",
+  "explosiveenhancement.extras.enabled.tooltip": "¿Debería estar habilitado el mod?",
+  "explosiveenhancement.extras.emissive": "Explosiones Emisivas",
+  "explosiveenhancement.extras.emissive.tooltip": "¿Deberían ser las explosiones normales emisivas?",
+  "explosiveenhancement.extras.emissivewater": "Explosiones acuáticas emisivas",
+  "explosiveenhancement.extras.emissivewater.tooltip": "¿Deberían ser las explosiones acuáticas emisivas?",
+  "explosiveenhancement.extras.alwaysshow": "Mostrar siempre las Partículas",
+  "explosiveenhancement.extras.alwaysshow.tooltip": "Si está habilitado, las partículas de explosión intentarán renderizarse desde más lejos (aproximadamente el doble de distancia) y en configuraciones de partículas más bajas. ¡Úsalo con precaución!",
+  "explosiveenhancement.extras.logs": "Registros de Depuración",
+  "explosiveenhancement.extras.logs.tooltip": "Registros adicionales (logs) para ayudar en la depuración, si fuera necesario",
+  "explosiveenhancement.extras.logs.warningtooltip": "§cAdvertencia§r: ¡Generará muchos registros!"
+
+}
