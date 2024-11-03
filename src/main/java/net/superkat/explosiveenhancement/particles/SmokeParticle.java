@@ -17,7 +17,7 @@ public class SmokeParticle extends SpriteBillboardParticle {
         super(world, x, y, z);
         this.velocityMultiplier = 0.6F;
         this.spriteProvider = spriteProvider;
-        this.maxAge = this.random.nextInt(35);
+        this.maxAge = this.random.nextInt(35) + 1;
         if(velZ == 0) {
             //for the particles going straight up
             scale = (float) velX * 0.25f;
