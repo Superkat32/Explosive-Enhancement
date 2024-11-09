@@ -13,21 +13,11 @@ import static net.superkat.explosiveenhancement.ExplosiveEnhancement.LOGGER;
 import static net.superkat.explosiveenhancement.ExplosiveEnhancementClient.config;
 
 public class ExplosiveHandler {
+
     public static void spawnParticles(World world, double x, double y, double z, float power, ExplosionParticleType explosionParticleType, boolean didDestroyBlocks, boolean isImportant) {
         if(config.modEnabled) {
-            if(config.debugLogs) {
-                LOGGER.info("ExplosiveHandler has been called!");
-                LOGGER.info("Explosive Enhancement Enabled: " + config.modEnabled);
-                ParticlesMode particlesMode = MinecraftClient.getInstance().options.getParticles().getValue();
-                LOGGER.info("Minecraft particle settings: " + particlesMode);
-                if(particlesMode == ParticlesMode.MINIMAL) {
-                    //This is the cause of most issues, so giving the user a hint may help reduce bug reports
-                    LOGGER.warn("[Explosive Enhancement]: Minecraft's particle settings is set to Minimal! This means that no explosion particles will be shown.");
-                } else if (particlesMode == ParticlesMode.DECREASED) {
-                    //This would have been helpful for me and saved me a good 5 minutes of my life
-                    LOGGER.warn("[Explosive Enhancement]: Minecraft's particle settings is set to Decreased! This means that some explosions particles may not always be shown.");
-                }
-            }
+
+            logDebugInfo();
 
             switch(explosionParticleType) {
                 case NORMAL -> spawnExplosionParticles(world, x, y, z, power, didDestroyBlocks, isImportant);
@@ -35,7 +25,23 @@ public class ExplosiveHandler {
                 case WIND -> spawnWindExplosionParticles(world, x, y, z, power, didDestroyBlocks, isImportant); //unused for now
             }
 
-            if(config.debugLogs) { LOGGER.info("ExplosiveHandler finished!"); }
+            if (config.debugLogs) { LOGGER.info("ExplosiveHandler finished!"); }
+        }
+    }
+
+    private static void logDebugInfo() {
+        if (!config.debugLogs) return;
+
+        LOGGER.info("ExplosiveHandler has been called!");
+        LOGGER.info("Explosive Enhancement Enabled: {}", config.modEnabled);
+
+        ParticlesMode particlesMode = MinecraftClient.getInstance().options.getParticles().getValue();
+        LOGGER.info("Minecraft particle settings: {}", particlesMode);
+
+        if (particlesMode == ParticlesMode.MINIMAL) {
+            LOGGER.warn("[Explosive Enhancement]: Minecraft's particle settings is set to Minimal! This means that no explosion particles will be shown.");
+        } else if (particlesMode == ParticlesMode.DECREASED) {
+            LOGGER.warn("[Explosive Enhancement]: Minecraft's particle settings is set to Decreased! This means that some explosions particles may not always be shown.");
         }
     }
 
@@ -81,7 +87,8 @@ public class ExplosiveHandler {
     public static void spawnExplosionParticles(World world, double x, double y, double z, float power, boolean didDestroyBlocks, boolean isImportant) {
         power = config.dynamicSize ? power : 4;
         y = config.attemptBetterSmallExplosions && power == 1 ? y + config.smallExplosionYOffset : y;
-        isImportant = isImportant || config.alwaysShow;
+        isImportant |= config.alwaysShow;
+
         float blastwavePower = power * 1.75f;
         float fireballPower = power * 1.25f;
         float smokePower = power * 0.4f;
@@ -97,17 +104,7 @@ public class ExplosiveHandler {
         }
 
         if(config.showMushroomCloud) {
-            //I'm aware DRY is a thing, but I couldn't figure out any other way to get even a similar effect that I was happy with, so unfortunately, this will have to do.
-            //x, y, z, [size(power)/velX], velY, [size(power)/velZ]
-            //This is to allow for dynamic smoke depending on the explosion's power
-            //The smoke particle factory (should be) able to determine if the velX/velZ is the size or actual velocity
-            world.addParticle(ExplosiveEnhancement.SMOKE, isImportant, x, y, z, power, power * 0.25, 0);
-            world.addParticle(ExplosiveEnhancement.SMOKE, isImportant, x, y, z, power, smokePower, 0);
-
-            world.addParticle(ExplosiveEnhancement.SMOKE, isImportant, x, y, z, 0.15, smokePower, power);
-            world.addParticle(ExplosiveEnhancement.SMOKE, isImportant, x, y, z, -0.15, smokePower, power);
-            world.addParticle(ExplosiveEnhancement.SMOKE, isImportant, x, y, z, power, smokePower, 0.15);
-            world.addParticle(ExplosiveEnhancement.SMOKE, isImportant, x, y, z, power, smokePower, -0.15);
+            spawnMushroomCloud(world, x, y, z, power, smokePower, isImportant);
         }
 
         if(config.showDefaultExplosion) {
@@ -119,6 +116,7 @@ public class ExplosiveHandler {
         power = config.dynamicUnderwater ? power : 4;
         y = config.attemptBetterSmallExplosions && power == 1 ? y + config.smallExplosionYOffset : y;
         isImportant = isImportant || config.alwaysShow;
+
         float blastwavePower = power * 1.75f;
         float fireballPower = power * 1.25f;
 
@@ -132,20 +130,33 @@ public class ExplosiveHandler {
             world.addParticle(ExplosiveEnhancement.BLANK_SHOCKWAVE, isImportant, x, y + 0.5, z, fireballPower, isImportant ? 1 : 0, 0);
         }
 
-        for(int total = config.bubbleAmount; total >= 1; total--) {
-            spawnBubble(world, x, y, z, isImportant);
-        }
+        spawnBubble(world, x, y, z, isImportant);
 
         if(config.showDefaultExplosionUnderwater) {
             spawnVanillaParticles(world, x, y, z, power, didDestroyBlocks, isImportant, false);
         }
     }
 
+    private static void spawnMushroomCloud(World world, double x, double y, double z, float power, double smokePower, boolean isImportant) {
+        //I'm aware DRY is a thing, but I couldn't figure out any other way to get even a similar effect that I was happy with, so unfortunately, this will have to do.
+        //x, y, z, [size(power)/velX], velY, [size(power)/velZ]
+        //This is to allow for dynamic smoke depending on the explosion's power
+        //The smoke particle factory (should be) able to determine if the velX/velZ is the size or actual velocity
+        world.addParticle(ExplosiveEnhancement.SMOKE, isImportant, x, y, z, power, power * 0.25, 0);
+        world.addParticle(ExplosiveEnhancement.SMOKE, isImportant, x, y, z, power, smokePower, 0);
+        world.addParticle(ExplosiveEnhancement.SMOKE, isImportant, x, y, z, 0.15, smokePower, power);
+        world.addParticle(ExplosiveEnhancement.SMOKE, isImportant, x, y, z, -0.15, smokePower, power);
+        world.addParticle(ExplosiveEnhancement.SMOKE, isImportant, x, y, z, power, smokePower, 0.15);
+        world.addParticle(ExplosiveEnhancement.SMOKE, isImportant, x, y, z, power, smokePower, -0.15);
+    }
+
     private static void spawnBubble(World world, double x, double y, double z, boolean isImportant) {
-        double velX = world.random.nextBetween(1, 7) * 0.3 * world.random.nextBetween(-1, 1);
-        double velY = world.random.nextBetween(1, 10) * 0.1;
-        double velZ = world.random.nextBetween(1, 7) * 0.3 * world.random.nextBetween(-1, 1);
-        world.addParticle(ExplosiveEnhancement.BUBBLE, isImportant, x, y, z, velX, velY, velZ);
+        for (int i = 0; i < config.bubbleAmount; i++) {
+            double velX = world.random.nextBetween(1, 7) * 0.3 * world.random.nextBetween(-1, 1);
+            double velY = world.random.nextBetween(1, 10) * 0.1;
+            double velZ = world.random.nextBetween(1, 7) * 0.3 * world.random.nextBetween(-1, 1);
+            world.addParticle(ExplosiveEnhancement.BUBBLE, isImportant, x, y, z, velX, velY, velZ);
+        }
     }
 
     public static void spawnWindExplosionParticles(World world, double x, double y, double z, float power, boolean didDestroyBlocks, boolean isImportant) {
@@ -156,11 +167,6 @@ public class ExplosiveHandler {
     private static void spawnVanillaParticles(World world, double x, double y, double z, float power, boolean didDestroyBlocks, boolean isImportant, boolean wind) {
         ParticleEffect particle = wind ? ParticleTypes.GUST_EMITTER_SMALL : ParticleTypes.EXPLOSION;
         ParticleEffect emitter = wind ? ParticleTypes.GUST_EMITTER_LARGE : ParticleTypes.EXPLOSION_EMITTER;
-
-        if(!(power < 2.0f) && didDestroyBlocks) {
-            world.addParticle(emitter, isImportant, x, y, z, 1.0, 0.0, 0.0);
-        } else {
-            world.addParticle(particle, isImportant, x, y, z, 1.0, 0.0, 0.0);
-        }
+        world.addParticle(power >= 2.0f && didDestroyBlocks ? emitter : particle, isImportant, x, y, z, 1.0, 0.0, 0.0);
     }
 }

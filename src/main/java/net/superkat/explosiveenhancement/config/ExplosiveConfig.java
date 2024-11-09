@@ -4,6 +4,7 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.fabricmc.loader.api.FabricLoader;
+import net.superkat.explosiveenhancement.ExplosiveEnhancement;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -47,20 +48,19 @@ public class ExplosiveConfig {
     public boolean alwaysShow = false;
     public boolean debugLogs = false;
 
-    //The following two methods and the above static variables were borrowed and slightly edited
-    //with permission from Enjarai's absolutely amazing Do A Barrel Roll mod.
-    //Please check it out!
+    // The following two methods and the above static variables were borrowed and slightly edited
+    // with permission from Enjarai's absolutely amazing Do A Barrel Roll mod.
+    // Please check it out!
     // https://github.com/enjarai/do-a-barrel-roll
 
     public static ExplosiveConfig load() {
         ExplosiveConfig config = null;
         if(file.exists()) {
-            try (BufferedReader fileReader = new BufferedReader(
-                    new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8)
-            )) {
+            try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8))) {
                 config = GSON.fromJson(fileReader, ExplosiveConfig.class);
             } catch (IOException e) {
-                throw new RuntimeException("Could not load Explosive Config: ", e);
+                // Throwing raw exception types should be avoided, so a log entry is used instead
+                ExplosiveEnhancement.LOGGER.error("[Explosive Enhancement]: Could not load Explosive Config. Using default configuration.", e);
             }
         }
 
@@ -76,7 +76,7 @@ public class ExplosiveConfig {
         try (Writer writer = Files.newBufferedWriter(PATH, StandardCharsets.UTF_8, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.CREATE)) {
             GSON.toJson(this, writer);
         } catch (IOException e) {
-            e.printStackTrace();
+            ExplosiveEnhancement.LOGGER.error("[Explosive Enhancement]: Could not save Explosive Config.", e);
         }
     }
 
