@@ -1,7 +1,7 @@
 package net.superkat.explosiveenhancement.config;
 
 //? if (<=1.19.3) {
-import dev.isxander.yacl.api.*;
+/*import dev.isxander.yacl.api.*;
 import dev.isxander.yacl.gui.controllers.BooleanController;
 import dev.isxander.yacl.gui.controllers.slider.DoubleSliderController;
 import dev.isxander.yacl.gui.controllers.slider.FloatSliderController;
@@ -14,12 +14,12 @@ import net.minecraft.util.Formatting;
 import net.superkat.explosiveenhancement.ExplosiveEnhancementClient;
 
 import java.util.Arrays;
-//?}
+*///?}
 
 public class OldYaclIntegration {
 
     //? if (<=1.19.3) {
-    public static Screen makeScreen(Screen parent) {
+    /*public static Screen makeScreen(Screen parent) {
         ExplosiveConfig config = ExplosiveEnhancementClient.CONFIG;
         ExplosiveConfig defaults = new ExplosiveConfig();
         var yacl = YetAnotherConfigLib.createBuilder()
@@ -358,5 +358,5 @@ public class OldYaclIntegration {
 
         return yacl.build().generateScreen(parent);
     }
-    //?}
+    *///?}
 }

@@ -6,7 +6,7 @@
   "mixins": [
   ],
   "client": [
-    "ExplosionMixin"
+    "ClientPlayNetworkHandlerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

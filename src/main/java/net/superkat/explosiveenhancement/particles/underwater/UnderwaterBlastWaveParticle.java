@@ -24,10 +24,10 @@ public class UnderwaterBlastWaveParticle extends BlastWaveParticle {
     @Override
     protected int getBrightness(float tint) {
         //? if (<=1.19.3) {
-        BlockPos blockPos = new BlockPos(x, y, z);
-        //?} else {
-        /*BlockPos blockPos = BlockPos.ofFloored(x, y, z);
-         *///?}
+        /*BlockPos blockPos = new BlockPos(x, y, z);
+        *///?} else {
+        BlockPos blockPos = BlockPos.ofFloored(x, y, z);
+         //?}
         return CONFIG.emissiveWaterExplosion ? 15728880 : this.world.isChunkLoaded(blockPos) ? WorldRenderer.getLightmapCoordinates(this.world, blockPos) : 0;
     }
 

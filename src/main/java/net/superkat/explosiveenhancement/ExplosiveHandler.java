@@ -2,15 +2,19 @@ package net.superkat.explosiveenhancement;
 
 import net.minecraft.client.MinecraftClient;
 //? if (<=1.20) {
-import net.minecraft.client.option.ParticlesMode;
-//?} else {
-/*import net.minecraft.particle.ParticlesMode;
-*///?}
+/*import net.minecraft.client.option.ParticlesMode;
+*///?} else {
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.particle.ParticlesMode;
+//?}
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.explosion.ExplosionImpl;
 import net.superkat.explosiveenhancement.api.ExplosionParticleType;
 
 import static net.superkat.explosiveenhancement.ExplosiveEnhancement.LOGGER;
@@ -60,6 +64,16 @@ public class ExplosiveHandler {
         }
     }
 
+    public static ExplosionParticleType determineParticleType(World world, Vec3d pos, ParticleEffect particle) {
+        if (particle == ParticleTypes.GUST_EMITTER_SMALL || particle == ParticleTypes.GUST_EMITTER_LARGE) {
+            return ExplosionParticleType.WIND;
+        } else if(CONFIG.underwaterExplosions && blockIsInWater(world, pos.getX(), pos.getY(), pos.getZ())) {
+            return ExplosionParticleType.WATER;
+        } else {
+            return ExplosionParticleType.NORMAL;
+        }
+    }
+
     /**
      * Checks if the coordinates are underwater.
      *
@@ -86,6 +100,82 @@ public class ExplosiveHandler {
      */
     public static boolean particlesAreWindGust(ParticleEffect particle, ParticleEffect emitterParticle) {
         return particle == ParticleTypes.GUST_EMITTER_SMALL && emitterParticle == ParticleTypes.GUST_EMITTER_LARGE;
+    }
+
+    public static float attemptDeterminePowerFromKnockback(World world, Vec3d explosionPos, LivingEntity entity, Vec3d knockback) {
+
+        double d = Math.sqrt(entity.squaredDistanceTo(explosionPos)) / 4f * 2f;
+
+        double e = entity.getX() - explosionPos.getX();
+        double g = entity.getEyeY() - explosionPos.getY();
+        double h = entity.getZ() - explosionPos.getZ();
+        double o = Math.sqrt(e * e + g * g + h * h);
+        if(o != 0.0) {
+            e /= o;
+            g /= o;
+            h /= o;
+
+            float p = 1f;
+            float q = ExplosionImpl.calculateReceivedDamage(explosionPos, entity);
+
+            double r = (1.0 - d) * (double) q * (double) p;
+            double s = r;
+
+            e *= s;
+            g *= s;
+            h *= s;
+            Vec3d kb = new Vec3d(e, g, h);
+
+//            double power = 1 / (Math.sqrt(entity.squaredDistanceTo(explosionPos)) - 1 + (
+//                    knockback.getX() / ((entity.getX() - explosionPos.getX()) / o) * (q * p ) * 2
+//                    ));
+
+//            double trueE = ((entity.getX() - explosionPos.getX()) / o) * ((1.0 - (Math.sqrt(entity.squaredDistanceTo(explosionPos)) / power * 2f)) * q * p);
+
+            float dist = (float) Math.sqrt(entity.squaredDistanceTo(explosionPos));
+            float u = (float) entity.getX();
+            float v = (float) explosionPos.getX();
+
+//            trueE = ( (u - v) / o ) * ( (1.0 - dist / (4 * 2)) * q * p );
+
+//            power = (dist / ( -((knockback.getX() * o) / ( (u - v) * p * q)) + 1) ) / 2;
+
+            float test = (float) ( (dist / ( -((knockback.getX() * o) / ( (u - v) * p * q)) + 1) ) / 2 );
+
+
+//            return (float) power;
+            float kbModifier = 1f;
+            float damageRecieved = ExplosionImpl.calculateReceivedDamage(explosionPos, entity);
+            float powerX = powerCalc((float) entity.getX(), (float) knockback.getX(), (float) explosionPos.getX(), dist, (float) o, kbModifier, damageRecieved);
+            float powerY = powerCalc((float) entity.getEyeY(), (float) knockback.getY(), (float) explosionPos.getY(), dist, (float) o, kbModifier, damageRecieved);
+            float powerZ = powerCalc((float) entity.getZ(), (float) knockback.getZ(), (float) explosionPos.getZ(), dist, (float) o, kbModifier, damageRecieved);
+
+            float avgPower = (powerX + powerY + powerZ) / 3f;
+            return avgPower;
+        }
+
+
+        return 0f;
+    }
+
+    /**
+     * The calculation to reverse engineer the power variable based on knockback and positioning. It isn't the most perfect thing, but it is better than nothing.
+     * <br> <br>
+     * This method takes in x, y, or z coordinates to allow you to average them out.
+     * <br> <br>
+     * The parentheses on this calculation are so sensitive that messing up just one explodes the entire thing.
+     * @param entityPos The entity's x/eyeY/z pos
+     * @param knockbackAmount The knockback x/y/z amount from the explosion
+     * @param explosionPos The explosions x/y/z pos
+     * @param dist sqrt(player#distanceSquared(explosionPos))
+     * @param distO I guess just player#distanceSquared(explosionPos) but not because it was inaccurate?
+     * @param knockbackModifier The knockback modifier for the entity
+     * @param receivedDamage The received damage from the explosion
+     * @return A rough calculation for the power.
+     */
+    public static float powerCalc(float entityPos, float knockbackAmount, float explosionPos, float dist, float distO, float knockbackModifier, float receivedDamage) {
+        //algebra classes coming in handy for once
+        return (float) ( (dist / ( -((knockbackAmount * distO) / ( (entityPos - explosionPos) * knockbackModifier * receivedDamage)) + 1) ) / 2 );
     }
 
     public static void spawnExplosionParticles(World world, double x, double y, double z, float power, boolean didDestroyBlocks, boolean isImportant) {
