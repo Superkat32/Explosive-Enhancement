@@ -4,7 +4,9 @@ import net.minecraft.client.MinecraftClient;
 //? if (<=1.20) {
 /*import net.minecraft.client.option.ParticlesMode;
 *///?} else {
+import net.minecraft.client.particle.Particle;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.network.packet.s2c.play.ExplosionS2CPacket;
 import net.minecraft.particle.ParticlesMode;
 //?}
 import net.minecraft.particle.ParticleEffect;
@@ -16,6 +18,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.ExplosionImpl;
 import net.superkat.explosiveenhancement.api.ExplosionParticleType;
+import net.superkat.explosiveenhancement.api.ExplosiveApi;
 
 import static net.superkat.explosiveenhancement.ExplosiveEnhancement.LOGGER;
 import static net.superkat.explosiveenhancement.ExplosiveEnhancementClient.CONFIG;
@@ -102,48 +105,46 @@ public class ExplosiveHandler {
         return particle == ParticleTypes.GUST_EMITTER_SMALL && emitterParticle == ParticleTypes.GUST_EMITTER_LARGE;
     }
 
+    public static boolean particlesAreEmitter(ParticleEffect particle) {
+        return particle == ParticleTypes.EXPLOSION_EMITTER;
+    }
+
+    private static float getPowerFromParticle(ParticleEffect particle) {
+        float power;
+        boolean emitter = particlesAreEmitter(particle);
+        if (emitter) {
+            power = 4f;
+            if(CONFIG.extraPower) { power += CONFIG.bigExtraPower; }
+        } else {
+            power = 1f;
+            if(CONFIG.extraPower) { power += CONFIG.smallExtraPower; }
+        }
+        return power;
+    }
+
+    public static float getPowerFromExplosionPacket(World world, ExplosionS2CPacket packet) {
+        float power = 0;
+        ParticleEffect particle = packet.explosionParticle();
+
+        if(CONFIG.attemptPowerKnockbackCalc && packet.playerKnockback().isPresent()) {
+            power = ExplosiveApi.getPowerFromKnockback(world, packet.center(), MinecraftClient.getInstance().player, packet.playerKnockback().get());
+        }
+
+        if(Float.isNaN(power) || power == 0) {
+            power = getPowerFromParticle(particle);
+        }
+
+        return power;
+    }
+
     public static float attemptDeterminePowerFromKnockback(World world, Vec3d explosionPos, LivingEntity entity, Vec3d knockback) {
-
-        double d = Math.sqrt(entity.squaredDistanceTo(explosionPos)) / 4f * 2f;
-
         double e = entity.getX() - explosionPos.getX();
         double g = entity.getEyeY() - explosionPos.getY();
         double h = entity.getZ() - explosionPos.getZ();
         double o = Math.sqrt(e * e + g * g + h * h);
         if(o != 0.0) {
-            e /= o;
-            g /= o;
-            h /= o;
-
-            float p = 1f;
-            float q = ExplosionImpl.calculateReceivedDamage(explosionPos, entity);
-
-            double r = (1.0 - d) * (double) q * (double) p;
-            double s = r;
-
-            e *= s;
-            g *= s;
-            h *= s;
-            Vec3d kb = new Vec3d(e, g, h);
-
-//            double power = 1 / (Math.sqrt(entity.squaredDistanceTo(explosionPos)) - 1 + (
-//                    knockback.getX() / ((entity.getX() - explosionPos.getX()) / o) * (q * p ) * 2
-//                    ));
-
-//            double trueE = ((entity.getX() - explosionPos.getX()) / o) * ((1.0 - (Math.sqrt(entity.squaredDistanceTo(explosionPos)) / power * 2f)) * q * p);
-
             float dist = (float) Math.sqrt(entity.squaredDistanceTo(explosionPos));
-            float u = (float) entity.getX();
-            float v = (float) explosionPos.getX();
 
-//            trueE = ( (u - v) / o ) * ( (1.0 - dist / (4 * 2)) * q * p );
-
-//            power = (dist / ( -((knockback.getX() * o) / ( (u - v) * p * q)) + 1) ) / 2;
-
-            float test = (float) ( (dist / ( -((knockback.getX() * o) / ( (u - v) * p * q)) + 1) ) / 2 );
-
-
-//            return (float) power;
             float kbModifier = 1f;
             float damageRecieved = ExplosionImpl.calculateReceivedDamage(explosionPos, entity);
             float powerX = powerCalc((float) entity.getX(), (float) knockback.getX(), (float) explosionPos.getX(), dist, (float) o, kbModifier, damageRecieved);
@@ -154,8 +155,7 @@ public class ExplosiveHandler {
             return avgPower;
         }
 
-
-        return 0f;
+        return 0;
     }
 
     /**

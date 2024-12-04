@@ -35,19 +35,19 @@ public abstract class ClientPlayNetworkHandlerMixin {
 
 			ExplosionParticleType explosionParticleType = ExplosiveApi.determineParticleType(world, pos, packet.explosionParticle());
 			if(explosionParticleType != ExplosionParticleType.WIND) { //allows normal wind particles to be shown
-                float power = 0f;
-                boolean powerFromKb = false;
-                if(packet.playerKnockback().isPresent()) {
-                    power = ExplosiveApi.getPowerFromKnockback(world, pos, MinecraftClient.getInstance().player, packet.playerKnockback().get());
-                    powerFromKb = true;
-                    if(CONFIG.debugLogs) { LOGGER.info("[Explosive Enhancement]: power from knockback: {}", power); }
-                }
-
-                if(!powerFromKb || Float.isNaN(power)) {
-                    //change to api method
-                    power = packet.explosionParticle() == ParticleTypes.EXPLOSION_EMITTER ? 4f : 2f;
-                }
-
+                float power = ExplosiveApi.getPowerFromExplosionPacket(world, packet);
+//                float power = 0;
+//                boolean powerFromKb = false;
+//                if(packet.playerKnockback().isPresent()) {
+//                    power = ExplosiveApi.getPowerFromKnockback(world, pos, MinecraftClient.getInstance().player, packet.playerKnockback().get());
+//                    powerFromKb = true;
+//                    if(CONFIG.debugLogs) { LOGGER.info("[Explosive Enhancement]: power from knockback: {}", power); }
+//                }
+//
+//                if(!powerFromKb || Float.isNaN(power)) {
+//                    //change to api method
+//                    power = packet.explosionParticle() == ParticleTypes.EXPLOSION_EMITTER ? 4f : 2f;
+//                }
                 ExplosiveApi.spawnParticles(world, pos.getX(), pos.getY(), pos.getZ(), power, explosionParticleType, true);
                 ci.cancel();
 			}

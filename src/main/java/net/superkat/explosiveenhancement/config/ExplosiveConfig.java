@@ -40,8 +40,13 @@ public class ExplosiveConfig {
     public boolean showDefaultExplosionUnderwater = false;
     public boolean dynamicSize = true;
     public boolean dynamicUnderwater = true;
+    public boolean extraPower = false;
+    public float bigExtraPower = 0f;
+    public float smallExtraPower = 0f;
     public boolean attemptBetterSmallExplosions = true;
     public double smallExplosionYOffset = -0.5;
+    public boolean attemptPowerKnockbackCalc = false;
+    public boolean bypassPowerForSingleplayer = true;
     public boolean modEnabled = true;
     public boolean emissiveExplosion = true;
     public boolean emissiveWaterExplosion = true;

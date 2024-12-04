@@ -53,10 +53,22 @@
   "explosiveenhancement.dynamicexplosions.enabled.tooltip": "Change the size of an explosion depending on its power",
   "explosiveenhancement.dynamicunderwater.enabled": "Dynamic Underwater Explosion Sizing",
   "explosiveenhancement.dynamicunderwater.enabled.tooltip": "Change the size of an underwater explosion depending on its power",
+  "explosiveenhancement.extrapower.enabled": "Extra Power Overrides",
+  "explosiveenhancement.extrapower.enabled.tooltip": "Add (or remove) extra power to an explosion depending on its size.",
+  "explosiveenhancement.bigextrapower.enabled": "Big Explosions Extra Power",
+  "explosiveenhancement.bigextrapower.enabled.tooltip": "The amount of extra power to add (or remove) to bigger explosions.",
+  "explosiveenhancement.smallextrapower.enabled": "Small Explosions Extra Power",
+  "explosiveenhancement.smallextrapower.enabled.tooltip": "The amount of extra power to add (or remove) to smaller explosions",
   "explosiveenhancement.bettersmallexplosions.enabled": "Attempt Better Small Explosions",
   "explosiveenhancement.bettersmallexplosions.enabled.tooltip": "If an explosion's power is equal to 1(wither skull, ghast fireball), the explosion's y coordinate will be lowered by a small amount for a sometimes better looking effect",
   "explosiveenhancement.yoffset": "Small Explosions Y Offset",
   "explosiveenhancement.yoffset.tooltip": "The y offset for small explosions",
+  "explosiveenhancement.singleplayerpowerbypass.enabled": "Single Player Truly Dynamic Explosions",
+  "explosiveenhancement.singleplayerpowerbypass.enabled.tooltip": "When on single player worlds, Explosive Enhancement is still able to perfectly scale explosions based on their power, despite Minecraft 1.21.2's changes. \n This option does nothing when on multiplayer servers.",
+  "explosiveenhancement.knockbackcalc.enabled": "Attempt Calculating Power From Knockback",
+  "explosiveenhancement.knockbackcalc.enabled.tooltip": "With some math, the rough power of an explosion is able to be calculated based on the knockback done to the client player (that's you). It isn't perfect, but it can be better than nothing. \n This ONLY WORKS if you've been knocked back by the explosion.",
+
+  "explosiveenhancement.121_2_sadness_message": "Minecraft 1.21.2 removed the data used to scale explosions from being sent to the client. This means that perfect dynamic explosions are no longer possible §b on multiplayer servers. §r However, enabling §b§i\"%1$s\" still works for single player gameplay.",
 
 
 

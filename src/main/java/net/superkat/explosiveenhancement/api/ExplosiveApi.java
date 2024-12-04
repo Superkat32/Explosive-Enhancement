@@ -1,6 +1,7 @@
 package net.superkat.explosiveenhancement.api;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.network.packet.s2c.play.ExplosionS2CPacket;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -148,6 +149,23 @@ public interface ExplosiveApi {
     static void spawnParticles(World world, double x, double y, double z, float power, boolean isUnderWater, boolean didDestroyBlocks, boolean isImportant) {
         ExplosionParticleType explosionParticleType = isUnderWater ? ExplosionParticleType.WATER : ExplosionParticleType.NORMAL;
         spawnParticles(world, x, y, z, power, explosionParticleType, didDestroyBlocks, isImportant);
+    }
+
+    /**
+     * Returns a power for the size of an explosion based on the user's config options. This is usually done by checking the particle to be an emitter or not an emitter particle, and returns a float from that check.
+     * <br><br>
+     * For example(default config settings), emitter particle = power/size of 4f, while non-emitter particle = power/size of 2f.
+     * <br><br>
+     * Minecraft 1.21.2 removed the power data(used to determine an explosion's scale) being sent to the client, meaning that it must either be assumed, preset, or calculated(if possible, most of the time it isn't).
+     *
+     * @param world The world of the explosion
+     * @param packet The Explosion packet(should contain the explosion's center, particle, sound, and the velocity value of the client player)
+     * @return The power/size that should be used for an Explosive Enhancement particle based on the user's config options.
+     *
+     * @since Explosive Enhancement 1.3.0
+     */
+    static float getPowerFromExplosionPacket(World world, ExplosionS2CPacket packet) {
+        return ExplosiveHandler.getPowerFromExplosionPacket(world, packet);
     }
 
     /**
