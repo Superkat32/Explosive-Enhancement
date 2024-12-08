@@ -417,9 +417,11 @@ public class YaclIntegration {
         dynamicExplosionGroup.option(smallExtraPower);
         dynamicExplosionGroup.option(attemptBetterSmallExplosions);
         dynamicExplosionGroup.option(smallExplosionYOffset);
+        //? if(>=1.21.2)
         dynamicExplosionGroup.option(sad121_2notice);
         dynamicExplosionGroup.option(bypassPowerForSingleplayer);
         dynamicExplosionGroup.option(attemptPowerKnockbackCalc);
+        //?}
         dynamicCategoryBuilder.group(dynamicExplosionGroup.build());
 
 

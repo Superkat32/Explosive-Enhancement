@@ -19,7 +19,7 @@ import static net.superkat.explosiveenhancement.ExplosiveEnhancementClient.CONFI
 public abstract class ExplosionMixin {
 	//The client-side explosion handling changed in 1.21.2/3, requiring a new mixin
 
-	//?if(<=1.21.1) {
+	//? if (<=1.21.1) {
 //	@Shadow @Final private World world;
 //	@Shadow @Final private double x;
 //	@Shadow @Final private double y;

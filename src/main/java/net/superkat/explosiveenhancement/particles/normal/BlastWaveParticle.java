@@ -74,13 +74,13 @@ public class BlastWaveParticle extends SpriteBillboardParticle {
             Vector3f vector3f = vector3fs[i];
             vector3f.rotate(QUATERNION);
             vector3f.mul(f4);
-            vector3f.add(x, y, z);
+            vector3f.add(x, y + 0.01f, z); //slightly higher to avoid z-fighting with bottom particle and hopefully ground-level blocks as well
 
             // Create additional vertices for underside faces
             Vector3f vector3fBottom = vector3fsBottom[i];
             vector3fBottom.rotate(QUATERNION);
             vector3fBottom.mul(f4);
-            vector3fBottom.add(x, y - 0.1F, z); // Slightly lower to avoid z-fighting
+            vector3fBottom.add(x, y, z);
             //?}
         }
 

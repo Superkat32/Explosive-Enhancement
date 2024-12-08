@@ -22,6 +22,11 @@ import net.minecraft.registry.Registry;
 import net.minecraft.particle.SimpleParticleType;
 //?}
 
+//? if(>=1.21.2) {
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
+import net.superkat.explosiveenhancement.network.S2CExplosiveEnhancementParticles;
+//?}
+
 public class ExplosiveEnhancement implements ModInitializer {
 	public static final String MOD_ID = "explosiveenhancement";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
@@ -50,6 +55,12 @@ public class ExplosiveEnhancement implements ModInitializer {
 	public static final SimpleParticleType UNDERWATERSPARKS = FabricParticleTypes.simple();
 	//?}
 
+	//? if(>=1.21.2)
+	public static final SimpleParticleType NO_RENDER_PARTICLE = FabricParticleTypes.simple();
+	//?}
+
+	//TODO - change flash particle to custom "noexplosion" particle
+
 	@Override
 	public void onInitialize() {
 		registerParticle(id("blastwave"), BLASTWAVE);
@@ -62,6 +73,12 @@ public class ExplosiveEnhancement implements ModInitializer {
 		registerParticle(id("underwaterblastwave"), UNDERWATERBLASTWAVE);
 		registerParticle(id("sparks"), SPARKS);
 		registerParticle(id("underwatersparks"), UNDERWATERSPARKS);
+
+		//? if(>=1.21.2) {
+		//Used for the single player dynamic explosions
+		registerParticle(id("norenderparticle"), NO_RENDER_PARTICLE);
+		PayloadTypeRegistry.playS2C().register(S2CExplosiveEnhancementParticles.ID, S2CExplosiveEnhancementParticles.CODEC);
+		//?}
 	}
 
 	public void registerParticle(Identifier id, ParticleType<?> particle) {

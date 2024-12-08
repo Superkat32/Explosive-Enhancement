@@ -4,6 +4,7 @@
   "package": "net.superkat.explosiveenhancement.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "ServerWorldMixin"
   ],
   "client": [
     "ClientPlayNetworkHandlerMixin"

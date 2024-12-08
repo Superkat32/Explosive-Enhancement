@@ -200,10 +200,6 @@ public class ExplosiveHandler {
         if(CONFIG.showMushroomCloud) {
             spawnMushroomCloud(world, x, y, z, power, smokePower, isImportant);
         }
-
-        if(CONFIG.showDefaultExplosion) {
-            spawnVanillaParticles(world, x, y, z, power, didDestroyBlocks, isImportant, false);
-        }
     }
 
     public static void spawnUnderwaterExplosionParticles(World world, double x, double y, double z, float power, boolean didDestroyBlocks, boolean isImportant) {
@@ -225,10 +221,6 @@ public class ExplosiveHandler {
         }
 
         spawnBubble(world, x, y, z, isImportant);
-
-        if(CONFIG.showDefaultExplosionUnderwater) {
-            spawnVanillaParticles(world, x, y, z, power, didDestroyBlocks, isImportant, false);
-        }
     }
 
     private static void spawnMushroomCloud(World world, double x, double y, double z, float power, double smokePower, boolean isImportant) {

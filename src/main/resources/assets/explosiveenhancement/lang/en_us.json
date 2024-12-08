@@ -64,11 +64,11 @@
   "explosiveenhancement.yoffset": "Small Explosions Y Offset",
   "explosiveenhancement.yoffset.tooltip": "The y offset for small explosions",
   "explosiveenhancement.singleplayerpowerbypass.enabled": "Single Player Truly Dynamic Explosions",
-  "explosiveenhancement.singleplayerpowerbypass.enabled.tooltip": "When on single player worlds, Explosive Enhancement is still able to perfectly scale explosions based on their power, despite Minecraft 1.21.2's changes. \n This option does nothing when on multiplayer servers.",
+  "explosiveenhancement.singleplayerpowerbypass.enabled.tooltip": "When on single player worlds, Explosive Enhancement is still able to perfectly scale explosions based on their power, despite Minecraft 1.21.2's changes.\n\nThis option does nothing when on multiplayer servers.",
   "explosiveenhancement.knockbackcalc.enabled": "Attempt Calculating Power From Knockback",
-  "explosiveenhancement.knockbackcalc.enabled.tooltip": "With some math, the rough power of an explosion is able to be calculated based on the knockback done to the client player (that's you). It isn't perfect, but it can be better than nothing. \n This ONLY WORKS if you've been knocked back by the explosion.",
+  "explosiveenhancement.knockbackcalc.enabled.tooltip": "With some math, the rough power of an explosion is able to be calculated based on the knockback done to the client player (that's you). It isn't perfect, but it can be better than nothing.\n\nThis ONLY WORKS if you've been knocked back by the explosion.",
 
-  "explosiveenhancement.121_2_sadness_message": "Minecraft 1.21.2 removed the data used to scale explosions from being sent to the client. This means that perfect dynamic explosions are no longer possible §b on multiplayer servers. §r However, enabling §b§i\"%1$s\" still works for single player gameplay.",
+  "explosiveenhancement.121_2_sadness_message": "Minecraft 1.21.2 removed the data used to scale explosions from being sent to the client. This means that perfect dynamic explosions are no longer possible§o on multiplayer servers.§r\n\n§lHowever§r, enabling \"%1$s\" still works for single player gameplay.\n\nWhen on a multiplayer server, explosions are scaled between big and small depending on the amount of vanilla particles that would have spawned\n(big = many, small = single).",
 
 
 
