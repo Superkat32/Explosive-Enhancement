@@ -1,0 +1,76 @@
+{
+    "explosiveenhancement.title": "Explosive Enhancement 구성",
+  
+    "explosiveenhancement.category.default": "입자",
+  
+    "explosiveenhancement.explosion.group": "폭발",
+    "explosiveenhancement.explosion.group.tooltip": "폭발과 관련된 입자 옵션",
+    "explosiveenhancement.blastwave.enabled": "충격파 입자",
+    "explosiveenhancement.blastwave.enabled.tooltip": "지면에 평평하게 놓인 크고 주황색의 수평 원",
+    "explosiveenhancement.fireball.enabled": "파이어볼 입자",
+    "explosiveenhancement.fireball.enabled.tooltip": "크고 주황색의 수직 원",
+    "explosiveenhancement.mushroomcloud.enabled": "버섯구름 입자",
+    "explosiveenhancement.mushroomcloud.enabled.tooltip": "버섯 모양의 연기",
+    "explosiveenhancement.sparks.enabled": "불꽃 입자",
+    "explosiveenhancement.sparks.enabled.tooltip": "폭발로 인해 발생하는 극적인 흰색 선들",
+    "explosiveenhancement.sparks.size": "불꽃 크기",
+    "explosiveenhancement.sparks.size.tooltip": "불꽃 입자의 크기를 조절합니다",
+    "explosiveenhancement.sparks.opacity": "불꽃 불투명도",
+    "explosiveenhancement.sparks.opacity.tooltip": "불꽃 입자의 불투명도를 조절합니다",
+    "explosiveenhancement.default.enabled": "기본 폭발 입자",
+    "explosiveenhancement.default.enabled.tooltip": "기본 Minecraft 폭발 입자",
+  
+    "explosiveenhancement.underwater.group": "수중 폭발",
+    "explosiveenhancement.underwater.group.tooltip": "수중 폭발 옵션",
+    "explosiveenhancement.underwater.enabled": "수중 폭발",
+    "explosiveenhancement.underwater.enabled.tooltip": "수중 폭발에 특별한 효과를 추가할지 여부를 설정합니다. 비활성화하면 위의 설정에 따라 폭발이 표시됩니다. 활성화하면 아래의 옵션이 적용됩니다.",
+    "explosiveenhancement.underwater.shockwave": "충격파 입자",
+    "explosiveenhancement.underwater.shockwave.tooltip": "파이어볼 입자와 비슷한 약간 푸른빛이 도는 수직 원",
+    "explosiveenhancement.underwater.blast": "수중 충격파 입자",
+    "explosiveenhancement.underwater.blast.tooltip": "충격파 입자와 비슷한 큰 푸른빛의 수평 원",
+    "explosiveenhancement.underwater.bubbleamount": "거품 양",
+    "explosiveenhancement.underwater.bubbleamount.tooltip": "일정 시간이 지나면 터지는 작은 거품들",
+    "explosiveenhancement.underwater.bubbleamount.warningtooltip": "§c경고§r: 거품이 너무 많으면 렉이 발생할 수 있습니다!",
+    "explosiveenhancement.underwater.sparks": "불꽃 입자",
+    "explosiveenhancement.underwater.sparks.tooltip": "폭발로 인해 발생하는 극적인 흰색 선들",
+    "explosiveenhancement.underwater.sparks.size": "불꽃 크기",
+    "explosiveenhancement.underwater.sparks.size.tooltip": "불꽃 입자의 크기를 조절합니다",
+    "explosiveenhancement.underwater.sparks.opacity": "불꽃 불투명도",
+    "explosiveenhancement.underwater.sparks.opacity.tooltip": "불꽃 입자의 불투명도를 조절합니다",
+    "explosiveenhancement.underwater.default": "기본 폭발 입자",
+    "explosiveenhancement.underwater.default.tooltip": "기본 Minecraft 폭발 입자",
+  
+  
+  
+    "explosiveenhancement.category.dynamic": "크기 조절",
+  
+    "explosiveenhancement.dynamic.group": "동적 폭발",
+    "explosiveenhancement.dynamic.group.tooltip": "동적 폭발 크기 옵션",
+    "explosiveenhancement.dynamicexplosions.enabled": "동적 폭발 크기",
+    "explosiveenhancement.dynamicexplosions.enabled.tooltip": "폭발의 강도에 따라 크기를 변경합니다",
+    "explosiveenhancement.dynamicunderwater.enabled": "동적 수중 폭발 크기",
+    "explosiveenhancement.dynamicunderwater.enabled.tooltip": "폭발의 강도에 따라 수중 폭발 크기를 변경합니다",
+    "explosiveenhancement.bettersmallexplosions.enabled": "더 나은 소형 폭발 시도",
+    "explosiveenhancement.bettersmallexplosions.enabled.tooltip": "폭발의 강도가 1(위더 해골, 가스트 파이어볼)일 경우 폭발의 Y 좌표를 약간 낮추어 더 나은 효과를 제공합니다",
+    "explosiveenhancement.yoffset": "소형 폭발 Y 오프셋",
+    "explosiveenhancement.yoffset.tooltip": "소형 폭발의 Y 오프셋을 설정합니다",
+  
+  
+  
+    "explosiveenhancement.category.extras": "추가 기능",
+  
+    "explosiveenhancement.extras.group": "추가 기능",
+    "explosiveenhancement.extras.group.tooltip": "추가 옵션",
+    "explosiveenhancement.extras.enabled": "모드 활성화",
+    "explosiveenhancement.extras.enabled.tooltip": "모드를 활성화할지 여부를 설정합니다",
+    "explosiveenhancement.extras.emissive": "발광 폭발",
+    "explosiveenhancement.extras.emissive.tooltip": "기본 폭발을 발광으로 설정할지 여부를 설정합니다",
+    "explosiveenhancement.extras.emissivewater": "발광 수중 폭발",
+    "explosiveenhancement.extras.emissivewater.tooltip": "수중 폭발을 발광으로 설정할지 여부를 설정합니다",
+    "explosiveenhancement.extras.alwaysshow": "항상 입자 표시",
+    "explosiveenhancement.extras.alwaysshow.tooltip": "활성화 시 폭발 입자가 더 멀리서(약 두 배 거리) 그리고 낮은 입자 설정에서도 렌더링을 시도합니다. 신중히 사용하세요!",
+    "explosiveenhancement.extras.logs": "디버그 로그",
+    "explosiveenhancement.extras.logs.tooltip": "필요시 디버깅을 위한 추가 콘솔 로그",
+    "explosiveenhancement.extras.logs.warningtooltip": "§c경고§r: 로그를 과도하게 생성합니다!"
+  
+  }
