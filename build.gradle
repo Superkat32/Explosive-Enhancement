@@ -1,7 +1,7 @@
 plugins {
 	id 'fabric-loom' version '1.7-SNAPSHOT'
 	id 'maven-publish'
-	id "dev.kikugie.j52j" version "1.0.1"
+	id "dev.kikugie.j52j" version "1.0.2"
 	id "dev.kikugie.stonecutter"
 }
 
@@ -12,6 +12,8 @@ version = project.mod_version
 group = project.maven_group
 
 def mcVersion = stonecutter.current.version
+//def mcDep = property("mod.supported_mc_versions").toString()
+def mcDep = project.supported_mc_versions.toString()
 
 base {
 	archivesName = project.archives_base_name
@@ -22,6 +24,11 @@ loom {
 		ideConfigGenerated true // Run configurations are not created for subprojects by default
 		runDir "../../run" // Use a shared run folder and create separate worlds
 	}
+//	configurations.all {
+//		resolutionStrategy {
+//			force("net.fabricmc:fabric-loader:$loader_version")
+//		}
+//	}
 }
 
 repositories {
@@ -69,7 +76,7 @@ processResources {
 	inputs.property "version", project.version
 
 	filesMatching("fabric.mod.json") {
-		expand "version": project.version
+		expand "version": project.version, 'mcdep': project.property('supported_mc_versions')
 	}
 }
 

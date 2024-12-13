@@ -42,7 +42,13 @@ public class YaclIntegration {
                                 Text.translatable(ParticlesMode.ALL.getTranslationKey()).formatted(Formatting.BOLD)))
         ).build();
 
+        //? if (1.19.4) {
+        /*if(!MinecraftClient.getInstance().options.getParticles().getValue().equals(ParticlesMode.ALL)) {
+            defaultCategoryBuilder.option(particlesNotice);
+        }
+        *///?} else {
         defaultCategoryBuilder.optionIf(!MinecraftClient.getInstance().options.getParticles().getValue().equals(ParticlesMode.ALL), particlesNotice);
+        //?}
 
         //Explosion particles group
         var explosionGroup = OptionGroup.createBuilder()
@@ -337,7 +343,7 @@ public class YaclIntegration {
                         () -> config.extraPower,
                         val -> config.extraPower = val
                 )
-                .addListener((option, event) -> {
+                .listener((option, value) -> {
                     bigExtraPower.setAvailable(option.pendingValue());
                     smallExtraPower.setAvailable(option.pendingValue());
                 })
