@@ -1,26 +1,27 @@
 package net.superkat.explosiveenhancement.mixin;
 
-import net.minecraft.client.network.ClientPlayNetworkHandler;
+//? if (>=1.21.2) {
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.network.packet.s2c.play.ExplosionS2CPacket;
 import net.minecraft.particle.ParticleEffect;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.superkat.explosiveenhancement.ExplosiveEnhancement;
 import net.superkat.explosiveenhancement.api.ExplosionParticleType;
 import net.superkat.explosiveenhancement.api.ExplosiveApi;
-import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import static net.superkat.explosiveenhancement.ExplosiveEnhancement.LOGGER;
 import static net.superkat.explosiveenhancement.ExplosiveEnhancementClient.CONFIG;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
+import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(ClientPlayNetworkHandler.class)
+//?}
 public abstract class ClientPlayNetworkHandlerMixin {
-    //? if (>=1.21.3) {
+    //? if (>=1.21.2) {
 
     @Shadow public abstract ClientWorld getWorld();
 

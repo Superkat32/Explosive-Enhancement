@@ -9,14 +9,21 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.network.packet.s2c.play.ExplosionS2CPacket;
 import net.minecraft.particle.ParticlesMode;
 //?}
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.network.packet.s2c.play.ExplosionS2CPacket;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
+//? if (1.19.2) {
+/*import net.minecraft.tag.FluidTags;
+*///?} else {
 import net.minecraft.registry.tag.FluidTags;
+//?}
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+//? if (>=1.21.2) {
 import net.minecraft.world.explosion.ExplosionImpl;
+//?}
 import net.superkat.explosiveenhancement.api.ExplosionParticleType;
 import net.superkat.explosiveenhancement.api.ExplosiveApi;
 
@@ -68,7 +75,13 @@ public class ExplosiveHandler {
     }
 
     public static ExplosionParticleType determineParticleType(World world, Vec3d pos, ParticleEffect particle) {
-        if (particle == ParticleTypes.GUST_EMITTER_SMALL || particle == ParticleTypes.GUST_EMITTER_LARGE) {
+        if (
+            //? if (>=1.20.0) {
+            particle == ParticleTypes.GUST_EMITTER_SMALL || particle == ParticleTypes.GUST_EMITTER_LARGE
+            //?} else {
+            /*false
+            *///?}
+        ) {
             return ExplosionParticleType.WIND;
         } else if(CONFIG.underwaterExplosions && blockIsInWater(world, pos.getX(), pos.getY(), pos.getZ())) {
             return ExplosionParticleType.WATER;
@@ -87,7 +100,12 @@ public class ExplosiveHandler {
      * @return If the given coordinates are underwater or not.
      */
     public static boolean blockIsInWater(World world, double x, double y, double z) {
-        BlockPos pos = BlockPos.ofFloored(x, y, z);
+        BlockPos pos =
+        //? if (<=1.19.3) {
+        /*new BlockPos(x, y, z);
+        *///?} else {
+        BlockPos.ofFloored(x, y, z);
+        //?}
         return CONFIG.underwaterExplosions && world.getFluidState(pos).isIn(FluidTags.WATER);
     }
 
@@ -102,7 +120,11 @@ public class ExplosiveHandler {
      * @see ParticleTypes#GUST_EMITTER_LARGE
      */
     public static boolean particlesAreWindGust(ParticleEffect particle, ParticleEffect emitterParticle) {
+        //? if (>=1.20.0) {
         return particle == ParticleTypes.GUST_EMITTER_SMALL && emitterParticle == ParticleTypes.GUST_EMITTER_LARGE;
+        //?} else {
+        /*return false;
+        *///?}
     }
 
     public static boolean particlesAreEmitter(ParticleEffect particle) {
@@ -124,6 +146,7 @@ public class ExplosiveHandler {
 
     public static float getPowerFromExplosionPacket(World world, ExplosionS2CPacket packet) {
         float power = 0;
+        //? if (>=1.21.2) {
         ParticleEffect particle = packet.explosionParticle();
 
         if(CONFIG.attemptPowerKnockbackCalc && packet.playerKnockback().isPresent()) {
@@ -133,11 +156,12 @@ public class ExplosiveHandler {
         if(Float.isNaN(power) || power == 0) {
             power = getPowerFromParticle(particle);
         }
-
+        //?}
         return power;
     }
 
     public static float attemptDeterminePowerFromKnockback(World world, Vec3d explosionPos, LivingEntity entity, Vec3d knockback) {
+        //? if (>=1.21.2) {
         double e = entity.getX() - explosionPos.getX();
         double g = entity.getEyeY() - explosionPos.getY();
         double h = entity.getZ() - explosionPos.getZ();
@@ -154,7 +178,7 @@ public class ExplosiveHandler {
             float avgPower = (powerX + powerY + powerZ) / 3f;
             return avgPower;
         }
-
+        //?}
         return 0;
     }
 
@@ -251,8 +275,13 @@ public class ExplosiveHandler {
     }
 
     private static void spawnVanillaParticles(World world, double x, double y, double z, float power, boolean didDestroyBlocks, boolean isImportant, boolean wind) {
+        //? if (>=1.20.0) {
         ParticleEffect particle = wind ? ParticleTypes.GUST_EMITTER_SMALL : ParticleTypes.EXPLOSION;
         ParticleEffect emitter = wind ? ParticleTypes.GUST_EMITTER_LARGE : ParticleTypes.EXPLOSION_EMITTER;
+        //?} else {
+        /*ParticleEffect particle = ParticleTypes.EXPLOSION;
+        ParticleEffect emitter = ParticleTypes.EXPLOSION_EMITTER;
+        *///?}
         world.addParticle(power >= 2.0f && didDestroyBlocks ? emitter : particle, isImportant, x, y, z, 1.0, 0.0, 0.0);
     }
 }

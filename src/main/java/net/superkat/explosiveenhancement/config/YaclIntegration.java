@@ -1,9 +1,6 @@
 package net.superkat.explosiveenhancement.config;
 
 //? if (>=1.19.4) {
-//import dev.isxander.yacl.api.Option;
-//import dev.isxander.yacl.api.OptionGroup;
-//import dev.isxander.yacl.api.YetAnotherConfigLib;
 import dev.isxander.yacl3.api.*;
 import dev.isxander.yacl3.gui.controllers.BooleanController;
 import dev.isxander.yacl3.gui.controllers.slider.DoubleSliderController;
@@ -417,7 +414,7 @@ public class YaclIntegration {
         dynamicExplosionGroup.option(smallExtraPower);
         dynamicExplosionGroup.option(attemptBetterSmallExplosions);
         dynamicExplosionGroup.option(smallExplosionYOffset);
-        //? if(>=1.21.2)
+        //? if (>=1.21.2) {
         dynamicExplosionGroup.option(sad121_2notice);
         dynamicExplosionGroup.option(bypassPowerForSingleplayer);
         dynamicExplosionGroup.option(attemptPowerKnockbackCalc);

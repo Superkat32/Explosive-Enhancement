@@ -4,10 +4,16 @@
   "package": "net.superkat.explosiveenhancement.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    //? if (>=1.21.2) {
     "ServerWorldMixin"
+    //?}
   ],
   "client": [
+    //? if (>=1.21.2) {
     "ClientPlayNetworkHandlerMixin"
+    //?} else {
+    /*"ExplosionMixin"
+    *///?}
   ],
   "injectors": {
     "defaultRequire": 1
