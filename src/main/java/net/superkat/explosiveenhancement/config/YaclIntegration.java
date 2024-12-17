@@ -14,7 +14,7 @@ import net.superkat.explosiveenhancement.ExplosiveEnhancementClient;
 import java.util.Arrays;
 //?}
 
-//? if (<=1.20) {
+//? if (<1.21.2) {
 /*import net.minecraft.client.option.ParticlesMode;
 *///?} else {
 import net.minecraft.particle.ParticlesMode;
@@ -316,7 +316,7 @@ public class YaclIntegration {
                         val -> config.bigExtraPower = val
                 )
                 .available(false)
-                .customController(floatOption -> new <Number>FloatSliderController(floatOption, 0F, 10F, 0.1F))
+                .customController(floatOption -> new <Number>FloatSliderController(floatOption, -10F, 10F, 0.1F))
                 .build();
 
         var smallExtraPower = Option.<Float>createBuilder()
@@ -330,7 +330,7 @@ public class YaclIntegration {
                         val -> config.smallExtraPower = val
                 )
                 .available(false)
-                .customController(floatOption -> new <Number>FloatSliderController(floatOption, 0F, 10F, 0.1F))
+                .customController(floatOption -> new <Number>FloatSliderController(floatOption, -10F, 10F, 0.1F))
                 .build();
 
         var extraPower = Option.<Boolean>createBuilder()
@@ -415,9 +415,13 @@ public class YaclIntegration {
 
         dynamicExplosionGroup.option(dynamicExplosions);
         dynamicExplosionGroup.option(dynamicUnderwater);
+        //taking the easy way out for now
+        //may figure out how to add this to older versions later
+        //? if(>=1.21.2) {
         dynamicExplosionGroup.option(extraPower);
         dynamicExplosionGroup.option(bigExtraPower);
         dynamicExplosionGroup.option(smallExtraPower);
+        //?}
         dynamicExplosionGroup.option(attemptBetterSmallExplosions);
         dynamicExplosionGroup.option(smallExplosionYOffset);
         //? if (>=1.21.2) {

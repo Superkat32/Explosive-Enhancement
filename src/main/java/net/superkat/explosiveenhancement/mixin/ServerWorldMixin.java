@@ -38,7 +38,7 @@ public class ServerWorldMixin {
     public void explosiveenhancement$scaleParticlesForSingleplayer(@Nullable Entity entity, @Nullable DamageSource damageSource, @Nullable ExplosionBehavior behavior, double x, double y, double z, float power, boolean createFire, World.ExplosionSourceType explosionSourceType, ParticleEffect smallParticle, ParticleEffect largeParticle, RegistryEntry<SoundEvent> soundEvent, CallbackInfo ci, @Local(ordinal = 2) LocalRef<ParticleEffect> effect) {
         ServerWorld world = (ServerWorld)(Object)this;
         if (world.getServer().isSingleplayer() && this.players.size() == 1) {
-            if(ExplosiveEnhancementClient.CONFIG.bypassPowerForSingleplayer) {
+            if(ExplosiveEnhancementClient.CONFIG.modEnabled && ExplosiveEnhancementClient.CONFIG.bypassPowerForSingleplayer) {
                 ServerPlayNetworking.send(this.players.getFirst(), new S2CExplosiveEnhancementParticles(x, y, z, power, effect.get()));
                 effect.set(ExplosiveEnhancement.NO_RENDER_PARTICLE);
             }

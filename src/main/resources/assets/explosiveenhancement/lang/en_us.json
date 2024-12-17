@@ -3,8 +3,8 @@
 
   "explosiveenhancement.category.default": "Particles",
 
-  "explosiveenhancement.particlenotice": "§6Notice§r: Explosive Enhancement uses particles! Setting your particle visibility to a lower value may hide the enhanced explosion effect!",
-  "explosiveenhancement.particlenoticeparttwoelectricboogaloo": "Current particle visibility: %1$s. Setting it to %2$s is recommended!",
+  "explosiveenhancement.particlenotice": "§c§lNotice§r: Explosive Enhancement uses particles! Setting your particle visibility to a lower value may hide the enhanced explosion effect!",
+  "explosiveenhancement.particlenoticeparttwoelectricboogaloo": "Current particle visibility: %1$s.\nSetting it to %2$s is recommended!",
 
   "explosiveenhancement.explosion.group": "Explosions",
   "explosiveenhancement.explosion.group.tooltip": "Explosion particle options",

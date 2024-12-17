@@ -1,7 +1,7 @@
 package net.superkat.explosiveenhancement;
 
 import net.minecraft.client.MinecraftClient;
-//? if (<=1.20) {
+//? if (<1.21.2) {
 /*import net.minecraft.client.option.ParticlesMode;
 *///?} else {
 import net.minecraft.client.particle.Particle;

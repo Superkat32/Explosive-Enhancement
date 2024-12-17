@@ -18,12 +18,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import static net.superkat.explosiveenhancement.ExplosiveEnhancement.LOGGER;
 import static net.superkat.explosiveenhancement.ExplosiveEnhancementClient.CONFIG;
 
-*///?}
 
 import net.minecraft.world.explosion.Explosion;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(Explosion.class)
+*///?}
 public abstract class ExplosionMixin {
 	//The client-side explosion handling changed in 1.21.2/3, requiring a new mixin
 

@@ -15,6 +15,8 @@ def mcVersion = stonecutter.current.version
 //def mcDep = property("mod.supported_mc_versions").toString()
 def mcDep = project.supported_mc_versions.toString()
 
+version = "${property('mod_version')}-${property('jarname_target')}"
+
 base {
 	archivesName = project.archives_base_name
 }
@@ -24,11 +26,11 @@ loom {
 		ideConfigGenerated true // Run configurations are not created for subprojects by default
 		runDir "../../run" // Use a shared run folder and create separate worlds
 	}
-//	configurations.all {
-//		resolutionStrategy {
-//			force("net.fabricmc:fabric-loader:$loader_version")
-//		}
-//	}
+	configurations.all {
+		resolutionStrategy {
+			force("net.fabricmc:fabric-loader:$loader_version")
+		}
+	}
 }
 
 repositories {

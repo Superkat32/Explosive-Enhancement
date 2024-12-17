@@ -56,7 +56,11 @@ public class ExplosiveEnhancementClient implements ClientModInitializer {
                 double y = payload.y();
                 double z = payload.z();
                 ExplosionParticleType explosionParticleType = ExplosiveApi.determineParticleType(world, new Vec3d(x, y, z), payload.initParticle());
-                ExplosiveApi.spawnParticles(world, x, y, z, payload.power(), explosionParticleType);
+                float power = payload.power();
+                if(CONFIG.extraPower) {
+                    power += ExplosiveHandler.particlesAreEmitter(payload.initParticle()) ? CONFIG.bigExtraPower : CONFIG.smallExtraPower;
+                }
+                ExplosiveApi.spawnParticles(world, x, y, z, power, explosionParticleType);
 
                 boolean showVanillaParticles =
                         (CONFIG.showDefaultExplosion && explosionParticleType == ExplosionParticleType.NORMAL)
