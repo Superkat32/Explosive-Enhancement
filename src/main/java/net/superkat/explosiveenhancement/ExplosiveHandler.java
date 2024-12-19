@@ -212,13 +212,13 @@ public class ExplosiveHandler {
         float smokePower = power * 0.4f;
 
         if(CONFIG.showBlastWave) {
-            world.addParticle(ExplosiveEnhancement.BLASTWAVE, isImportant, x, y, z, blastwavePower, 0, 0);
+            addParticle(world, ExplosiveEnhancement.BLASTWAVE, isImportant, x, y, z, blastwavePower, 0, 0);
         }
 
         if(CONFIG.showFireball) {
-            world.addParticle(ExplosiveEnhancement.FIREBALL, isImportant, x, y + 0.5, z, fireballPower, isImportant ? 1 : 0, 0);
+            addParticle(world, ExplosiveEnhancement.FIREBALL, isImportant, x, y + 0.5, z, fireballPower, isImportant ? 1 : 0, 0);
         } else if (CONFIG.showSparks) {
-            world.addParticle(ExplosiveEnhancement.BLANK_FIREBALL, isImportant, x, y + 0.5, z, fireballPower, isImportant ? 1 : 0, 0);
+            addParticle(world, ExplosiveEnhancement.BLANK_FIREBALL, isImportant, x, y + 0.5, z, fireballPower, isImportant ? 1 : 0, 0);
         }
 
         if(CONFIG.showMushroomCloud) {
@@ -235,13 +235,13 @@ public class ExplosiveHandler {
         float fireballPower = power * 1.25f;
 
         if(CONFIG.showUnderwaterBlastWave) {
-            world.addParticle(ExplosiveEnhancement.UNDERWATERBLASTWAVE, isImportant, x, y + 0.5, z, blastwavePower, 0, 0);
+            addParticle(world, ExplosiveEnhancement.UNDERWATERBLASTWAVE, isImportant, x, y + 0.5, z, blastwavePower, 0, 0);
         }
 
         if(CONFIG.showShockwave) {
-            world.addParticle(ExplosiveEnhancement.SHOCKWAVE, isImportant, x, y + 0.5, z, fireballPower, isImportant ? 1 : 0, 0);
+            addParticle(world, ExplosiveEnhancement.SHOCKWAVE, isImportant, x, y + 0.5, z, fireballPower, isImportant ? 1 : 0, 0);
         } else if (CONFIG.showUnderwaterSparks) {
-            world.addParticle(ExplosiveEnhancement.BLANK_SHOCKWAVE, isImportant, x, y + 0.5, z, fireballPower, isImportant ? 1 : 0, 0);
+            addParticle(world, ExplosiveEnhancement.BLANK_SHOCKWAVE, isImportant, x, y + 0.5, z, fireballPower, isImportant ? 1 : 0, 0);
         }
 
         spawnBubble(world, x, y, z, isImportant);
@@ -252,12 +252,12 @@ public class ExplosiveHandler {
         //x, y, z, [size(power)/velX], velY, [size(power)/velZ]
         //This is to allow for dynamic smoke depending on the explosion's power
         //The smoke particle factory (should be) able to determine if the velX/velZ is the size or actual velocity
-        world.addParticle(ExplosiveEnhancement.SMOKE, isImportant, x, y, z, power, power * 0.25, 0);
-        world.addParticle(ExplosiveEnhancement.SMOKE, isImportant, x, y, z, power, smokePower, 0);
-        world.addParticle(ExplosiveEnhancement.SMOKE, isImportant, x, y, z, 0.15, smokePower, power);
-        world.addParticle(ExplosiveEnhancement.SMOKE, isImportant, x, y, z, -0.15, smokePower, power);
-        world.addParticle(ExplosiveEnhancement.SMOKE, isImportant, x, y, z, power, smokePower, 0.15);
-        world.addParticle(ExplosiveEnhancement.SMOKE, isImportant, x, y, z, power, smokePower, -0.15);
+        addParticle(world, ExplosiveEnhancement.SMOKE, isImportant, x, y, z, power, power * 0.25, 0);
+        addParticle(world, ExplosiveEnhancement.SMOKE, isImportant, x, y, z, power, smokePower, 0);
+        addParticle(world, ExplosiveEnhancement.SMOKE, isImportant, x, y, z, 0.15, smokePower, power);
+        addParticle(world, ExplosiveEnhancement.SMOKE, isImportant, x, y, z, -0.15, smokePower, power);
+        addParticle(world, ExplosiveEnhancement.SMOKE, isImportant, x, y, z, power, smokePower, 0.15);
+        addParticle(world, ExplosiveEnhancement.SMOKE, isImportant, x, y, z, power, smokePower, -0.15);
     }
 
     private static void spawnBubble(World world, double x, double y, double z, boolean isImportant) {
@@ -265,7 +265,7 @@ public class ExplosiveHandler {
             double velX = world.random.nextBetween(1, 7) * 0.3 * world.random.nextBetween(-1, 1);
             double velY = world.random.nextBetween(1, 10) * 0.1;
             double velZ = world.random.nextBetween(1, 7) * 0.3 * world.random.nextBetween(-1, 1);
-            world.addParticle(ExplosiveEnhancement.BUBBLE, isImportant, x, y, z, velX, velY, velZ);
+            addParticle(world, ExplosiveEnhancement.BUBBLE, isImportant, x, y, z, velX, velY, velZ);
         }
     }
 
@@ -282,6 +282,14 @@ public class ExplosiveHandler {
         /*ParticleEffect particle = ParticleTypes.EXPLOSION;
         ParticleEffect emitter = ParticleTypes.EXPLOSION_EMITTER;
         *///?}
-        world.addParticle(power >= 2.0f && didDestroyBlocks ? emitter : particle, isImportant, x, y, z, 1.0, 0.0, 0.0);
+        addParticle(world, power >= 2.0f && didDestroyBlocks ? emitter : particle, isImportant, x, y, z, 1.0, 0.0, 0.0);
+    }
+
+    private static void addParticle(World world, ParticleEffect particle, boolean isImportant, double x, double y, double z, double velX, double velY, double velZ) {
+        //? if(<=1.21.3) {
+//        world.addParticle(particle, isImportant, x, y, z, velX, velY, velZ);
+        //?} else {
+        world.addParticle(particle, isImportant, isImportant, x, y, z, velX, velY, velZ);
+        //?}
     }
 }

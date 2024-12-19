@@ -417,7 +417,7 @@ public class YaclIntegration {
         dynamicExplosionGroup.option(dynamicUnderwater);
         //taking the easy way out for now
         //may figure out how to add this to older versions later
-        //? if(>=1.21.2) {
+        //? if (>=1.21.2) {
         dynamicExplosionGroup.option(extraPower);
         dynamicExplosionGroup.option(bigExtraPower);
         dynamicExplosionGroup.option(smallExtraPower);

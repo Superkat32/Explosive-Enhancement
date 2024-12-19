@@ -80,6 +80,13 @@ processResources {
 	filesMatching("fabric.mod.json") {
 		expand "version": project.version, 'mcdep': project.property('supported_mc_versions')
 	}
+
+//	val refmap = "refmap" to "${mod.name}-$mcVersion-$loader-refmap.json"
+//	inputs.properties(refmap)
+
+	filesMatching("explosiveenhancement.mixins.json5") {
+		expand "refmap": "explosive-enhancement-refmap.json"
+	}
 }
 
 tasks.withType(JavaCompile).configureEach {

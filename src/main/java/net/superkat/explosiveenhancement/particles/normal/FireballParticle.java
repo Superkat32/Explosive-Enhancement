@@ -35,7 +35,11 @@ public class FireballParticle extends SpriteBillboardParticle {
             this.velocityY -= (double)this.gravityStrength;
             this.move(this.velocityX, this.velocityY, this.velocityZ);
             if(this.age >= this.maxAge * 0.65 && CONFIG.showSparks) {
-                this.world.addParticle(ExplosiveEnhancement.SPARKS, important, this.x, this.y, this.z, this.scale, this.velocityY, this.velocityZ);
+                //?if (<=1.21.3) {
+//                this.world.addParticle(ExplosiveEnhancement.SPARKS, important, this.x, this.y, this.z, this.scale, this.velocityY, this.velocityZ);
+                //?} else {
+                this.world.addParticle(ExplosiveEnhancement.SPARKS, important, important, this.x, this.y, this.z, this.scale, this.velocityY, this.velocityZ);
+                //?}
             }
             this.setSpriteForAge(this.spriteProvider);
         }
