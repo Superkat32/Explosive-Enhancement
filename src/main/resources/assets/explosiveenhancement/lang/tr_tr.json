@@ -1,0 +1,76 @@
+{
+  "explosiveenhancement.title": "Explosive Enhancement Ayarları",
+
+  "explosiveenhancement.category.default": "Parçacıklar",
+
+  "explosiveenhancement.explosion.group": "Patlamalar",
+  "explosiveenhancement.explosion.group.tooltip": "Patlama parçacık ayarları",
+  "explosiveenhancement.blastwave.enabled": "Patlama Dalgası Parçacığı",
+  "explosiveenhancement.blastwave.enabled.tooltip": "Yerde düz duran büyük, turuncu, yatay bir daire",
+  "explosiveenhancement.fireball.enabled": "Ateş Topu Parçacığı",
+  "explosiveenhancement.fireball.enabled.tooltip": "Büyük, turuncu, dikey bir daire",
+  "explosiveenhancement.mushroomcloud.enabled": "Mantar Bulutu Parçacıkları",
+  "explosiveenhancement.mushroomcloud.enabled.tooltip": "Mantar şeklindeki duman",
+  "explosiveenhancement.sparks.enabled": "Kıvılcım Parçacığı",
+  "explosiveenhancement.sparks.enabled.tooltip": "Patlama sonucu ortaya çıkan dramatik beyaz çizgiler",
+  "explosiveenhancement.sparks.size": "Kıvılcım Boyutu",
+  "explosiveenhancement.sparks.size.tooltip": "Kıvılcım parçacığının boyutunu kontrol eder",
+  "explosiveenhancement.sparks.opacity": "Kıvılcım Opaklığı",
+  "explosiveenhancement.sparks.opacity.tooltip": "Kıvılcım parçacığının opaklığını kontrol eder",
+  "explosiveenhancement.default.enabled": "Varsayılan Patlama Parçacıkları",
+  "explosiveenhancement.default.enabled.tooltip": "Varsayılan Minecraft patlama parçacıkları",
+
+  "explosiveenhancement.underwater.group": "Su Altı Patlamaları",
+  "explosiveenhancement.underwater.group.tooltip": "Su altı patlama ayarları",
+  "explosiveenhancement.underwater.enabled": "Su Altı Patlamaları",
+  "explosiveenhancement.underwater.enabled.tooltip": "Su altı patlamaları için özel bir efekt olmalı mı? Devre dışı bırakılırsa, patlama bu ayarın üzerinde ayarlanan patlama ayarlarıyla aynı görünecektir. Etkinleştirilirse, ayar su altı patlamaları grubunda olduğu sürece patlama bu ayarın altındaki ayarları kullanacaktır",
+  "explosiveenhancement.underwater.shockwave": "Şok Dalgası Parçacığı",
+  "explosiveenhancement.underwater.shockwave.tooltip": "Ateş topu parçacığına benzer, mavi tonlu dikey bir daire",
+  "explosiveenhancement.underwater.blast": "Su Altı Patlama Dalgası Parçacığı",
+  "explosiveenhancement.underwater.blast.tooltip": "Patlama dalgası parçacığına benzer büyük mavimsi yatay bir daire",
+  "explosiveenhancement.underwater.bubbleamount": "Baloncuk Miktarı",
+  "explosiveenhancement.underwater.bubbleamount.tooltip": "Bir süre sonra patlayan küçük baloncuklar",
+  "explosiveenhancement.underwater.bubbleamount.warningtooltip": "§cUyarı§r: Çok fazla baloncuk gecikmeye neden olabilir!",
+  "explosiveenhancement.underwater.sparks": "Kıvılcım Parçacığı",
+  "explosiveenhancement.underwater.sparks.tooltip": "Patlama sonucu ortaya çıkan dramatik beyaz çizgiler",
+  "explosiveenhancement.underwater.sparks.size": "Kıvılcım Boyutu",
+  "explosiveenhancement.underwater.sparks.size.tooltip": "Kıvılcım parçacığının boyutunu kontrol eder",
+  "explosiveenhancement.underwater.sparks.opacity": "Kıvılcım Opaklığı",
+  "explosiveenhancement.underwater.sparks.opacity.tooltip": "Kıvılcım parçacığının opaklığını kontrol eder",
+  "explosiveenhancement.underwater.default": "Varsayılan Patlama Parçacıkları",
+  "explosiveenhancement.underwater.default.tooltip": "Varsayılan Minecraft patlama parçacıkları",
+
+
+
+  "explosiveenhancement.category.dynamic": "Boyutlandırma",
+
+  "explosiveenhancement.dynamic.group": "Dinamik Patlamalar",
+  "explosiveenhancement.dynamic.group.tooltip": "Dinamik patlama boyutlandırma ayarları",
+  "explosiveenhancement.dynamicexplosions.enabled": "Dinamik Patlama Boyutlandırma",
+  "explosiveenhancement.dynamicexplosions.enabled.tooltip": "Gücüne bağlı olarak bir patlamanın boyutunu değiştirin",
+  "explosiveenhancement.dynamicunderwater.enabled": "Dinamik Su Altı Patlaması Boyutlandırma",
+  "explosiveenhancement.dynamicunderwater.enabled.tooltip": "Gücüne bağlı olarak bir su altı patlamasının boyutunu değiştirin",
+  "explosiveenhancement.bettersmallexplosions.enabled": "Daha İyi Küçük Patlamalar Deneyin",
+  "explosiveenhancement.bettersmallexplosions.enabled.tooltip": "Bir patlamanın gücü 1'e eşitse (wither kafatası, ghast ateş topu), patlamanın y koordinatı bazen daha iyi görünen bir etki için küçük bir miktar düşürülecektir",
+  "explosiveenhancement.yoffset": "Küçük Patlamalar Y Ofseti",
+  "explosiveenhancement.yoffset.tooltip": "Küçük patlamalar için y ofseti",
+
+
+
+  "explosiveenhancement.category.extras": "Ekstralar",
+
+  "explosiveenhancement.extras.group": "Ekstralar",
+  "explosiveenhancement.extras.group.tooltip": "Ekstra ayarlar",
+  "explosiveenhancement.extras.enabled": "Mod Etkin",
+  "explosiveenhancement.extras.enabled.tooltip": "Mod etkinleştirilmeli mi?",
+  "explosiveenhancement.extras.emissive": "Işık Saçan Patlamalar",
+  "explosiveenhancement.extras.emissive.tooltip": "Normal patlamalar ışık saçıcı mı olmalı?",
+  "explosiveenhancement.extras.emissivewater": "Işık Saçan Su Altı Patlamaları",
+  "explosiveenhancement.extras.emissivewater.tooltip": "Su altı patlamaları ışık saçıcı mı olmalı?",
+  "explosiveenhancement.extras.alwaysshow": "Parçacıkları Her Zaman Göster",
+  "explosiveenhancement.extras.alwaysshow.tooltip": "Etkinleştirilirse, patlama parçacıkları daha uzaktan (kabaca iki kat daha uzak) VE daha düşük parçacık ayarlarında oluşturulmaya çalışılır. Akıllıca kullanın!",
+  "explosiveenhancement.extras.logs": "Hata Ayıklama Günlükleri",
+  "explosiveenhancement.extras.logs.tooltip": "Hata ayıklamaya yardımcı olmak için ekstra konsol günlükleri",
+  "explosiveenhancement.extras.logs.warningtooltip": "§cUyarı§r: Günlükleri spam edecek!"
+
+}
