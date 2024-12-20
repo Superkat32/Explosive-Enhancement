@@ -35,7 +35,7 @@
     "fabricloader": ">=0.14.8",
     "fabric-api": "*",
     "minecraft": "${mcdep}",
-    "java": ">=21"
+    "java": "${javadep}"
   },
   "suggests": {
     "another-mod": "*"

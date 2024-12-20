@@ -286,9 +286,9 @@ public class ExplosiveHandler {
     }
 
     private static void addParticle(World world, ParticleEffect particle, boolean isImportant, double x, double y, double z, double velX, double velY, double velZ) {
-        //? if(<=1.21.3) {
-//        world.addParticle(particle, isImportant, x, y, z, velX, velY, velZ);
-        //?} else {
+        //? if (<=1.21.3) {
+        /*world.addParticle(particle, isImportant, x, y, z, velX, velY, velZ);
+        *///?} else {
         world.addParticle(particle, isImportant, isImportant, x, y, z, velX, velY, velZ);
         //?}
     }

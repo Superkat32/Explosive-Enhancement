@@ -78,19 +78,21 @@ processResources {
 	inputs.property "version", project.version
 
 	filesMatching("fabric.mod.json") {
-		expand "version": project.version, 'mcdep': project.property('supported_mc_versions')
+		expand "version": project.version, 'mcdep': project.property('supported_mc_versions'), 'javadep': stonecutter.eval(mcVersion, ">=1.20.5") ? '>=21' : '>=17'
 	}
 
 //	val refmap = "refmap" to "${mod.name}-$mcVersion-$loader-refmap.json"
 //	inputs.properties(refmap)
 
 	filesMatching("explosiveenhancement.mixins.json5") {
+//		expand "refmap": "explosive-enhancement-$project.version-$project.jarname_target-refmap.json"
 		expand "refmap": "explosive-enhancement-refmap.json"
 	}
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 21
+	it.options.release = stonecutter.eval(mcVersion, ">=1.20.5")
+			? 21 : 17
 }
 
 java {

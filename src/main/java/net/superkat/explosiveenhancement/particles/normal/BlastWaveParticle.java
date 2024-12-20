@@ -39,9 +39,9 @@ public class BlastWaveParticle extends SpriteBillboardParticle {
     }
 
     @Override
-    //? if(<=1.21.3) {
-//    public void buildGeometry(VertexConsumer buffer, Camera camera, float ticks) {
-    //?} else {
+    //? if (<=1.21.3) {
+    /*public void buildGeometry(VertexConsumer buffer, Camera camera, float ticks) {
+    *///?} else {
     public void render(VertexConsumer buffer, Camera camera, float ticks) {
     //?}
         Vec3d vec3 = camera.getPos();

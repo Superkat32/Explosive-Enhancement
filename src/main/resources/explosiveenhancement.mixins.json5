@@ -17,11 +17,6 @@
   ],
   "injectors": {
     "defaultRequire": 1
-  }
-  //i hate this i hate gradle
-  //you do not understand how frustrating the mixins have been here - hours wasted on nothing
-  //? if (>=1.21.2) {
-  ,
-  "refmap": "explosive-enhancement-refmap.json",
-  //?}
+  },
+  "refmap": "${refmap}"
 }
