@@ -76,7 +76,7 @@ public class ExplosiveHandler {
 
     public static ExplosionParticleType determineParticleType(World world, Vec3d pos, ParticleEffect particle) {
         if (
-            //? if (>=1.20.0) {
+            //? if (>=1.20.6) {
             particle == ParticleTypes.GUST_EMITTER_SMALL || particle == ParticleTypes.GUST_EMITTER_LARGE
             //?} else {
             /*false
@@ -120,7 +120,7 @@ public class ExplosiveHandler {
      * @see ParticleTypes#GUST_EMITTER_LARGE
      */
     public static boolean particlesAreWindGust(ParticleEffect particle, ParticleEffect emitterParticle) {
-        //? if (>=1.20.0) {
+        //? if (>=1.21.0) {
         return particle == ParticleTypes.GUST_EMITTER_SMALL && emitterParticle == ParticleTypes.GUST_EMITTER_LARGE;
         //?} else {
         /*return false;
@@ -275,7 +275,7 @@ public class ExplosiveHandler {
     }
 
     private static void spawnVanillaParticles(World world, double x, double y, double z, float power, boolean didDestroyBlocks, boolean isImportant, boolean wind) {
-        //? if (>=1.20.0) {
+        //? if (>=1.20.6) {
         ParticleEffect particle = wind ? ParticleTypes.GUST_EMITTER_SMALL : ParticleTypes.EXPLOSION;
         ParticleEffect emitter = wind ? ParticleTypes.GUST_EMITTER_LARGE : ParticleTypes.EXPLOSION_EMITTER;
         //?} else {

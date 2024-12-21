@@ -33,7 +33,7 @@ public abstract class ExplosionMixin {
 	@Shadow @Final private double y;
 	@Shadow @Final private double z;
 	@Shadow @Final private float power;
-	//? if (>=1.20.0) {
+	//? if (>=1.20.4) {
 	@Shadow @Final private ParticleEffect particle;
 	@Shadow @Final private ParticleEffect emitterParticle;
 	//?}
@@ -49,7 +49,7 @@ public abstract class ExplosionMixin {
 		if (CONFIG.modEnabled && particles) {
 			if (CONFIG.debugLogs) { LOGGER.info("[Explosive Enhancement]: affectWorld has been called!"); }
 
-			//? if (<=1.19.4) {
+			//? if (<=1.20.4) {
 			/^ParticleEffect particle = ParticleTypes.EXPLOSION;
 			ParticleEffect emitterParticle = ParticleTypes.EXPLOSION_EMITTER;
 			^///?}

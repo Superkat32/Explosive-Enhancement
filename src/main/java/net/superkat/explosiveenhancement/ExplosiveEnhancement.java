@@ -14,7 +14,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 //?}
 
-//? if (<1.20) {
+//? if (<=1.20) {
 /*import net.minecraft.particle.DefaultParticleType;
  *///?} else {
 import net.minecraft.particle.SimpleParticleType;
@@ -29,7 +29,7 @@ public class ExplosiveEnhancement implements ModInitializer {
 	public static final String MOD_ID = "explosiveenhancement";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-	//? if (<1.20) {
+	//? if (<=1.20) {
 	/*public static final DefaultParticleType BLASTWAVE = FabricParticleTypes.simple();
 	public static final DefaultParticleType FIREBALL = FabricParticleTypes.simple();
 	public static final DefaultParticleType BLANK_FIREBALL = FabricParticleTypes.simple();
