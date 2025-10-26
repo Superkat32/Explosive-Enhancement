@@ -6,19 +6,5 @@ pluginManagement {
         }
         mavenCentral()
         gradlePluginPortal()
-        maven { url = "https://maven.kikugie.dev/snapshots" }
-        maven { url = "https://maven.kikugie.dev/releases"}
-    }
-}
-
-plugins {
-    id "dev.kikugie.stonecutter" version "0.5-beta.5"
-}
-
-
-stonecutter {
-    create(rootProject) {
-        versions("1.19.2", "1.19.3", "1.19.4", "1.20", "1.20.6", "1.21.1", "1.21.3", "1.21.4")
-        vcsVersion = "1.21.3"
     }
 }

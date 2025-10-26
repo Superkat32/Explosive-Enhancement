@@ -2,7 +2,6 @@
   "schemaVersion": 1,
   "id": "explosiveenhancement",
   "version": "${version}",
-
   "name": "Explosive Enhancement",
   "description": "Enhancing the explosion animation since 2023.",
   "authors": [
@@ -11,10 +10,8 @@
   "contact": {
     "sources": "https://github.com/Superkat32/Explosive-Enhancement"
   },
-
   "license": "MIT",
   "icon": "assets/explosiveenhancement/icon.png",
-
   "environment": "client",
   "entrypoints": {
     "main": [
@@ -30,14 +27,9 @@
   "mixins": [
     "explosiveenhancement.mixins.json"
   ],
-
   "depends": {
     "fabricloader": ">=0.14.8",
-    "fabric-api": "*",
-    "minecraft": "${mcdep}",
-    "java": "${javadep}"
-  },
-  "suggests": {
-    "another-mod": "*"
+    "minecraft": ">=1.21.9",
+    "fabric-api": "*"
   }
 }
