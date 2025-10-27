@@ -152,6 +152,10 @@ public interface ExplosiveApi {
     }
 
     /**
+     * <b>AS OF MINECRAFT 1.21.9, THE POWER IS BACK TO BEING SYNCED TO THE CLIENT!!!!</b><br>
+     * Weird hacks & workarounds are no longer needed going forward. Just use {@link ExplosionS2CPacket#radius()}!<br><br>
+     *
+     * Old docs:<br>
      * Returns a power for the size of an explosion based on the user's config options. This is usually done by checking the particle to be an emitter or not an emitter particle, and returns a float from that check.
      * <br><br>
      * For example(default config settings), emitter particle = power/size of 4f, while non-emitter particle = power/size of 2f.

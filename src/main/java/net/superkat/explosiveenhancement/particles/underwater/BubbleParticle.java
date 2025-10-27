@@ -22,9 +22,10 @@ public class BubbleParticle extends BillboardParticle {
     public int extraTimeBeforePopping = this.random.nextBetween(1, 10);
     public boolean startAirTick = true;
 
-    public BubbleParticle(ClientWorld clientWorld, double x, double y, double z, double velX, double velY, double velZ, SpriteProvider spriteProvider) {
-        super(clientWorld, x, y, z, velX, velY, velZ, spriteProvider.getFirst());
+    public BubbleParticle(ClientWorld clientWorld, double x, double y, double z, double velX, double velY, double velZ, SpriteProvider spriteProvider, Random random) {
+        super(clientWorld, x, y, z, velX, velY, velZ, spriteProvider.getSprite(random));
 
+        // why did I do this :sob:
         this.age = this.maxAge;
         this.maxAge = 120 + this.random.nextBetween(0, 40);
         this.scale *= this.random.nextFloat() * 1.5F + 0.2F;
@@ -40,33 +41,35 @@ public class BubbleParticle extends BillboardParticle {
         this.lastX = this.x;
         this.lastY = this.y;
         this.lastZ = this.z;
-        if (this.maxAge-- <= 0) {
+        if (this.maxAge-- <= 0) { // count up not down !!!! :sob:
             this.markDead();
             this.world.addParticleClient(ParticleTypes.BUBBLE_POP, this.x, this.y, this.z, this.velocityX, this.velocityY, this.velocityZ);
-        } else {
-            this.velocityY += 0.002;
-            this.move(this.velocityX, this.velocityY, this.velocityZ);
-            this.velocityY *= 0.8200000238418579;
-            if(this.maxAge >= this.age * 0.97) {
-                this.velocityX *= 0.8300000238418579;
-                this.velocityZ *= 0.8300000238418579;
-            } else {
-                this.velocityX *= 0.6200000238418579;
-                this.velocityZ *= 0.6200000238418579;
-            }
-            if (!this.world.getFluidState(new BlockPos((int) this.x, (int) this.y, (int) this.z)).isIn(FluidTags.WATER)) {
-                this.velocityY -= 0.002;
-                if(startAirTick) {
-                    startingAirTick = this.maxAge;
-                    this.velocityY = 0;
-                    startAirTick = false;
-                } else if(this.maxAge == startingAirTick - extraTimeBeforePopping) {
-                        this.markDead();
-                        this.world.addParticleClient(ParticleTypes.BUBBLE_POP, this.x, this.y, this.z, this.velocityX, this.velocityY, this.velocityZ);
-                        this.world.playSoundClient(this.x, this.y, this.z, SoundEvents.BLOCK_BUBBLE_COLUMN_BUBBLE_POP, SoundCategory.AMBIENT, 0.5f, 1f, false);
-                    }
-                }
+            return;
+        }
 
+        this.velocityY += 0.002;
+        this.move(this.velocityX, this.velocityY, this.velocityZ);
+        this.velocityY *= 0.8200000238418579;
+        if(this.maxAge >= this.age * 0.97) {
+            // where on earth did I get these numbers from??
+            this.velocityX *= 0.8300000238418579;
+            this.velocityZ *= 0.8300000238418579;
+        } else {
+            this.velocityX *= 0.6200000238418579;
+            this.velocityZ *= 0.6200000238418579;
+        }
+
+        if (!this.world.getFluidState(new BlockPos((int) this.x, (int) this.y, (int) this.z)).isIn(FluidTags.WATER)) {
+            this.velocityY -= 0.002;
+            if(startAirTick) {
+                startingAirTick = this.maxAge;
+                this.velocityY = 0;
+                startAirTick = false;
+            } else if(this.maxAge == startingAirTick - extraTimeBeforePopping) {
+                    this.markDead();
+                    this.world.addParticleClient(ParticleTypes.BUBBLE_POP, this.x, this.y, this.z, this.velocityX, this.velocityY, this.velocityZ);
+                    this.world.playSoundClient(this.x, this.y, this.z, SoundEvents.BLOCK_BUBBLE_COLUMN_BUBBLE_POP, SoundCategory.AMBIENT, 0.5f, 1f, false);
+                }
             }
         }
 
@@ -79,22 +82,7 @@ public class BubbleParticle extends BillboardParticle {
     public record Factory<T extends ParticleEffect>(SpriteProvider sprites) implements ParticleFactory<T> {
         @Override
         public @NotNull Particle createParticle(T parameters, ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, Random random) {
-            return new BubbleParticle(world, x, y, z, velocityX, velocityY, velocityZ, sprites);
+            return new BubbleParticle(world, x, y, z, velocityX, velocityY, velocityZ, sprites, random);
         }
     }
-
-//    @Environment(EnvType.CLIENT)
-//    public static class Factory<T extends ParticleEffect> implements ParticleFactory<T> {
-//        private final SpriteProvider spriteProvider;
-//
-//        public Factory(SpriteProvider spriteProvider) {
-//            this.spriteProvider = spriteProvider;
-//        }
-//
-//        public Particle createParticle(T defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
-//            BubbleParticle bubbleParticle = new BubbleParticle(clientWorld, d, e, f, g, h, i, spriteProvider);
-//            bubbleParticle.setSprite(this.spriteProvider);
-//            return bubbleParticle;
-//        }
-//    }
 }

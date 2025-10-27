@@ -3,9 +3,6 @@
   "minVersion": "0.8",
   "package": "net.superkat.explosiveenhancement.mixin",
   "compatibilityLevel": "JAVA_17",
-  "mixins": [
-    "ServerWorldMixin"
-  ],
   "client": [
     "ClientPlayNetworkHandlerMixin"
   ],
