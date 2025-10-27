@@ -11,7 +11,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
 import net.superkat.explosiveenhancement.particles.AbstractExplosiveParticle;
-import net.superkat.explosiveenhancement.particles.SmokeParticleEffect;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)

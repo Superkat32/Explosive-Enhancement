@@ -1,4 +1,4 @@
-package net.superkat.explosiveenhancement.particles;
+package net.superkat.explosiveenhancement.particles.normal;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -6,6 +6,7 @@ import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.particle.ParticleType;
 import net.superkat.explosiveenhancement.ExplosiveEnhancement;
+import net.superkat.explosiveenhancement.particles.AbstractExplosiveParticleEffect;
 
 public class SmokeParticleEffect extends AbstractExplosiveParticleEffect {
 

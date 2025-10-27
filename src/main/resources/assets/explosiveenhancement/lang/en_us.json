@@ -22,6 +22,8 @@
   "explosiveenhancement.sparks.opacity.tooltip": "Controls the opacity of the sparks particle",
   "explosiveenhancement.default.enabled": "Default Explosion Particles",
   "explosiveenhancement.default.enabled.tooltip": "The vanilla Minecraft explosion particles",
+  "explosiveenhancement.default_smoke.enabled": "Default Smoke Particles",
+  "explosiveenhancement.default_smoke.enabled.tooltip": "The vanilla Minecraft explosion smoke particles which were introduced in 1.21.9",
 
   "explosiveenhancement.underwater.group": "Underwater Explosions",
   "explosiveenhancement.underwater.group.tooltip": "Underwater explosion options",
@@ -42,6 +44,9 @@
   "explosiveenhancement.underwater.sparks.opacity.tooltip": "Controls the opacity of the sparks particle",
   "explosiveenhancement.underwater.default": "Default Explosion Particles",
   "explosiveenhancement.underwater.default.tooltip": "The vanilla Minecraft explosion particles",
+  "explosiveenhancement.underwater.default_smoke": "Default Smoke Particles",
+  "explosiveenhancement.underwater.default_smoke.tooltip": "The vanilla Minecraft explosion smoke particles which were introduced in 1.21.9",
+  "explosiveenhancement.underwater.default_smoke.water_note": "Note: very unlikely to be seen underwater, as the smoke is partially determined by the amount of blocks broken",
 
 
 

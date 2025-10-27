@@ -12,9 +12,9 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.ExplosionImpl;
 import net.superkat.explosiveenhancement.api.ExplosionParticleType;
-import net.superkat.explosiveenhancement.particles.BlastWaveParticleEffect;
-import net.superkat.explosiveenhancement.particles.FireballParticleEffect;
-import net.superkat.explosiveenhancement.particles.SmokeParticleEffect;
+import net.superkat.explosiveenhancement.particles.normal.BlastWaveParticleEffect;
+import net.superkat.explosiveenhancement.particles.normal.FireballParticleEffect;
+import net.superkat.explosiveenhancement.particles.normal.SmokeParticleEffect;
 
 import static net.superkat.explosiveenhancement.ExplosiveEnhancement.LOGGER;
 import static net.superkat.explosiveenhancement.ExplosiveEnhancementClient.CONFIG;

@@ -1,4 +1,4 @@
-package net.superkat.explosiveenhancement.particles;
+package net.superkat.explosiveenhancement.particles.normal;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
@@ -8,6 +8,7 @@ import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.particle.ParticleType;
 import net.superkat.explosiveenhancement.ExplosiveEnhancement;
+import net.superkat.explosiveenhancement.particles.AbstractExplosiveParticleEffect;
 
 public class FireballParticleEffect extends AbstractExplosiveParticleEffect {
 

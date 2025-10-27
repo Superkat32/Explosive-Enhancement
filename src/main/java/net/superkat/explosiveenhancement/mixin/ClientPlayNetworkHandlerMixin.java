@@ -55,10 +55,18 @@ public abstract class ClientPlayNetworkHandlerMixin {
     }
 
     @WrapOperation(method = "onExplosion", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/world/ClientWorld;addBlockParticleEffects(Lnet/minecraft/util/math/Vec3d;FILnet/minecraft/util/collection/Pool;)V"))
-    public void explosiveenhancement$replaceVanillaSmokeParticles(ClientWorld instance, Vec3d center, float radius, int blockCount, Pool<BlockParticleEffect> particles, Operation<Void> original) {
+    public void explosiveenhancement$replaceVanillaSmokeParticles(ClientWorld instance, Vec3d center, float radius, int blockCount, Pool<BlockParticleEffect> particles, Operation<Void> original, @Local(argsOnly = true) ExplosionS2CPacket packet) {
         boolean callOriginal = true;
-        if(CONFIG.modEnabled && !CONFIG.showDefaultSmoke) {
-            callOriginal = false;
+        if(CONFIG.modEnabled) {
+            ExplosionParticleType explosionParticleType = ExplosiveApi.determineParticleType(instance, center, packet.explosionParticle());
+
+            boolean showVanillaParticles =
+                    (CONFIG.showDefaultSmoke && explosionParticleType == ExplosionParticleType.NORMAL)
+                            || (CONFIG.showDefaultSmokeUnderwater && explosionParticleType == ExplosionParticleType.WATER);
+
+            if(!showVanillaParticles) {
+                callOriginal = false;
+            }
         }
 
         if(callOriginal) {

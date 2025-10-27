@@ -1,4 +1,4 @@
-package net.superkat.explosiveenhancement.particles;
+package net.superkat.explosiveenhancement.particles.normal;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -8,6 +8,7 @@ import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.particle.ParticleType;
 import net.minecraft.util.dynamic.Codecs;
 import net.superkat.explosiveenhancement.ExplosiveEnhancement;
+import net.superkat.explosiveenhancement.particles.AbstractExplosiveParticleEffect;
 
 public class SparkParticleEffect extends AbstractExplosiveParticleEffect {
 

@@ -10,7 +10,6 @@ import net.minecraft.client.render.Camera;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.math.random.Random;
 import net.superkat.explosiveenhancement.particles.AbstractExplosiveParticle;
-import net.superkat.explosiveenhancement.particles.BlastWaveParticleEffect;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
 

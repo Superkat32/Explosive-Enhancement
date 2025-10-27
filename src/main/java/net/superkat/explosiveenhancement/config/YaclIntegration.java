@@ -121,8 +121,6 @@ public class YaclIntegration {
                 )
                 .addListener((option, event) -> sparkSize.setAvailable(option.pendingValue()))
                 .addListener((option, event) -> sparkOpacity.setAvailable(option.pendingValue()))
-//                .listener((opt, val) -> sparkSize.setAvailable(val))
-//                .listener((opt, val) -> sparkOpacity.setAvailable(val))
                 .customController(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
         var showDefaultExplosion = Option.<Boolean>createBuilder()
@@ -137,6 +135,18 @@ public class YaclIntegration {
                 )
                 .customController(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
+        var showDefaultSmoke = Option.<Boolean>createBuilder()
+                .name(Text.translatable("explosiveenhancement.default_smoke.enabled"))
+                .description(OptionDescription.createBuilder()
+                        .text(Text.translatable("explosiveenhancement.default_smoke.enabled.tooltip"))
+                        .build())
+                .binding(
+                        defaults.showDefaultSmoke,
+                        () -> config.showDefaultSmoke,
+                        val -> config.showDefaultSmoke = val
+                )
+                .customController(booleanOption -> new BooleanController(booleanOption, true))
+                .build();
         explosionGroup.option(showFireball);
         explosionGroup.option(showBlastWave);
         explosionGroup.option(showMushroomCloud);
@@ -144,6 +154,7 @@ public class YaclIntegration {
         explosionGroup.option(sparkSize);
         explosionGroup.option(sparkOpacity);
         explosionGroup.option(showDefaultExplosion);
+        explosionGroup.option(showDefaultSmoke);
         defaultCategoryBuilder.group(explosionGroup.build());
         // endregion
 
@@ -241,8 +252,6 @@ public class YaclIntegration {
                 )
                 .addListener((option, event) -> underwaterSparkSize.setAvailable(option.pendingValue()))
                 .addListener((option, event) -> underwaterSparkOpacity.setAvailable(option.pendingValue()))
-//                .listener((opt, val) -> underwaterSparkSize.setAvailable(val))
-//                .listener((opt, val) -> underwaterSparkOpacity.setAvailable(val))
                 .customController(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
         var showDefaultExplosionUnderwater = Option.<Boolean>createBuilder()
@@ -257,6 +266,19 @@ public class YaclIntegration {
                 )
                 .customController(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
+        var showDefaultSmokeUnderwater = Option.<Boolean>createBuilder()
+                .name(Text.translatable("explosiveenhancement.underwater.default_smoke"))
+                .description(OptionDescription.createBuilder()
+                        .text(Text.translatable("explosiveenhancement.underwater.default_smoke.tooltip"))
+                        .text(Text.translatable("explosiveenhancement.underwater.default_smoke.water_note"))
+                        .build())
+                .binding(
+                        defaults.showDefaultSmokeUnderwater,
+                        () -> config.showDefaultSmokeUnderwater,
+                        val -> config.showDefaultSmokeUnderwater = val
+                )
+                .customController(booleanOption -> new BooleanController(booleanOption, true))
+                .build();
 
         underwaterGroup.option(underwaterExplosions);
         underwaterGroup.option(showShockwave);
@@ -266,11 +288,12 @@ public class YaclIntegration {
         underwaterGroup.option(underwaterSparkSize);
         underwaterGroup.option(underwaterSparkOpacity);
         underwaterGroup.option(showDefaultExplosionUnderwater);
+        underwaterGroup.option(showDefaultSmokeUnderwater);
         defaultCategoryBuilder.group(underwaterGroup.build());
         // endregion
         // endregion
 
-        // region Dynamic Explosions Category
+        // region Sizing Category
         var dynamicCategoryBuilder = ConfigCategory.createBuilder()
                 .name(Text.translatable("explosiveenhancement.category.dynamic"));
 
@@ -347,10 +370,6 @@ public class YaclIntegration {
                     bigExtraPower.setAvailable(option.pendingValue());
                     smallExtraPower.setAvailable(option.pendingValue());
                 })
-//                .listener((option, value) -> {
-//                    bigExtraPower.setAvailable(option.pendingValue());
-//                    smallExtraPower.setAvailable(option.pendingValue());
-//                })
                 .customController(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
 
@@ -378,45 +397,44 @@ public class YaclIntegration {
                         val -> config.attemptBetterSmallExplosions = val
                 )
                 .addListener((option, event) -> smallExplosionYOffset.setAvailable(option.pendingValue()))
-//                .listener((opt, val) -> smallExplosionYOffset.setAvailable(val))
                 .customController(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
 
-        var sad121_2notice = LabelOption.createBuilder().lines(
-                Arrays.asList(
-                        Text.of(""),
-                        Text.translatable("explosiveenhancement.121_2_sadness_message", Text.translatable("explosiveenhancement.singleplayerpowerbypass.enabled"))
-                )).build();
-
-        var bypassPowerForSingleplayer = Option.<Boolean>createBuilder()
-                .name(Text.translatable("explosiveenhancement.singleplayerpowerbypass.enabled"))
-                .description(OptionDescription.createBuilder()
-                        .text(
-                                Text.translatable("explosiveenhancement.singleplayerpowerbypass.enabled.tooltip")
-                        )
-                        .build())
-                .binding(
-                        defaults.bypassPowerForSingleplayer,
-                        () -> config.bypassPowerForSingleplayer,
-                        val -> config.bypassPowerForSingleplayer = val
-                )
-                .customController(booleanOption -> new BooleanController(booleanOption, true))
-                .build();
-
-        var attemptPowerKnockbackCalc = Option.<Boolean>createBuilder()
-                .name(Text.translatable("explosiveenhancement.knockbackcalc.enabled"))
-                .description(OptionDescription.createBuilder()
-                        .text(
-                                Text.translatable("explosiveenhancement.knockbackcalc.enabled.tooltip")
-                        )
-                        .build())
-                .binding(
-                        defaults.attemptPowerKnockbackCalc,
-                        () -> config.attemptPowerKnockbackCalc,
-                        val -> config.attemptPowerKnockbackCalc = val
-                )
-                .customController(booleanOption -> new BooleanController(booleanOption, true))
-                .build();
+//        var sad121_2notice = LabelOption.createBuilder().lines(
+//                Arrays.asList(
+//                        Text.of(""),
+//                        Text.translatable("explosiveenhancement.121_2_sadness_message", Text.translatable("explosiveenhancement.singleplayerpowerbypass.enabled"))
+//                )).build();
+//
+//        var bypassPowerForSingleplayer = Option.<Boolean>createBuilder()
+//                .name(Text.translatable("explosiveenhancement.singleplayerpowerbypass.enabled"))
+//                .description(OptionDescription.createBuilder()
+//                        .text(
+//                                Text.translatable("explosiveenhancement.singleplayerpowerbypass.enabled.tooltip")
+//                        )
+//                        .build())
+//                .binding(
+//                        defaults.bypassPowerForSingleplayer,
+//                        () -> config.bypassPowerForSingleplayer,
+//                        val -> config.bypassPowerForSingleplayer = val
+//                )
+//                .customController(booleanOption -> new BooleanController(booleanOption, true))
+//                .build();
+//
+//        var attemptPowerKnockbackCalc = Option.<Boolean>createBuilder()
+//                .name(Text.translatable("explosiveenhancement.knockbackcalc.enabled"))
+//                .description(OptionDescription.createBuilder()
+//                        .text(
+//                                Text.translatable("explosiveenhancement.knockbackcalc.enabled.tooltip")
+//                        )
+//                        .build())
+//                .binding(
+//                        defaults.attemptPowerKnockbackCalc,
+//                        () -> config.attemptPowerKnockbackCalc,
+//                        val -> config.attemptPowerKnockbackCalc = val
+//                )
+//                .customController(booleanOption -> new BooleanController(booleanOption, true))
+//                .build();
 
         dynamicExplosionGroup.option(dynamicExplosions);
         dynamicExplosionGroup.option(dynamicUnderwater);
@@ -425,9 +443,9 @@ public class YaclIntegration {
         dynamicExplosionGroup.option(smallExtraPower);
         dynamicExplosionGroup.option(attemptBetterSmallExplosions);
         dynamicExplosionGroup.option(smallExplosionYOffset);
-        dynamicExplosionGroup.option(sad121_2notice);
-        dynamicExplosionGroup.option(bypassPowerForSingleplayer);
-        dynamicExplosionGroup.option(attemptPowerKnockbackCalc);
+//        dynamicExplosionGroup.option(sad121_2notice);
+//        dynamicExplosionGroup.option(bypassPowerForSingleplayer);
+//        dynamicExplosionGroup.option(attemptPowerKnockbackCalc);
         dynamicCategoryBuilder.group(dynamicExplosionGroup.build());
         // endregion
 

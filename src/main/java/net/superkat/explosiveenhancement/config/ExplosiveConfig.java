@@ -45,6 +45,7 @@ public class ExplosiveConfig {
     public float underwaterSparkOpacity = 0.30F;
     public int bubbleAmount = 50;
     public boolean showDefaultExplosionUnderwater = false;
+    public boolean showDefaultSmokeUnderwater = false;
 
     public boolean dynamicSize = true;
     public boolean dynamicUnderwater = true;

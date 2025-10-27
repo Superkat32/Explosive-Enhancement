@@ -10,8 +10,6 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.math.random.Random;
 import net.superkat.explosiveenhancement.config.ExplosiveConfig;
 import net.superkat.explosiveenhancement.particles.AbstractExplosiveParticle;
-import net.superkat.explosiveenhancement.particles.FireballParticleEffect;
-import net.superkat.explosiveenhancement.particles.SparkParticleEffect;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)

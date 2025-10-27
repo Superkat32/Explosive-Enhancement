@@ -7,10 +7,10 @@ import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.superkat.explosiveenhancement.particles.BlastWaveParticleEffect;
-import net.superkat.explosiveenhancement.particles.FireballParticleEffect;
-import net.superkat.explosiveenhancement.particles.SmokeParticleEffect;
-import net.superkat.explosiveenhancement.particles.SparkParticleEffect;
+import net.superkat.explosiveenhancement.particles.normal.BlastWaveParticleEffect;
+import net.superkat.explosiveenhancement.particles.normal.FireballParticleEffect;
+import net.superkat.explosiveenhancement.particles.normal.SmokeParticleEffect;
+import net.superkat.explosiveenhancement.particles.normal.SparkParticleEffect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,6 +34,7 @@ public class ExplosiveEnhancement implements ModInitializer {
 		registerParticle(id("fireball"), FIREBALL);
 		registerParticle(id("sparks"), SPARKS);
 		registerParticle(id("smoke"), SMOKE);
+
 		registerParticle(id("underwaterblastwave"), WATER_BLASTWAVE);
 		registerParticle(id("shockwave"), SHOCKWAVE);
 		registerParticle(id("underwatersparks"), WATER_SPARKS);
