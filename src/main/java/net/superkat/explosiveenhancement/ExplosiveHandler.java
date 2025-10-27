@@ -1,29 +1,16 @@
 package net.superkat.explosiveenhancement;
 
 import net.minecraft.client.MinecraftClient;
-//? if (<1.21.2) {
-/*import net.minecraft.client.option.ParticlesMode;
-*///?} else {
-import net.minecraft.client.particle.Particle;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.network.packet.s2c.play.ExplosionS2CPacket;
-import net.minecraft.particle.ParticlesMode;
-//?}
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.network.packet.s2c.play.ExplosionS2CPacket;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
-//? if (1.19.2) {
-/*import net.minecraft.tag.FluidTags;
-*///?} else {
+import net.minecraft.particle.ParticlesMode;
 import net.minecraft.registry.tag.FluidTags;
-//?}
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-//? if (>=1.21.2) {
 import net.minecraft.world.explosion.ExplosionImpl;
-//?}
 import net.superkat.explosiveenhancement.api.ExplosionParticleType;
 import net.superkat.explosiveenhancement.api.ExplosiveApi;
 
@@ -33,18 +20,17 @@ import static net.superkat.explosiveenhancement.ExplosiveEnhancementClient.CONFI
 public class ExplosiveHandler {
 
     public static void spawnParticles(World world, double x, double y, double z, float power, ExplosionParticleType explosionParticleType, boolean didDestroyBlocks, boolean isImportant) {
-        if(CONFIG.modEnabled) {
+        if(!CONFIG.modEnabled) return;
 
-            logDebugInfo();
+        logDebugInfo();
 
-            switch(explosionParticleType) {
-                case NORMAL -> spawnExplosionParticles(world, x, y, z, power, didDestroyBlocks, isImportant);
-                case WATER -> spawnUnderwaterExplosionParticles(world, x, y, z, power, didDestroyBlocks, isImportant);
-                case WIND -> spawnWindExplosionParticles(world, x, y, z, power, didDestroyBlocks, isImportant); //unused for now
-            }
-
-            if (CONFIG.debugLogs) { LOGGER.info("ExplosiveHandler finished!"); }
+        switch(explosionParticleType) {
+            case NORMAL -> spawnExplosionParticles(world, x, y, z, power, didDestroyBlocks, isImportant);
+            case WATER -> spawnUnderwaterExplosionParticles(world, x, y, z, power, didDestroyBlocks, isImportant);
+            case WIND -> spawnWindExplosionParticles(world, x, y, z, power, didDestroyBlocks, isImportant); //unused for now
         }
+
+        if (CONFIG.debugLogs) { LOGGER.info("ExplosiveHandler finished!"); }
     }
 
     private static void logDebugInfo() {
@@ -64,7 +50,7 @@ public class ExplosiveHandler {
     }
 
     public static ExplosionParticleType determineParticleType(World world, double x, double y, double z, ParticleEffect particle, ParticleEffect emitterParticle) {
-        //TODO - Wind takes priority over water for now, but water should take priority over wind in the future
+        // TODO - Wind takes priority over water for now, but water should take priority over wind in the future
         if (particlesAreWindGust(particle, emitterParticle)) {
             return ExplosionParticleType.WIND;
         } else if(CONFIG.underwaterExplosions && blockIsInWater(world, x, y, z)) {
@@ -75,13 +61,7 @@ public class ExplosiveHandler {
     }
 
     public static ExplosionParticleType determineParticleType(World world, Vec3d pos, ParticleEffect particle) {
-        if (
-            //? if (>=1.20.6) {
-            particle == ParticleTypes.GUST_EMITTER_SMALL || particle == ParticleTypes.GUST_EMITTER_LARGE
-            //?} else {
-            /*false
-            *///?}
-        ) {
+        if (particle == ParticleTypes.GUST_EMITTER_SMALL || particle == ParticleTypes.GUST_EMITTER_LARGE) {
             return ExplosionParticleType.WIND;
         } else if(CONFIG.underwaterExplosions && blockIsInWater(world, pos.getX(), pos.getY(), pos.getZ())) {
             return ExplosionParticleType.WATER;
@@ -100,12 +80,7 @@ public class ExplosiveHandler {
      * @return If the given coordinates are underwater or not.
      */
     public static boolean blockIsInWater(World world, double x, double y, double z) {
-        BlockPos pos =
-        //? if (<=1.19.3) {
-        /*new BlockPos(x, y, z);
-        *///?} else {
-        BlockPos.ofFloored(x, y, z);
-        //?}
+        BlockPos pos = BlockPos.ofFloored(x, y, z);
         return CONFIG.underwaterExplosions && world.getFluidState(pos).isIn(FluidTags.WATER);
     }
 
@@ -120,11 +95,7 @@ public class ExplosiveHandler {
      * @see ParticleTypes#GUST_EMITTER_LARGE
      */
     public static boolean particlesAreWindGust(ParticleEffect particle, ParticleEffect emitterParticle) {
-        //? if (>=1.21.0) {
         return particle == ParticleTypes.GUST_EMITTER_SMALL && emitterParticle == ParticleTypes.GUST_EMITTER_LARGE;
-        //?} else {
-        /*return false;
-        *///?}
     }
 
     public static boolean particlesAreEmitter(ParticleEffect particle) {
@@ -146,7 +117,6 @@ public class ExplosiveHandler {
 
     public static float getPowerFromExplosionPacket(World world, ExplosionS2CPacket packet) {
         float power = 0;
-        //? if (>=1.21.2) {
         ParticleEffect particle = packet.explosionParticle();
 
         if(CONFIG.attemptPowerKnockbackCalc && packet.playerKnockback().isPresent()) {
@@ -156,12 +126,10 @@ public class ExplosiveHandler {
         if(Float.isNaN(power) || power == 0) {
             power = getPowerFromParticle(particle);
         }
-        //?}
         return power;
     }
 
     public static float attemptDeterminePowerFromKnockback(World world, Vec3d explosionPos, LivingEntity entity, Vec3d knockback) {
-        //? if (>=1.21.2) {
         double e = entity.getX() - explosionPos.getX();
         double g = entity.getEyeY() - explosionPos.getY();
         double h = entity.getZ() - explosionPos.getZ();
@@ -178,7 +146,6 @@ public class ExplosiveHandler {
             float avgPower = (powerX + powerY + powerZ) / 3f;
             return avgPower;
         }
-        //?}
         return 0;
     }
 
@@ -198,8 +165,8 @@ public class ExplosiveHandler {
      * @return A rough calculation for the power.
      */
     public static float powerCalc(float entityPos, float knockbackAmount, float explosionPos, float dist, float distO, float knockbackModifier, float receivedDamage) {
-        //algebra classes coming in handy for once
-        return (float) ( (dist / ( -((knockbackAmount * distO) / ( (entityPos - explosionPos) * knockbackModifier * receivedDamage)) + 1) ) / 2 );
+        // algebra classes coming in handy for once
+        return (dist / ( -((knockbackAmount * distO) / ( (entityPos - explosionPos) * knockbackModifier * receivedDamage)) + 1) ) / 2;
     }
 
     public static void spawnExplosionParticles(World world, double x, double y, double z, float power, boolean didDestroyBlocks, boolean isImportant) {
@@ -248,10 +215,11 @@ public class ExplosiveHandler {
     }
 
     private static void spawnMushroomCloud(World world, double x, double y, double z, float power, double smokePower, boolean isImportant) {
-        //I'm aware DRY is a thing, but I couldn't figure out any other way to get even a similar effect that I was happy with, so unfortunately, this will have to do.
-        //x, y, z, [size(power)/velX], velY, [size(power)/velZ]
-        //This is to allow for dynamic smoke depending on the explosion's power
-        //The smoke particle factory (should be) able to determine if the velX/velZ is the size or actual velocity
+        // I'm aware DRY is a thing, but I couldn't figure out any other way to get even
+        // a similar effect that I was happy with, so unfortunately, this will have to do.
+        // x, y, z, [size(power)/velX], velY, [size(power)/velZ]
+        // This is to allow for dynamic smoke depending on the explosion's power
+        // The smoke particle factory (should be) able to determine if the velX/velZ is the size or actual velocity
         addParticle(world, ExplosiveEnhancement.SMOKE, isImportant, x, y, z, power, power * 0.25, 0);
         addParticle(world, ExplosiveEnhancement.SMOKE, isImportant, x, y, z, power, smokePower, 0);
         addParticle(world, ExplosiveEnhancement.SMOKE, isImportant, x, y, z, 0.15, smokePower, power);
@@ -270,26 +238,17 @@ public class ExplosiveHandler {
     }
 
     public static void spawnWindExplosionParticles(World world, double x, double y, double z, float power, boolean didDestroyBlocks, boolean isImportant) {
-        //This should never be called until I add a special wind effect
+        // This should never be called until I add a special wind effect
         spawnVanillaParticles(world, x, y, z, power, didDestroyBlocks, isImportant, true);
     }
 
     private static void spawnVanillaParticles(World world, double x, double y, double z, float power, boolean didDestroyBlocks, boolean isImportant, boolean wind) {
-        //? if (>=1.20.6) {
         ParticleEffect particle = wind ? ParticleTypes.GUST_EMITTER_SMALL : ParticleTypes.EXPLOSION;
         ParticleEffect emitter = wind ? ParticleTypes.GUST_EMITTER_LARGE : ParticleTypes.EXPLOSION_EMITTER;
-        //?} else {
-        /*ParticleEffect particle = ParticleTypes.EXPLOSION;
-        ParticleEffect emitter = ParticleTypes.EXPLOSION_EMITTER;
-        *///?}
         addParticle(world, power >= 2.0f && didDestroyBlocks ? emitter : particle, isImportant, x, y, z, 1.0, 0.0, 0.0);
     }
 
     private static void addParticle(World world, ParticleEffect particle, boolean isImportant, double x, double y, double z, double velX, double velY, double velZ) {
-        //? if (<=1.21.3) {
-        /*world.addParticle(particle, isImportant, x, y, z, velX, velY, velZ);
-        *///?} else {
-        world.addParticle(particle, isImportant, isImportant, x, y, z, velX, velY, velZ);
-        //?}
+        world.addParticleClient(particle, isImportant, isImportant, x, y, z, velX, velY, velZ);
     }
 }

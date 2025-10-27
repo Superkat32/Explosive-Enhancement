@@ -1,53 +1,48 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 package net.superkat.explosiveenhancement.particles.underwater;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.particle.*;
+import net.minecraft.client.particle.BillboardParticle;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.ParticleFactory;
+import net.minecraft.client.particle.SpriteProvider;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-
-//? if (1.19.2) {
-/*import net.minecraft.tag.FluidTags;
-*///?} else {
-import net.minecraft.registry.tag.FluidTags;
-//?}
-
+import net.minecraft.util.math.random.Random;
+import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class BubbleParticle extends SpriteBillboardParticle {
-    private final SpriteProvider spriteProvider;
-    int startingAirTick = 0;
-    int extraTimeBeforePopping = this.random.nextBetween(1, 10);
-    boolean startAirTick = true;
-    BubbleParticle(ClientWorld clientWorld, double x, double y, double z, double velX, double velY, double velZ, SpriteProvider spriteProvider) {
-        super(clientWorld, x, y, z);
-        this.spriteProvider = spriteProvider;
-        this.setBoundingBoxSpacing(0.02F, 0.02F);
+public class BubbleParticle extends BillboardParticle {
+    public int startingAirTick = 0;
+    public int extraTimeBeforePopping = this.random.nextBetween(1, 10);
+    public boolean startAirTick = true;
+
+    public BubbleParticle(ClientWorld clientWorld, double x, double y, double z, double velX, double velY, double velZ, SpriteProvider spriteProvider) {
+        super(clientWorld, x, y, z, velX, velY, velZ, spriteProvider.getFirst());
+
+        this.age = this.maxAge;
+        this.maxAge = 120 + this.random.nextBetween(0, 40);
         this.scale *= this.random.nextFloat() * 1.5F + 0.2F;
+
         this.velocityX = velX / this.random.nextBetween(1, 5);
         this.velocityY = velY / this.random.nextBetween((int) 1.4, (int) 4.5);
         this.velocityZ = velZ /  this.random.nextBetween(1, 5);
-        this.maxAge = 120 + this.random.nextBetween(0, 40);
-        this.setSpriteForAge(spriteProvider);
-        this.age = this.maxAge;
+
+        this.setBoundingBoxSpacing(0.02F, 0.02F);
     }
 
     public void tick() {
-        this.prevPosX = this.x;
-        this.prevPosY = this.y;
-        this.prevPosZ = this.z;
+        this.lastX = this.x;
+        this.lastY = this.y;
+        this.lastZ = this.z;
         if (this.maxAge-- <= 0) {
             this.markDead();
-            this.world.addParticle(ParticleTypes.BUBBLE_POP, this.x, this.y, this.z, this.velocityX, this.velocityY, this.velocityZ);
+            this.world.addParticleClient(ParticleTypes.BUBBLE_POP, this.x, this.y, this.z, this.velocityX, this.velocityY, this.velocityZ);
         } else {
             this.velocityY += 0.002;
             this.move(this.velocityX, this.velocityY, this.velocityZ);
@@ -65,34 +60,41 @@ public class BubbleParticle extends SpriteBillboardParticle {
                     startingAirTick = this.maxAge;
                     this.velocityY = 0;
                     startAirTick = false;
-                }
-                if(!startAirTick) {
-                    if(this.maxAge == startingAirTick - extraTimeBeforePopping) {
+                } else if(this.maxAge == startingAirTick - extraTimeBeforePopping) {
                         this.markDead();
-                        this.world.addParticle(ParticleTypes.BUBBLE_POP, this.x, this.y, this.z, this.velocityX, this.velocityY, this.velocityZ);
-                        this.world.playSound(this.x, this.y, this.z, SoundEvents.BLOCK_BUBBLE_COLUMN_BUBBLE_POP, SoundCategory.AMBIENT, 0.5f, 1f, false);
+                        this.world.addParticleClient(ParticleTypes.BUBBLE_POP, this.x, this.y, this.z, this.velocityX, this.velocityY, this.velocityZ);
+                        this.world.playSoundClient(this.x, this.y, this.z, SoundEvents.BLOCK_BUBBLE_COLUMN_BUBBLE_POP, SoundCategory.AMBIENT, 0.5f, 1f, false);
                     }
                 }
+
             }
         }
-    }
 
-    public ParticleTextureSheet getType() {
-        return ParticleTextureSheet.PARTICLE_SHEET_OPAQUE;
+    @Override
+    protected RenderType getRenderType() {
+        return RenderType.PARTICLE_ATLAS_TRANSLUCENT;
     }
 
     @Environment(EnvType.CLIENT)
-    public static class Factory<T extends ParticleEffect> implements ParticleFactory<T> {
-        private final SpriteProvider spriteProvider;
-
-        public Factory(SpriteProvider spriteProvider) {
-            this.spriteProvider = spriteProvider;
-        }
-
-        public Particle createParticle(T defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
-            BubbleParticle bubbleParticle = new BubbleParticle(clientWorld, d, e, f, g, h, i, spriteProvider);
-            bubbleParticle.setSprite(this.spriteProvider);
-            return bubbleParticle;
+    public record Factory<T extends ParticleEffect>(SpriteProvider sprites) implements ParticleFactory<T> {
+        @Override
+        public @NotNull Particle createParticle(T parameters, ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, Random random) {
+            return new BubbleParticle(world, x, y, z, velocityX, velocityY, velocityZ, sprites);
         }
     }
+
+//    @Environment(EnvType.CLIENT)
+//    public static class Factory<T extends ParticleEffect> implements ParticleFactory<T> {
+//        private final SpriteProvider spriteProvider;
+//
+//        public Factory(SpriteProvider spriteProvider) {
+//            this.spriteProvider = spriteProvider;
+//        }
+//
+//        public Particle createParticle(T defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
+//            BubbleParticle bubbleParticle = new BubbleParticle(clientWorld, d, e, f, g, h, i, spriteProvider);
+//            bubbleParticle.setSprite(this.spriteProvider);
+//            return bubbleParticle;
+//        }
+//    }
 }

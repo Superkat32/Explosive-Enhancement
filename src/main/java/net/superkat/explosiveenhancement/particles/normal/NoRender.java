@@ -8,6 +8,8 @@ import net.minecraft.client.particle.ParticleFactory;
 import net.minecraft.client.particle.SpriteProvider;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.ParticleEffect;
+import net.minecraft.util.math.random.Random;
+import org.jetbrains.annotations.NotNull;
 
 public class NoRender extends NoRenderParticle {
     protected NoRender(ClientWorld clientWorld, double d, double e, double f) {
@@ -16,7 +18,8 @@ public class NoRender extends NoRenderParticle {
 
     @Environment(EnvType.CLIENT)
     public record Factory<T extends ParticleEffect>(SpriteProvider sprites) implements ParticleFactory<T> {
-        public Particle createParticle(T type, ClientWorld world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+        @Override
+        public @NotNull Particle createParticle(T parameters, ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, Random random) {
             return new NoRender(world, x, y, z);
         }
     }

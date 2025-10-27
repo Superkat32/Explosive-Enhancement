@@ -1,27 +1,25 @@
 package net.superkat.explosiveenhancement.config;
 
-//? if (>=1.19.4) {
-import dev.isxander.yacl3.api.*;
+import dev.isxander.yacl3.api.ConfigCategory;
+import dev.isxander.yacl3.api.LabelOption;
+import dev.isxander.yacl3.api.Option;
+import dev.isxander.yacl3.api.OptionDescription;
+import dev.isxander.yacl3.api.OptionGroup;
+import dev.isxander.yacl3.api.YetAnotherConfigLib;
 import dev.isxander.yacl3.gui.controllers.BooleanController;
 import dev.isxander.yacl3.gui.controllers.slider.DoubleSliderController;
 import dev.isxander.yacl3.gui.controllers.slider.FloatSliderController;
 import dev.isxander.yacl3.gui.controllers.slider.IntegerSliderController;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.particle.ParticlesMode;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.superkat.explosiveenhancement.ExplosiveEnhancementClient;
-import java.util.Arrays;
-//?}
 
-//? if (<1.21.2) {
-/*import net.minecraft.client.option.ParticlesMode;
-*///?} else {
-import net.minecraft.particle.ParticlesMode;
-//?}
+import java.util.Arrays;
 
 public class YaclIntegration {
-    //? if (>=1.19.4) {
     public static Screen makeScreen(Screen parent) {
         ExplosiveConfig config = ExplosiveEnhancementClient.CONFIG;
         ExplosiveConfig defaults = new ExplosiveConfig();
@@ -29,7 +27,7 @@ public class YaclIntegration {
                 .title(Text.of("title"))
                 .save(config::save);
 
-        //Default Explosion category
+        // region Default Explosion Category
         var defaultCategoryBuilder = ConfigCategory.createBuilder()
                 .name(Text.translatable("explosiveenhancement.category.default"));
 
@@ -41,16 +39,9 @@ public class YaclIntegration {
                                 MinecraftClient.getInstance().options.getParticles().getValue().getText().copy().formatted(Formatting.BOLD),
                                 Text.translatable(ParticlesMode.ALL.getTranslationKey()).formatted(Formatting.BOLD)))
         ).build();
-
-        //? if (1.19.4) {
-        /*if(!MinecraftClient.getInstance().options.getParticles().getValue().equals(ParticlesMode.ALL)) {
-            defaultCategoryBuilder.option(particlesNotice);
-        }
-        *///?} else {
         defaultCategoryBuilder.optionIf(!MinecraftClient.getInstance().options.getParticles().getValue().equals(ParticlesMode.ALL), particlesNotice);
-        //?}
 
-        //Explosion particles group
+        // region Explosion Particles Group
         var explosionGroup = OptionGroup.createBuilder()
                 .name(Text.translatable("explosiveenhancement.explosion.group"))
                 .description(OptionDescription.createBuilder()
@@ -128,8 +119,10 @@ public class YaclIntegration {
                         () -> config.showSparks,
                         val -> config.showSparks = val
                 )
-                .listener((opt, val) -> sparkSize.setAvailable(val))
-                .listener((opt, val) -> sparkOpacity.setAvailable(val))
+                .addListener((option, event) -> sparkSize.setAvailable(option.pendingValue()))
+                .addListener((option, event) -> sparkOpacity.setAvailable(option.pendingValue()))
+//                .listener((opt, val) -> sparkSize.setAvailable(val))
+//                .listener((opt, val) -> sparkOpacity.setAvailable(val))
                 .customController(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
         var showDefaultExplosion = Option.<Boolean>createBuilder()
@@ -152,7 +145,9 @@ public class YaclIntegration {
         explosionGroup.option(sparkOpacity);
         explosionGroup.option(showDefaultExplosion);
         defaultCategoryBuilder.group(explosionGroup.build());
+        // endregion
 
+        // region Underwater Particles Group
         var underwaterGroup = OptionGroup.createBuilder()
                 .name(Text.translatable("explosiveenhancement.underwater.group"))
                 .description(OptionDescription.createBuilder()
@@ -244,8 +239,10 @@ public class YaclIntegration {
                         () -> config.showUnderwaterSparks,
                         val -> config.showUnderwaterSparks = val
                 )
-                .listener((opt, val) -> underwaterSparkSize.setAvailable(val))
-                .listener((opt, val) -> underwaterSparkOpacity.setAvailable(val))
+                .addListener((option, event) -> underwaterSparkSize.setAvailable(option.pendingValue()))
+                .addListener((option, event) -> underwaterSparkOpacity.setAvailable(option.pendingValue()))
+//                .listener((opt, val) -> underwaterSparkSize.setAvailable(val))
+//                .listener((opt, val) -> underwaterSparkOpacity.setAvailable(val))
                 .customController(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
         var showDefaultExplosionUnderwater = Option.<Boolean>createBuilder()
@@ -270,7 +267,10 @@ public class YaclIntegration {
         underwaterGroup.option(underwaterSparkOpacity);
         underwaterGroup.option(showDefaultExplosionUnderwater);
         defaultCategoryBuilder.group(underwaterGroup.build());
+        // endregion
+        // endregion
 
+        // region Dynamic Explosions Category
         var dynamicCategoryBuilder = ConfigCategory.createBuilder()
                 .name(Text.translatable("explosiveenhancement.category.dynamic"));
 
@@ -343,10 +343,14 @@ public class YaclIntegration {
                         () -> config.extraPower,
                         val -> config.extraPower = val
                 )
-                .listener((option, value) -> {
+                .addListener((option, event) -> {
                     bigExtraPower.setAvailable(option.pendingValue());
                     smallExtraPower.setAvailable(option.pendingValue());
                 })
+//                .listener((option, value) -> {
+//                    bigExtraPower.setAvailable(option.pendingValue());
+//                    smallExtraPower.setAvailable(option.pendingValue());
+//                })
                 .customController(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
 
@@ -373,7 +377,8 @@ public class YaclIntegration {
                         () -> config.attemptBetterSmallExplosions,
                         val -> config.attemptBetterSmallExplosions = val
                 )
-                .listener((opt, val) -> smallExplosionYOffset.setAvailable(val))
+                .addListener((option, event) -> smallExplosionYOffset.setAvailable(option.pendingValue()))
+//                .listener((opt, val) -> smallExplosionYOffset.setAvailable(val))
                 .customController(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
 
@@ -415,24 +420,18 @@ public class YaclIntegration {
 
         dynamicExplosionGroup.option(dynamicExplosions);
         dynamicExplosionGroup.option(dynamicUnderwater);
-        //taking the easy way out for now
-        //may figure out how to add this to older versions later
-        //? if (>=1.21.2) {
         dynamicExplosionGroup.option(extraPower);
         dynamicExplosionGroup.option(bigExtraPower);
         dynamicExplosionGroup.option(smallExtraPower);
-        //?}
         dynamicExplosionGroup.option(attemptBetterSmallExplosions);
         dynamicExplosionGroup.option(smallExplosionYOffset);
-        //? if (>=1.21.2) {
         dynamicExplosionGroup.option(sad121_2notice);
         dynamicExplosionGroup.option(bypassPowerForSingleplayer);
         dynamicExplosionGroup.option(attemptPowerKnockbackCalc);
-        //?}
         dynamicCategoryBuilder.group(dynamicExplosionGroup.build());
+        // endregion
 
-
-
+        // region Extras Category
         var extrasCategoryBuilder = ConfigCategory.createBuilder()
                 .name(Text.translatable("explosiveenhancement.category.extras"));
 
@@ -510,6 +509,7 @@ public class YaclIntegration {
         extrasGroup.option(alwaysShow);
         extrasGroup.option(debugLogs);
         extrasCategoryBuilder.group(extrasGroup.build());
+        // endregion
 
         yacl.category(defaultCategoryBuilder.build());
         yacl.category(dynamicCategoryBuilder.build());
@@ -517,5 +517,4 @@ public class YaclIntegration {
 
         return yacl.build().generateScreen(parent);
     }
-    //?}
 }

@@ -8,11 +8,7 @@ public class ModMenuIntegration implements ModMenuApi {
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
         if(ExplosiveEnhancementClient.YaclLoaded()) {
-            //? if (<=1.19.3) {
-            /*return OldYaclIntegration::makeScreen;
-            *///?} else {
             return YaclIntegration::makeScreen;
-            //?}
         }
         return parent -> null;  
     }
