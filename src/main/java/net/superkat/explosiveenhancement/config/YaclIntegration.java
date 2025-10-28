@@ -328,50 +328,50 @@ public class YaclIntegration {
                 .customController(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
 
-        var bigExtraPower = Option.<Float>createBuilder()
-                .name(Text.translatable("explosiveenhancement.bigextrapower.enabled"))
-                .description(OptionDescription.createBuilder()
-                        .text(Text.translatable("explosiveenhancement.bigextrapower.enabled.tooltip"))
-                        .build())
-                .binding(
-                        defaults.bigExtraPower,
-                        () -> config.bigExtraPower,
-                        val -> config.bigExtraPower = val
-                )
-                .available(false)
-                .customController(floatOption -> new <Number>FloatSliderController(floatOption, -10F, 10F, 0.1F))
-                .build();
-
-        var smallExtraPower = Option.<Float>createBuilder()
-                .name(Text.translatable("explosiveenhancement.smallextrapower.enabled"))
-                .description(OptionDescription.createBuilder()
-                        .text(Text.translatable("explosiveenhancement.smallextrapower.enabled.tooltip"))
-                        .build())
-                .binding(
-                        defaults.smallExtraPower,
-                        () -> config.smallExtraPower,
-                        val -> config.smallExtraPower = val
-                )
-                .available(false)
-                .customController(floatOption -> new <Number>FloatSliderController(floatOption, -10F, 10F, 0.1F))
-                .build();
-
-        var extraPower = Option.<Boolean>createBuilder()
-                .name(Text.translatable("explosiveenhancement.extrapower.enabled"))
-                .description(OptionDescription.createBuilder()
-                        .text(Text.translatable("explosiveenhancement.extrapower.enabled.tooltip"))
-                        .build())
-                .binding(
-                        defaults.extraPower,
-                        () -> config.extraPower,
-                        val -> config.extraPower = val
-                )
-                .addListener((option, event) -> {
-                    bigExtraPower.setAvailable(option.pendingValue());
-                    smallExtraPower.setAvailable(option.pendingValue());
-                })
-                .customController(booleanOption -> new BooleanController(booleanOption, true))
-                .build();
+//        var bigExtraPower = Option.<Float>createBuilder()
+//                .name(Text.translatable("explosiveenhancement.bigextrapower.enabled"))
+//                .description(OptionDescription.createBuilder()
+//                        .text(Text.translatable("explosiveenhancement.bigextrapower.enabled.tooltip"))
+//                        .build())
+//                .binding(
+//                        defaults.bigExtraPower,
+//                        () -> config.bigExtraPower,
+//                        val -> config.bigExtraPower = val
+//                )
+//                .available(false)
+//                .customController(floatOption -> new <Number>FloatSliderController(floatOption, -10F, 10F, 0.1F))
+//                .build();
+//
+//        var smallExtraPower = Option.<Float>createBuilder()
+//                .name(Text.translatable("explosiveenhancement.smallextrapower.enabled"))
+//                .description(OptionDescription.createBuilder()
+//                        .text(Text.translatable("explosiveenhancement.smallextrapower.enabled.tooltip"))
+//                        .build())
+//                .binding(
+//                        defaults.smallExtraPower,
+//                        () -> config.smallExtraPower,
+//                        val -> config.smallExtraPower = val
+//                )
+//                .available(false)
+//                .customController(floatOption -> new <Number>FloatSliderController(floatOption, -10F, 10F, 0.1F))
+//                .build();
+//
+//        var extraPower = Option.<Boolean>createBuilder()
+//                .name(Text.translatable("explosiveenhancement.extrapower.enabled"))
+//                .description(OptionDescription.createBuilder()
+//                        .text(Text.translatable("explosiveenhancement.extrapower.enabled.tooltip"))
+//                        .build())
+//                .binding(
+//                        defaults.extraPower,
+//                        () -> config.extraPower,
+//                        val -> config.extraPower = val
+//                )
+//                .addListener((option, event) -> {
+//                    bigExtraPower.setAvailable(option.pendingValue());
+//                    smallExtraPower.setAvailable(option.pendingValue());
+//                })
+//                .customController(booleanOption -> new BooleanController(booleanOption, true))
+//                .build();
 
         var smallExplosionYOffset = Option.<Double>createBuilder()
                 .name(Text.translatable("explosiveenhancement.yoffset"))
@@ -438,9 +438,9 @@ public class YaclIntegration {
 
         dynamicExplosionGroup.option(dynamicExplosions);
         dynamicExplosionGroup.option(dynamicUnderwater);
-        dynamicExplosionGroup.option(extraPower);
-        dynamicExplosionGroup.option(bigExtraPower);
-        dynamicExplosionGroup.option(smallExtraPower);
+//        dynamicExplosionGroup.option(extraPower);
+//        dynamicExplosionGroup.option(bigExtraPower);
+//        dynamicExplosionGroup.option(smallExtraPower);
         dynamicExplosionGroup.option(attemptBetterSmallExplosions);
         dynamicExplosionGroup.option(smallExplosionYOffset);
 //        dynamicExplosionGroup.option(sad121_2notice);
