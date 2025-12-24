@@ -37,7 +37,7 @@ public class YaclIntegration {
                         Text.of(""),
                         Text.translatable("explosiveenhancement.particlenoticeparttwoelectricboogaloo",
                                 MinecraftClient.getInstance().options.getParticles().getValue().getText().copy().formatted(Formatting.BOLD),
-                                Text.translatable(ParticlesMode.ALL.getTranslationKey()).formatted(Formatting.BOLD)))
+                                Text.of(ParticlesMode.ALL.getText()).copy().formatted(Formatting.BOLD)))
         ).build();
         defaultCategoryBuilder.optionIf(!MinecraftClient.getInstance().options.getParticles().getValue().equals(ParticlesMode.ALL), particlesNotice);
 

@@ -10,6 +10,6 @@ public class ModMenuIntegration implements ModMenuApi {
         if(ExplosiveEnhancementClient.YaclLoaded()) {
             return YaclIntegration::makeScreen;
         }
-        return parent -> null;  
+        return parent -> null;
     }
 }
