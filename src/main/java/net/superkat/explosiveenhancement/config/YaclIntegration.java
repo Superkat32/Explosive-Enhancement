@@ -508,6 +508,18 @@ public class YaclIntegration {
                 )
                 .customController(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
+        var strictExplosionParticleDetection = Option.<Boolean>createBuilder()
+                .name(Component.translatable("explosiveenhancement.extras.strictparticles"))
+                .description(OptionDescription.createBuilder()
+                        .text(Component.translatable("explosiveenhancement.extras.strictparticles.tooltip"))
+                        .build())
+                .binding(
+                        defaults.strictExplosionDetection,
+                        () -> config.strictExplosionDetection,
+                        val -> config.strictExplosionDetection = val
+                )
+                .customController(booleanOption -> new BooleanController(booleanOption, true))
+                .build();
         var debugLogs = Option.<Boolean>createBuilder()
                 .name(Component.translatable("explosiveenhancement.extras.logs"))
                 .description(OptionDescription.createBuilder()
@@ -525,6 +537,7 @@ public class YaclIntegration {
         extrasGroup.option(emissiveExplosion);
         extrasGroup.option(emissiveWaterExplosion);
         extrasGroup.option(alwaysShow);
+        extrasGroup.option(strictExplosionParticleDetection);
         extrasGroup.option(debugLogs);
         extrasCategoryBuilder.group(extrasGroup.build());
         // endregion

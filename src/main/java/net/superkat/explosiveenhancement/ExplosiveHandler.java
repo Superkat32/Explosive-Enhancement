@@ -52,6 +52,11 @@ public class ExplosiveHandler {
     }
 
     public static ExplosionParticleType determineParticleType(Level world, double x, double y, double z, ParticleOptions particle, ParticleOptions emitterParticle) {
+        // Because nothing happens with wind for now, this can be placed above its check
+        if (CONFIG.strictExplosionDetection && !(particle == ParticleTypes.EXPLOSION || particle == ParticleTypes.EXPLOSION_EMITTER)) {
+            return ExplosionParticleType.IGNORE;
+        }
+
         // TODO - Wind takes priority over water for now, but water should take priority over wind in the future
         if (particlesAreWindGust(particle, emitterParticle)) {
             return ExplosionParticleType.WIND;
@@ -63,6 +68,11 @@ public class ExplosiveHandler {
     }
 
     public static ExplosionParticleType determineParticleType(Level world, Vec3 pos, ParticleOptions particle) {
+        // Because nothing happens with wind for now, this can be placed above its check
+        if (CONFIG.strictExplosionDetection && !(particle == ParticleTypes.EXPLOSION || particle == ParticleTypes.EXPLOSION_EMITTER)) {
+            return ExplosionParticleType.IGNORE;
+        }
+
         if (particle == ParticleTypes.GUST_EMITTER_SMALL || particle == ParticleTypes.GUST_EMITTER_LARGE) {
             return ExplosionParticleType.WIND;
         } else if(CONFIG.underwaterExplosions && blockIsInWater(world, pos.x(), pos.y(), pos.z())) {

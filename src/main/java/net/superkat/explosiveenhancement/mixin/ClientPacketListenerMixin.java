@@ -37,7 +37,8 @@ public abstract class ClientPacketListenerMixin {
             float power = packet.radius();
 
             ExplosionParticleType explosionParticleType = ExplosiveApi.determineParticleType(world, pos, particle);
-            if(explosionParticleType != ExplosionParticleType.WIND) { // allows normal wind particles to be shown
+            // Wind particles and the explicit "IGNORE" types don't have any effects for now
+            if(explosionParticleType != ExplosionParticleType.WIND && explosionParticleType != ExplosionParticleType.IGNORE) {
                 ExplosiveApi.spawnParticles(world, pos.x(), pos.y(), pos.z(), power, explosionParticleType);
                 boolean showVanillaParticles =
                         (CONFIG.showDefaultExplosion && explosionParticleType == ExplosionParticleType.NORMAL)

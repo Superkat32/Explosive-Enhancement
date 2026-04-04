@@ -61,6 +61,7 @@ public class ExplosiveConfig {
     public boolean emissiveExplosion = true;
     public boolean emissiveWaterExplosion = true;
     public boolean alwaysShow = false;
+    public boolean strictExplosionDetection = false;
     public boolean debugLogs = false;
 
     // The following two methods and the above static variables were borrowed and slightly edited
