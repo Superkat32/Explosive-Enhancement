@@ -41,9 +41,9 @@ public class SmokeParticle extends AbstractExplosiveParticle {
     }
 
     @Override
-    protected int getLightColor(float tint) {
+    protected int getLightCoords(float tint) {
         BlockPos blockPos = BlockPos.containing(this.x, this.y, this.z);
-        int normalBrightness = this.level.hasChunkAt(blockPos) ? LevelRenderer.getLightColor(this.level, blockPos) : 0;
+        int normalBrightness = this.level.hasChunkAt(blockPos) ? LevelRenderer.getLightCoords(this.level, blockPos) : 0;
         if(this.emissive) {
             if(this.age <= this.lifetime * 0.12) {
                 return 15728880; // full emissive

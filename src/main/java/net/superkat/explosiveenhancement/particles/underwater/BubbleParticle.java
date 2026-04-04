@@ -15,6 +15,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 @Environment(EnvType.CLIENT)
 public class BubbleParticle extends SingleQuadParticle {
@@ -74,7 +75,7 @@ public class BubbleParticle extends SingleQuadParticle {
         }
 
     @Override
-    protected Layer getLayer() {
+    protected @NonNull Layer getLayer() {
         return Layer.TRANSLUCENT;
     }
 

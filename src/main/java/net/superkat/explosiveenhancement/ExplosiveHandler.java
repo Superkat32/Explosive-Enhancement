@@ -231,9 +231,9 @@ public class ExplosiveHandler {
 
     private static void spawnBubbles(Level world, double x, double y, double z, boolean isImportant) {
         for (int i = 0; i < CONFIG.bubbleAmount; i++) {
-            double velX = world.random.nextIntBetweenInclusive(1, 7) * 0.3 * world.random.nextIntBetweenInclusive(-1, 1);
-            double velY = world.random.nextIntBetweenInclusive(1, 10) * 0.1;
-            double velZ = world.random.nextIntBetweenInclusive(1, 7) * 0.3 * world.random.nextIntBetweenInclusive(-1, 1);
+            double velX = world.getRandom().nextIntBetweenInclusive(1, 7) * 0.3 * world.getRandom().nextIntBetweenInclusive(-1, 1);
+            double velY = world.getRandom().nextIntBetweenInclusive(1, 10) * 0.1;
+            double velZ = world.getRandom().nextIntBetweenInclusive(1, 7) * 0.3 * world.getRandom().nextIntBetweenInclusive(-1, 1);
             addParticle(world, ExplosiveEnhancement.BUBBLE, isImportant, x, y, z, velX, velY, velZ);
         }
     }

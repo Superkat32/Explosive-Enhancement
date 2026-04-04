@@ -3,6 +3,7 @@ package net.superkat.explosiveenhancement.particles;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.particle.SpriteSet;
+import org.jspecify.annotations.NonNull;
 
 public class AbstractExplosiveParticle extends SingleQuadParticle {
     protected final SpriteSet spriteProvider;
@@ -23,12 +24,12 @@ public class AbstractExplosiveParticle extends SingleQuadParticle {
 
     // Makes the particle emissive
     @Override
-    protected int getLightColor(float tint) {
-        return this.emissive ? 15728880 : super.getLightColor(tint);
+    protected int getLightCoords(float tint) {
+        return this.emissive ? 15728880 : super.getLightCoords(tint);
     }
 
     @Override
-    protected Layer getLayer() {
+    protected @NonNull Layer getLayer() {
         return Layer.TRANSLUCENT;
     }
 }
