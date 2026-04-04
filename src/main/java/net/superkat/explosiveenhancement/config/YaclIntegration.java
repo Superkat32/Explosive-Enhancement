@@ -10,11 +10,11 @@ import dev.isxander.yacl3.gui.controllers.BooleanController;
 import dev.isxander.yacl3.gui.controllers.slider.DoubleSliderController;
 import dev.isxander.yacl3.gui.controllers.slider.FloatSliderController;
 import dev.isxander.yacl3.gui.controllers.slider.IntegerSliderController;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.particle.ParticlesMode;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ParticleStatus;
 import net.superkat.explosiveenhancement.ExplosiveEnhancementClient;
 
 import java.util.Arrays;
@@ -24,33 +24,33 @@ public class YaclIntegration {
         ExplosiveConfig config = ExplosiveEnhancementClient.CONFIG;
         ExplosiveConfig defaults = new ExplosiveConfig();
         var yacl = YetAnotherConfigLib.createBuilder()
-                .title(Text.of("title"))
+                .title(Component.nullToEmpty("title"))
                 .save(config::save);
 
         // region Default Explosion Category
         var defaultCategoryBuilder = ConfigCategory.createBuilder()
-                .name(Text.translatable("explosiveenhancement.category.default"));
+                .name(Component.translatable("explosiveenhancement.category.default"));
 
         var particlesNotice = LabelOption.createBuilder().lines(
                 Arrays.asList(
-                        Text.translatable("explosiveenhancement.particlenotice"),
-                        Text.of(""),
-                        Text.translatable("explosiveenhancement.particlenoticeparttwoelectricboogaloo",
-                                MinecraftClient.getInstance().options.getParticles().getValue().getText().copy().formatted(Formatting.BOLD),
-                                Text.of(ParticlesMode.ALL.getText()).copy().formatted(Formatting.BOLD)))
+                        Component.translatable("explosiveenhancement.particlenotice"),
+                        Component.nullToEmpty(""),
+                        Component.translatable("explosiveenhancement.particlenoticeparttwoelectricboogaloo",
+                                Minecraft.getInstance().options.particles().get().caption().copy().withStyle(ChatFormatting.BOLD),
+                                Component.translationArg(ParticleStatus.ALL.caption()).copy().withStyle(ChatFormatting.BOLD)))
         ).build();
-        defaultCategoryBuilder.optionIf(!MinecraftClient.getInstance().options.getParticles().getValue().equals(ParticlesMode.ALL), particlesNotice);
+        defaultCategoryBuilder.optionIf(!Minecraft.getInstance().options.particles().get().equals(ParticleStatus.ALL), particlesNotice);
 
         // region Explosion Particles Group
         var explosionGroup = OptionGroup.createBuilder()
-                .name(Text.translatable("explosiveenhancement.explosion.group"))
+                .name(Component.translatable("explosiveenhancement.explosion.group"))
                 .description(OptionDescription.createBuilder()
-                        .text(Text.translatable("explosiveenhancement.explosion.group.tooltip"))
+                        .text(Component.translatable("explosiveenhancement.explosion.group.tooltip"))
                         .build());
         var showFireball = Option.<Boolean>createBuilder()
-                .name(Text.translatable("explosiveenhancement.fireball.enabled"))
+                .name(Component.translatable("explosiveenhancement.fireball.enabled"))
                 .description(OptionDescription.createBuilder()
-                        .text(Text.translatable("explosiveenhancement.fireball.enabled.tooltip"))
+                        .text(Component.translatable("explosiveenhancement.fireball.enabled.tooltip"))
                         .build())
                 .binding(
                         defaults.showFireball,
@@ -60,9 +60,9 @@ public class YaclIntegration {
                 .customController(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
         var showBlastWave = Option.<Boolean>createBuilder()
-                .name(Text.translatable("explosiveenhancement.blastwave.enabled"))
+                .name(Component.translatable("explosiveenhancement.blastwave.enabled"))
                 .description(OptionDescription.createBuilder()
-                        .text(Text.translatable("explosiveenhancement.blastwave.enabled.tooltip"))
+                        .text(Component.translatable("explosiveenhancement.blastwave.enabled.tooltip"))
                         .build())
                 .binding(
                         defaults.showBlastWave,
@@ -72,9 +72,9 @@ public class YaclIntegration {
                 .customController(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
         var showMushroomCloud = Option.<Boolean>createBuilder()
-                .name(Text.translatable("explosiveenhancement.mushroomcloud.enabled"))
+                .name(Component.translatable("explosiveenhancement.mushroomcloud.enabled"))
                 .description(OptionDescription.createBuilder()
-                        .text(Text.translatable("explosiveenhancement.mushroomcloud.enabled.tooltip"))
+                        .text(Component.translatable("explosiveenhancement.mushroomcloud.enabled.tooltip"))
                         .build())
                 .binding(
                         defaults.showMushroomCloud,
@@ -84,9 +84,9 @@ public class YaclIntegration {
                 .customController(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
         var sparkSize = Option.<Float>createBuilder()
-                .name(Text.translatable("explosiveenhancement.sparks.size"))
+                .name(Component.translatable("explosiveenhancement.sparks.size"))
                 .description(OptionDescription.createBuilder()
-                        .text(Text.translatable("explosiveenhancement.sparks.size.tooltip"))
+                        .text(Component.translatable("explosiveenhancement.sparks.size.tooltip"))
                         .build())
                 .binding(
                         defaults.sparkSize,
@@ -97,9 +97,9 @@ public class YaclIntegration {
                 .customController(floatOption -> new <Number>FloatSliderController(floatOption, 0F, 10F, 0.1F))
                 .build();
         var sparkOpacity = Option.<Float>createBuilder()
-                .name(Text.translatable("explosiveenhancement.sparks.opacity"))
+                .name(Component.translatable("explosiveenhancement.sparks.opacity"))
                 .description(OptionDescription.createBuilder()
-                        .text(Text.translatable("explosiveenhancement.sparks.opacity.tooltip"))
+                        .text(Component.translatable("explosiveenhancement.sparks.opacity.tooltip"))
                         .build())
                 .binding(
                         defaults.sparkOpacity,
@@ -110,9 +110,9 @@ public class YaclIntegration {
                 .customController(floatOption -> new <Number>FloatSliderController(floatOption, 0.00F, 1.00F, 0.05F))
                 .build();
         var showSparks = Option.<Boolean>createBuilder()
-                .name(Text.translatable("explosiveenhancement.sparks.enabled"))
+                .name(Component.translatable("explosiveenhancement.sparks.enabled"))
                 .description(OptionDescription.createBuilder()
-                        .text(Text.translatable("explosiveenhancement.sparks.enabled.tooltip"))
+                        .text(Component.translatable("explosiveenhancement.sparks.enabled.tooltip"))
                         .build())
                 .binding(
                         defaults.showSparks,
@@ -124,9 +124,9 @@ public class YaclIntegration {
                 .customController(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
         var showDefaultExplosion = Option.<Boolean>createBuilder()
-                .name(Text.translatable("explosiveenhancement.default.enabled"))
+                .name(Component.translatable("explosiveenhancement.default.enabled"))
                 .description(OptionDescription.createBuilder()
-                        .text(Text.translatable("explosiveenhancement.default.enabled.tooltip"))
+                        .text(Component.translatable("explosiveenhancement.default.enabled.tooltip"))
                         .build())
                 .binding(
                         defaults.showDefaultExplosion,
@@ -136,9 +136,9 @@ public class YaclIntegration {
                 .customController(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
         var showDefaultSmoke = Option.<Boolean>createBuilder()
-                .name(Text.translatable("explosiveenhancement.default_smoke.enabled"))
+                .name(Component.translatable("explosiveenhancement.default_smoke.enabled"))
                 .description(OptionDescription.createBuilder()
-                        .text(Text.translatable("explosiveenhancement.default_smoke.enabled.tooltip"))
+                        .text(Component.translatable("explosiveenhancement.default_smoke.enabled.tooltip"))
                         .build())
                 .binding(
                         defaults.showDefaultSmoke,
@@ -160,15 +160,15 @@ public class YaclIntegration {
 
         // region Underwater Particles Group
         var underwaterGroup = OptionGroup.createBuilder()
-                .name(Text.translatable("explosiveenhancement.underwater.group"))
+                .name(Component.translatable("explosiveenhancement.underwater.group"))
                 .description(OptionDescription.createBuilder()
-                        .text(Text.translatable("explosiveenhancement.underwater.group.tooltip"))
+                        .text(Component.translatable("explosiveenhancement.underwater.group.tooltip"))
                         .build());
 
         var underwaterExplosions = Option.<Boolean>createBuilder()
-                .name(Text.translatable("explosiveenhancement.underwater.enabled"))
+                .name(Component.translatable("explosiveenhancement.underwater.enabled"))
                 .description(OptionDescription.createBuilder()
-                        .text(Text.translatable("explosiveenhancement.underwater.enabled.tooltip"))
+                        .text(Component.translatable("explosiveenhancement.underwater.enabled.tooltip"))
                         .build())
                 .binding(
                         defaults.underwaterExplosions,
@@ -178,9 +178,9 @@ public class YaclIntegration {
                 .customController(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
         var showShockwave = Option.<Boolean>createBuilder()
-                .name(Text.translatable("explosiveenhancement.underwater.shockwave"))
+                .name(Component.translatable("explosiveenhancement.underwater.shockwave"))
                 .description(OptionDescription.createBuilder()
-                        .text(Text.translatable("explosiveenhancement.underwater.shockwave.tooltip"))
+                        .text(Component.translatable("explosiveenhancement.underwater.shockwave.tooltip"))
                         .build())
                 .binding(
                         defaults.showShockwave,
@@ -190,9 +190,9 @@ public class YaclIntegration {
                 .customController(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
         var showUnderwaterBlast = Option.<Boolean>createBuilder()
-                .name(Text.translatable("explosiveenhancement.underwater.blast"))
+                .name(Component.translatable("explosiveenhancement.underwater.blast"))
                 .description(OptionDescription.createBuilder()
-                        .text(Text.translatable("explosiveenhancement.underwater.blast.tooltip"))
+                        .text(Component.translatable("explosiveenhancement.underwater.blast.tooltip"))
                         .build())
                 .binding(
                         defaults.showUnderwaterBlastWave,
@@ -202,10 +202,10 @@ public class YaclIntegration {
                 .customController(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
         var bubbleAmount = Option.<Integer>createBuilder()
-                .name(Text.translatable("explosiveenhancement.underwater.bubbleamount"))
+                .name(Component.translatable("explosiveenhancement.underwater.bubbleamount"))
                 .description(OptionDescription.createBuilder()
-                        .text(Text.translatable("explosiveenhancement.underwater.bubbleamount.tooltip"))
-                        .text(Text.translatable("explosiveenhancement.underwater.bubbleamount.warningtooltip"))
+                        .text(Component.translatable("explosiveenhancement.underwater.bubbleamount.tooltip"))
+                        .text(Component.translatable("explosiveenhancement.underwater.bubbleamount.warningtooltip"))
                         .build())
                 .binding(
                         defaults.bubbleAmount,
@@ -215,9 +215,9 @@ public class YaclIntegration {
                 .customController(integerOption -> new <Number>IntegerSliderController(integerOption, 0, 500, 5))
                 .build();
         var underwaterSparkSize = Option.<Float>createBuilder()
-                .name(Text.translatable("explosiveenhancement.underwater.sparks.size"))
+                .name(Component.translatable("explosiveenhancement.underwater.sparks.size"))
                 .description(OptionDescription.createBuilder()
-                        .text(Text.translatable("explosiveenhancement.underwater.sparks.size.tooltip"))
+                        .text(Component.translatable("explosiveenhancement.underwater.sparks.size.tooltip"))
                         .build())
                 .binding(
                         defaults.underwaterSparkSize,
@@ -228,9 +228,9 @@ public class YaclIntegration {
                 .customController(floatOption -> new <Number>FloatSliderController(floatOption, 0F, 10F, 0.1F))
                 .build();
         var underwaterSparkOpacity = Option.<Float>createBuilder()
-                .name(Text.translatable("explosiveenhancement.underwater.sparks.opacity"))
+                .name(Component.translatable("explosiveenhancement.underwater.sparks.opacity"))
                 .description(OptionDescription.createBuilder()
-                        .text(Text.translatable("explosiveenhancement.underwater.sparks.opacity.tooltip"))
+                        .text(Component.translatable("explosiveenhancement.underwater.sparks.opacity.tooltip"))
                         .build())
                 .binding(
                         defaults.underwaterSparkOpacity,
@@ -241,9 +241,9 @@ public class YaclIntegration {
                 .customController(floatOption -> new <Number>FloatSliderController(floatOption, 0.00F, 1.00F, 0.05F))
                 .build();
         var showUnderwaterSparks = Option.<Boolean>createBuilder()
-                .name(Text.translatable("explosiveenhancement.underwater.sparks"))
+                .name(Component.translatable("explosiveenhancement.underwater.sparks"))
                 .description(OptionDescription.createBuilder()
-                        .text(Text.translatable("explosiveenhancement.underwater.sparks.tooltip"))
+                        .text(Component.translatable("explosiveenhancement.underwater.sparks.tooltip"))
                         .build())
                 .binding(
                         defaults.showUnderwaterSparks,
@@ -255,9 +255,9 @@ public class YaclIntegration {
                 .customController(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
         var showDefaultExplosionUnderwater = Option.<Boolean>createBuilder()
-                .name(Text.translatable("explosiveenhancement.underwater.default"))
+                .name(Component.translatable("explosiveenhancement.underwater.default"))
                 .description(OptionDescription.createBuilder()
-                        .text(Text.translatable("explosiveenhancement.underwater.default.tooltip"))
+                        .text(Component.translatable("explosiveenhancement.underwater.default.tooltip"))
                         .build())
                 .binding(
                         defaults.showDefaultExplosionUnderwater,
@@ -267,10 +267,10 @@ public class YaclIntegration {
                 .customController(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
         var showDefaultSmokeUnderwater = Option.<Boolean>createBuilder()
-                .name(Text.translatable("explosiveenhancement.underwater.default_smoke"))
+                .name(Component.translatable("explosiveenhancement.underwater.default_smoke"))
                 .description(OptionDescription.createBuilder()
-                        .text(Text.translatable("explosiveenhancement.underwater.default_smoke.tooltip"))
-                        .text(Text.translatable("explosiveenhancement.underwater.default_smoke.water_note"))
+                        .text(Component.translatable("explosiveenhancement.underwater.default_smoke.tooltip"))
+                        .text(Component.translatable("explosiveenhancement.underwater.default_smoke.water_note"))
                         .build())
                 .binding(
                         defaults.showDefaultSmokeUnderwater,
@@ -295,18 +295,18 @@ public class YaclIntegration {
 
         // region Sizing Category
         var dynamicCategoryBuilder = ConfigCategory.createBuilder()
-                .name(Text.translatable("explosiveenhancement.category.dynamic"));
+                .name(Component.translatable("explosiveenhancement.category.dynamic"));
 
         var dynamicExplosionGroup = OptionGroup.createBuilder()
-                .name(Text.translatable("explosiveenhancement.dynamic.group"))
+                .name(Component.translatable("explosiveenhancement.dynamic.group"))
                 .description(OptionDescription.createBuilder()
-                        .text(Text.translatable("explosiveenhancement.dynamic.group.tooltip"))
+                        .text(Component.translatable("explosiveenhancement.dynamic.group.tooltip"))
                         .build());
 
         var dynamicExplosions = Option.<Boolean>createBuilder()
-                .name(Text.translatable("explosiveenhancement.dynamicexplosions.enabled"))
+                .name(Component.translatable("explosiveenhancement.dynamicexplosions.enabled"))
                 .description(OptionDescription.createBuilder()
-                        .text(Text.translatable("explosiveenhancement.dynamicexplosions.enabled.tooltip"))
+                        .text(Component.translatable("explosiveenhancement.dynamicexplosions.enabled.tooltip"))
                         .build())
                 .binding(
                         defaults.dynamicSize,
@@ -316,9 +316,9 @@ public class YaclIntegration {
                 .customController(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
         var dynamicUnderwater = Option.<Boolean>createBuilder()
-                .name(Text.translatable("explosiveenhancement.dynamicunderwater.enabled"))
+                .name(Component.translatable("explosiveenhancement.dynamicunderwater.enabled"))
                 .description(OptionDescription.createBuilder()
-                        .text(Text.translatable("explosiveenhancement.dynamicunderwater.enabled.tooltip"))
+                        .text(Component.translatable("explosiveenhancement.dynamicunderwater.enabled.tooltip"))
                         .build())
                 .binding(
                         defaults.dynamicUnderwater,
@@ -374,9 +374,9 @@ public class YaclIntegration {
 //                .build();
 
         var smallExplosionYOffset = Option.<Double>createBuilder()
-                .name(Text.translatable("explosiveenhancement.yoffset"))
+                .name(Component.translatable("explosiveenhancement.yoffset"))
                 .description(OptionDescription.createBuilder()
-                        .text(Text.translatable("explosiveenhancement.yoffset.tooltip"))
+                        .text(Component.translatable("explosiveenhancement.yoffset.tooltip"))
                         .build())
                 .binding(
                         defaults.smallExplosionYOffset,
@@ -387,9 +387,9 @@ public class YaclIntegration {
                 .customController(doubleOption -> new <Number>DoubleSliderController(doubleOption, -1.0, 0, 0.1))
                 .build();
         var attemptBetterSmallExplosions = Option.<Boolean>createBuilder()
-                .name(Text.translatable("explosiveenhancement.bettersmallexplosions.enabled"))
+                .name(Component.translatable("explosiveenhancement.bettersmallexplosions.enabled"))
                 .description(OptionDescription.createBuilder()
-                        .text(Text.translatable("explosiveenhancement.bettersmallexplosions.enabled.tooltip"))
+                        .text(Component.translatable("explosiveenhancement.bettersmallexplosions.enabled.tooltip"))
                         .build())
                 .binding(
                         defaults.attemptBetterSmallExplosions,
@@ -451,19 +451,19 @@ public class YaclIntegration {
 
         // region Extras Category
         var extrasCategoryBuilder = ConfigCategory.createBuilder()
-                .name(Text.translatable("explosiveenhancement.category.extras"));
+                .name(Component.translatable("explosiveenhancement.category.extras"));
 
         var extrasGroup = OptionGroup.createBuilder()
-                .name(Text.translatable("explosiveenhancement.extras.group"))
+                .name(Component.translatable("explosiveenhancement.extras.group"))
                 .description(OptionDescription.createBuilder()
-                        .text(Text.translatable("explosiveenhancement.extras.group.tooltip"))
+                        .text(Component.translatable("explosiveenhancement.extras.group.tooltip"))
                         .build());
 
 
         var modEnabled = Option.<Boolean>createBuilder()
-                .name(Text.translatable("explosiveenhancement.extras.enabled"))
+                .name(Component.translatable("explosiveenhancement.extras.enabled"))
                 .description(OptionDescription.createBuilder()
-                        .text(Text.translatable("explosiveenhancement.extras.enabled.tooltip"))
+                        .text(Component.translatable("explosiveenhancement.extras.enabled.tooltip"))
                         .build())
                 .binding(
                         defaults.modEnabled,
@@ -473,9 +473,9 @@ public class YaclIntegration {
                 .customController(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
         var emissiveExplosion = Option.<Boolean>createBuilder()
-                .name(Text.translatable("explosiveenhancement.extras.emissive"))
+                .name(Component.translatable("explosiveenhancement.extras.emissive"))
                 .description(OptionDescription.createBuilder()
-                        .text(Text.translatable("explosiveenhancement.extras.emissive.tooltip"))
+                        .text(Component.translatable("explosiveenhancement.extras.emissive.tooltip"))
                         .build())
                 .binding(
                         defaults.emissiveExplosion,
@@ -485,9 +485,9 @@ public class YaclIntegration {
                 .customController(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
         var emissiveWaterExplosion = Option.<Boolean>createBuilder()
-                .name(Text.translatable("explosiveenhancement.extras.emissivewater"))
+                .name(Component.translatable("explosiveenhancement.extras.emissivewater"))
                 .description(OptionDescription.createBuilder()
-                        .text(Text.translatable("explosiveenhancement.extras.emissivewater.tooltip"))
+                        .text(Component.translatable("explosiveenhancement.extras.emissivewater.tooltip"))
                         .build())
                 .binding(
                         defaults.emissiveWaterExplosion,
@@ -497,9 +497,9 @@ public class YaclIntegration {
                 .customController(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
         var alwaysShow = Option.<Boolean>createBuilder()
-                .name(Text.translatable("explosiveenhancement.extras.alwaysshow"))
+                .name(Component.translatable("explosiveenhancement.extras.alwaysshow"))
                 .description(OptionDescription.createBuilder()
-                        .text(Text.translatable("explosiveenhancement.extras.alwaysshow.tooltip"))
+                        .text(Component.translatable("explosiveenhancement.extras.alwaysshow.tooltip"))
                         .build())
                 .binding(
                         defaults.alwaysShow,
@@ -509,10 +509,10 @@ public class YaclIntegration {
                 .customController(booleanOption -> new BooleanController(booleanOption, true))
                 .build();
         var debugLogs = Option.<Boolean>createBuilder()
-                .name(Text.translatable("explosiveenhancement.extras.logs"))
+                .name(Component.translatable("explosiveenhancement.extras.logs"))
                 .description(OptionDescription.createBuilder()
-                        .text(Text.translatable("explosiveenhancement.extras.logs.tooltip"))
-                        .text(Text.translatable("explosiveenhancement.extras.logs.warningtooltip"))
+                        .text(Component.translatable("explosiveenhancement.extras.logs.tooltip"))
+                        .text(Component.translatable("explosiveenhancement.extras.logs.warningtooltip"))
                         .build())
                 .binding(
                         defaults.debugLogs,

@@ -3,14 +3,14 @@ package net.superkat.explosiveenhancement.mixin;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.network.packet.s2c.play.ExplosionS2CPacket;
-import net.minecraft.particle.BlockParticleEffect;
-import net.minecraft.particle.ParticleEffect;
-import net.minecraft.util.collection.Pool;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.core.particles.ExplosionParticleInfo;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.network.protocol.game.ClientboundExplodePacket;
+import net.minecraft.util.random.WeightedList;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.superkat.explosiveenhancement.api.ExplosionParticleType;
 import net.superkat.explosiveenhancement.api.ExplosiveApi;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,25 +20,25 @@ import org.spongepowered.asm.mixin.injection.At;
 import static net.superkat.explosiveenhancement.ExplosiveEnhancement.LOGGER;
 import static net.superkat.explosiveenhancement.ExplosiveEnhancementClient.CONFIG;
 
-@Mixin(ClientPlayNetworkHandler.class)
-public abstract class ClientPlayNetworkHandlerMixin {
+@Mixin(ClientPacketListener.class)
+public abstract class ClientPacketListenerMixin {
 
-    @Shadow public abstract ClientWorld getWorld();
+    @Shadow public abstract ClientLevel getLevel();
 
-    @WrapOperation(method = "onExplosion", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/world/ClientWorld;addParticleClient(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V"))
-    public void explosiveenhancement$spawnExplosiveParticles(ClientWorld instance, ParticleEffect parameters, double x, double y, double z, double velocityX, double velocityY, double velocityZ, Operation<Void> original, @Local(argsOnly = true) ExplosionS2CPacket packet) {
+    @WrapOperation(method = "handleExplosion", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;addParticle(Lnet/minecraft/core/particles/ParticleOptions;DDDDDD)V"))
+    public void explosiveenhancement$spawnExplosiveParticles(ClientLevel instance, ParticleOptions parameters, double x, double y, double z, double velocityX, double velocityY, double velocityZ, Operation<Void> original, @Local(argsOnly = true) ClientboundExplodePacket packet) {
         boolean callOriginal = true;
         if(CONFIG.modEnabled) {
             if (CONFIG.debugLogs) { LOGGER.info("[Explosive Enhancement]: affectWorld has been called!"); }
 
-            World world = this.getWorld();
-            Vec3d pos = packet.center();
-            ParticleEffect particle = packet.explosionParticle();
+            Level world = this.getLevel();
+            Vec3 pos = packet.center();
+            ParticleOptions particle = packet.explosionParticle();
             float power = packet.radius();
 
             ExplosionParticleType explosionParticleType = ExplosiveApi.determineParticleType(world, pos, particle);
             if(explosionParticleType != ExplosionParticleType.WIND) { // allows normal wind particles to be shown
-                ExplosiveApi.spawnParticles(world, pos.getX(), pos.getY(), pos.getZ(), power, explosionParticleType);
+                ExplosiveApi.spawnParticles(world, pos.x(), pos.y(), pos.z(), power, explosionParticleType);
                 boolean showVanillaParticles =
                         (CONFIG.showDefaultExplosion && explosionParticleType == ExplosionParticleType.NORMAL)
                                 || (CONFIG.showDefaultExplosionUnderwater && explosionParticleType == ExplosionParticleType.WATER);
@@ -54,8 +54,8 @@ public abstract class ClientPlayNetworkHandlerMixin {
         }
     }
 
-    @WrapOperation(method = "onExplosion", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/world/ClientWorld;addBlockParticleEffects(Lnet/minecraft/util/math/Vec3d;FILnet/minecraft/util/collection/Pool;)V"))
-    public void explosiveenhancement$replaceVanillaSmokeParticles(ClientWorld instance, Vec3d center, float radius, int blockCount, Pool<BlockParticleEffect> particles, Operation<Void> original, @Local(argsOnly = true) ExplosionS2CPacket packet) {
+    @WrapOperation(method = "handleExplosion", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;trackExplosionEffects(Lnet/minecraft/world/phys/Vec3;FILnet/minecraft/util/random/WeightedList;)V"))
+    public void explosiveenhancement$replaceVanillaSmokeParticles(ClientLevel instance, Vec3 center, float radius, int blockCount, WeightedList<ExplosionParticleInfo> particles, Operation<Void> original, @Local(argsOnly = true) ClientboundExplodePacket packet) {
         boolean callOriginal = true;
         if(CONFIG.modEnabled) {
             ExplosionParticleType explosionParticleType = ExplosiveApi.determineParticleType(instance, center, packet.explosionParticle());

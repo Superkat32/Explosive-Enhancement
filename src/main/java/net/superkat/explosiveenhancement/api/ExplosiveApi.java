@@ -1,10 +1,10 @@
 package net.superkat.explosiveenhancement.api;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.network.packet.s2c.play.ExplosionS2CPacket;
-import net.minecraft.particle.ParticleEffect;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.network.protocol.game.ClientboundExplodePacket;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.superkat.explosiveenhancement.ExplosiveHandler;
 
 public interface ExplosiveApi {
@@ -21,7 +21,7 @@ public interface ExplosiveApi {
      *
      * @since Explosive Enhancement 1.2.3
      */
-    static void spawnParticles(World world, double x, double y, double z, float power, ExplosionParticleType explosionParticleType) {
+    static void spawnParticles(Level world, double x, double y, double z, float power, ExplosionParticleType explosionParticleType) {
         spawnParticles(world, x, y, z, power, explosionParticleType, true, false);
     }
 
@@ -38,7 +38,7 @@ public interface ExplosiveApi {
      *
      * @since Explosive Enhancement 1.2.3
      */
-    static void spawnParticles(World world, double x, double y, double z, float power, ExplosionParticleType explosionParticleType, boolean didDestroyBlocks) {
+    static void spawnParticles(Level world, double x, double y, double z, float power, ExplosionParticleType explosionParticleType, boolean didDestroyBlocks) {
         spawnParticles(world, x, y, z, power, explosionParticleType, didDestroyBlocks, false);
     }
 
@@ -56,14 +56,14 @@ public interface ExplosiveApi {
      *
      * @since Explosive Enhancement 1.2.3
      */
-    static void spawnParticles(World world, double x, double y, double z, float power, ExplosionParticleType explosionParticleType, boolean didDestroyBlocks, boolean isImportant) {
+    static void spawnParticles(Level world, double x, double y, double z, float power, ExplosionParticleType explosionParticleType, boolean didDestroyBlocks, boolean isImportant) {
         ExplosiveHandler.spawnParticles(world, x, y, z, power, explosionParticleType, didDestroyBlocks, isImportant);
     }
 
     /**
      * Determines the Explosive Enhancement explosion particle type based on the given parameters. The user's config options are accounted for.
      * <br> <br>
-     * Usually the <=1.21.1 method. See {@link ExplosiveApi#determineParticleType(World, Vec3d, ParticleEffect)} for 1.21.2+ method.
+     * Usually the <=1.21.1 method. See {@link ExplosiveApi#determineParticleType(Level, Vec3, ParticleOptions)} for 1.21.2+ method.
      * <br> <br>
      * If the given coordinates are underwater, WATER is returned.<br>
      * Else if the particle and particleEmitter are Minecraft's wind gust particles, WIND is returned.<br>
@@ -79,14 +79,14 @@ public interface ExplosiveApi {
      *
      * @since Explosive Enhancement 1.2.3
      */
-    static ExplosionParticleType determineParticleType(World world, double x, double y, double z, ParticleEffect particle, ParticleEffect emitterParticle) {
+    static ExplosionParticleType determineParticleType(Level world, double x, double y, double z, ParticleOptions particle, ParticleOptions emitterParticle) {
         return ExplosiveHandler.determineParticleType(world, x, y, z, particle, emitterParticle);
     }
 
     /**
      * Determines the Explosive Enhancement explosion particle type based on the given parameters. The user's config options are accounted for.
      * <br> <br>
-     * Usually the 1.21.2+ method. See {@link ExplosiveApi#determineParticleType(World, double, double, double, ParticleEffect, ParticleEffect)} for <=1.21.1 method.
+     * Usually the 1.21.2+ method. See {@link ExplosiveApi#determineParticleType(Level, double, double, double, ParticleOptions, ParticleOptions)} for <=1.21.1 method.
      * <br> <br>
      * If the given coordinates are underwater, WATER is returned.<br>
      * Else if the particle and particleEmitter are Minecraft's wind gust particles, WIND is returned.<br>
@@ -97,7 +97,7 @@ public interface ExplosiveApi {
      * @return The appropriate {@link ExplosionParticleType} depending on the particles or coordinates given.
      * @since Explosive Enhancement 1.3.0
      */
-    static ExplosionParticleType determineParticleType(World world, Vec3d pos, ParticleEffect particle) {
+    static ExplosionParticleType determineParticleType(Level world, Vec3 pos, ParticleOptions particle) {
         return ExplosiveHandler.determineParticleType(world, pos, particle);
     }
 
@@ -112,7 +112,7 @@ public interface ExplosiveApi {
      *
      * @since Explosive Enhancement 1.2.1
      */
-    static void spawnParticles(World world, double x, double y, double z, float power) {
+    static void spawnParticles(Level world, double x, double y, double z, float power) {
         spawnParticles(world, x, y, z, power, false, true, false);
     }
 
@@ -129,7 +129,7 @@ public interface ExplosiveApi {
      *
      * @since Explosive Enhancement 1.2.1
      */
-    static void spawnParticles(World world, double x, double y, double z, float power, boolean isUnderWater, boolean didDestroyBlocks) {
+    static void spawnParticles(Level world, double x, double y, double z, float power, boolean isUnderWater, boolean didDestroyBlocks) {
         spawnParticles(world, x, y, z, power, isUnderWater, didDestroyBlocks, false);
     }
 
@@ -146,14 +146,14 @@ public interface ExplosiveApi {
      *
      * @since Explosive Enhancement 1.2.1
      */
-    static void spawnParticles(World world, double x, double y, double z, float power, boolean isUnderWater, boolean didDestroyBlocks, boolean isImportant) {
+    static void spawnParticles(Level world, double x, double y, double z, float power, boolean isUnderWater, boolean didDestroyBlocks, boolean isImportant) {
         ExplosionParticleType explosionParticleType = isUnderWater ? ExplosionParticleType.WATER : ExplosionParticleType.NORMAL;
         spawnParticles(world, x, y, z, power, explosionParticleType, didDestroyBlocks, isImportant);
     }
 
     /**
      * <b>AS OF MINECRAFT 1.21.9, THE POWER IS BACK TO BEING SYNCED TO THE CLIENT!!!!</b><br>
-     * Weird hacks & workarounds are no longer needed going forward. Just use {@link ExplosionS2CPacket#radius()}!<br><br>
+     * Weird hacks & workarounds are no longer needed going forward. Just use {@link ClientboundExplodePacket#radius()}!<br><br>
      *
      * Old docs:<br>
      * Returns a power for the size of an explosion based on the user's config options. This is usually done by checking the particle to be an emitter or not an emitter particle, and returns a float from that check.
@@ -168,7 +168,7 @@ public interface ExplosiveApi {
      *
      * @since Explosive Enhancement 1.3.0
      */
-    static float getPowerFromExplosionPacket(World world, ExplosionS2CPacket packet) {
+    static float getPowerFromExplosionPacket(Level world, ClientboundExplodePacket packet) {
         return ExplosiveHandler.getPowerFromExplosionPacket(world, packet);
     }
 
@@ -184,7 +184,7 @@ public interface ExplosiveApi {
      * @return The averaged power from the calculation using the x/y/z coordinates.
      * @since Explosive Enhancement 1.3.0
      */
-    static float getPowerFromKnockback(World world, Vec3d explosionPos, LivingEntity entity, Vec3d knockback) {
+    static float getPowerFromKnockback(Level world, Vec3 explosionPos, LivingEntity entity, Vec3 knockback) {
         return ExplosiveHandler.attemptDeterminePowerFromKnockback(world, explosionPos, entity, knockback);
     }
 }

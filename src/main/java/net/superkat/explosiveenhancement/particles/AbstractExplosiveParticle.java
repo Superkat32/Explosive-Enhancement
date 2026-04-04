@@ -1,34 +1,34 @@
 package net.superkat.explosiveenhancement.particles;
 
-import net.minecraft.client.particle.BillboardParticle;
-import net.minecraft.client.particle.SpriteProvider;
-import net.minecraft.client.world.ClientWorld;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.particle.SingleQuadParticle;
+import net.minecraft.client.particle.SpriteSet;
 
-public class AbstractExplosiveParticle extends BillboardParticle {
-    protected final SpriteProvider spriteProvider;
+public class AbstractExplosiveParticle extends SingleQuadParticle {
+    protected final SpriteSet spriteProvider;
     public boolean emissive;
     public AbstractExplosiveParticle(
-            ClientWorld world,
+            ClientLevel world,
             double x, double y, double z,
             double velocityX, double velocityY, double velocityZ,
             float scale, boolean emissive,
-            SpriteProvider spriteProvider
+            SpriteSet spriteProvider
     ) {
-        super(world, x, y, z, velocityX, velocityY, velocityZ, spriteProvider.getFirst());
-        this.setVelocity(velocityX, velocityY, velocityZ); // prevent super constructor adding randomness to velocity
+        super(world, x, y, z, velocityX, velocityY, velocityZ, spriteProvider.first());
+        this.setParticleSpeed(velocityX, velocityY, velocityZ); // prevent super constructor adding randomness to velocity
         this.spriteProvider = spriteProvider;
-        this.scale = scale;
+        this.quadSize = scale;
         this.emissive = emissive;
     }
 
     // Makes the particle emissive
     @Override
-    protected int getBrightness(float tint) {
-        return this.emissive ? 15728880 : super.getBrightness(tint);
+    protected int getLightColor(float tint) {
+        return this.emissive ? 15728880 : super.getLightColor(tint);
     }
 
     @Override
-    protected RenderType getRenderType() {
-        return RenderType.PARTICLE_ATLAS_TRANSLUCENT;
+    protected Layer getLayer() {
+        return Layer.TRANSLUCENT;
     }
 }

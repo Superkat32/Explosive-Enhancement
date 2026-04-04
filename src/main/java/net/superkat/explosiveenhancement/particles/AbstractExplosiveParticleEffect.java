@@ -4,14 +4,14 @@ import com.mojang.datafixers.Products;
 import com.mojang.datafixers.util.Function3;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.particle.ParticleEffect;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 
 import java.util.function.BiFunction;
 
-public abstract class AbstractExplosiveParticleEffect implements ParticleEffect {
+public abstract class AbstractExplosiveParticleEffect implements ParticleOptions {
     /**
      * Nice reusable way of creating the most common codec parameters with a special water variant. Makes a particle effect's codec go from this:
      * <pre>
@@ -35,9 +35,9 @@ public abstract class AbstractExplosiveParticleEffect implements ParticleEffect 
      * </pre>
      * The first code block is there in case you are searching for examples on how to create a particle's MapCodec.<br><br>
      * If you want more examples, see some of Vanilla's unique particles:<br>
-     * {@link net.minecraft.particle.ShriekParticleEffect},<br>
-     * {@link net.minecraft.particle.VibrationParticleEffect},<br>
-     * and {@link net.minecraft.particle.TrailParticleEffect}.
+     * {@link net.minecraft.core.particles.ShriekParticleOption},<br>
+     * {@link net.minecraft.core.particles.VibrationParticleOption},<br>
+     * and {@link net.minecraft.core.particles.TrailParticleOption}.
      */
     public static <T extends AbstractExplosiveParticleEffect> Products.P3<RecordCodecBuilder.Mu<T>, Boolean, Float, Boolean> createDefaultWaterCodec(RecordCodecBuilder.Instance<T> instance) {
         return instance.group(getWaterCodec(), getScaleCodec(), getEmissiveCodec());
@@ -82,11 +82,11 @@ public abstract class AbstractExplosiveParticleEffect implements ParticleEffect 
      * </pre>
      * Each example from earlier also has a PacketCodec, if you want more examples.
      */
-    public static <T extends AbstractExplosiveParticleEffect> PacketCodec<RegistryByteBuf, T> createWaterPacketCodec(Function3<Boolean, Float, Boolean, T> applyFunction) {
-        return PacketCodec.tuple(
-                PacketCodecs.BOOLEAN, AbstractExplosiveParticleEffect::isWater,
-                PacketCodecs.FLOAT, AbstractExplosiveParticleEffect::getScale,
-                PacketCodecs.BOOLEAN, AbstractExplosiveParticleEffect::isEmissive,
+    public static <T extends AbstractExplosiveParticleEffect> StreamCodec<RegistryFriendlyByteBuf, T> createWaterPacketCodec(Function3<Boolean, Float, Boolean, T> applyFunction) {
+        return StreamCodec.composite(
+                ByteBufCodecs.BOOL, AbstractExplosiveParticleEffect::isWater,
+                ByteBufCodecs.FLOAT, AbstractExplosiveParticleEffect::getScale,
+                ByteBufCodecs.BOOL, AbstractExplosiveParticleEffect::isEmissive,
                 applyFunction
         );
     }
@@ -94,10 +94,10 @@ public abstract class AbstractExplosiveParticleEffect implements ParticleEffect 
     /**
      * Alternative PacketCodec for particles with no water variant.
      */
-    public static <T extends AbstractExplosiveParticleEffect> PacketCodec<RegistryByteBuf, T> createPacketCodec(BiFunction<Float, Boolean, T> applyFunction) {
-        return PacketCodec.tuple(
-                PacketCodecs.FLOAT, AbstractExplosiveParticleEffect::getScale,
-                PacketCodecs.BOOLEAN, AbstractExplosiveParticleEffect::isEmissive,
+    public static <T extends AbstractExplosiveParticleEffect> StreamCodec<RegistryFriendlyByteBuf, T> createPacketCodec(BiFunction<Float, Boolean, T> applyFunction) {
+        return StreamCodec.composite(
+                ByteBufCodecs.FLOAT, AbstractExplosiveParticleEffect::getScale,
+                ByteBufCodecs.BOOL, AbstractExplosiveParticleEffect::isEmissive,
                 applyFunction
         );
     }

@@ -3,10 +3,10 @@ package net.superkat.explosiveenhancement.particles.normal;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.particle.ParticleType;
+import net.minecraft.core.particles.ParticleType;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.superkat.explosiveenhancement.ExplosiveEnhancement;
 import net.superkat.explosiveenhancement.particles.AbstractExplosiveParticleEffect;
 
@@ -23,13 +23,13 @@ public class FireballParticleEffect extends AbstractExplosiveParticleEffect {
             ).apply(instance, FireballParticleEffect::new)
     );
 
-    public static final PacketCodec<RegistryByteBuf, FireballParticleEffect> PACKET_CODEC = PacketCodec.tuple(
-            PacketCodecs.BOOLEAN, FireballParticleEffect::isWater,
-            PacketCodecs.FLOAT, FireballParticleEffect::getScale,
-            PacketCodecs.BOOLEAN, FireballParticleEffect::isEmissive,
-            PacketCodecs.BOOLEAN, FireballParticleEffect::isSparks,
-            PacketCodecs.BOOLEAN, FireballParticleEffect::isSparksOnly,
-            PacketCodecs.BOOLEAN, FireballParticleEffect::isSparksImportant,
+    public static final StreamCodec<RegistryFriendlyByteBuf, FireballParticleEffect> PACKET_CODEC = StreamCodec.composite(
+            ByteBufCodecs.BOOL, FireballParticleEffect::isWater,
+            ByteBufCodecs.FLOAT, FireballParticleEffect::getScale,
+            ByteBufCodecs.BOOL, FireballParticleEffect::isEmissive,
+            ByteBufCodecs.BOOL, FireballParticleEffect::isSparks,
+            ByteBufCodecs.BOOL, FireballParticleEffect::isSparksOnly,
+            ByteBufCodecs.BOOL, FireballParticleEffect::isSparksImportant,
             FireballParticleEffect::new
     );
 

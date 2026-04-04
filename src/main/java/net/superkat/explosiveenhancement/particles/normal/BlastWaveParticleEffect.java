@@ -2,9 +2,9 @@ package net.superkat.explosiveenhancement.particles.normal;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.particle.ParticleType;
+import net.minecraft.core.particles.ParticleType;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.superkat.explosiveenhancement.ExplosiveEnhancement;
 import net.superkat.explosiveenhancement.particles.AbstractExplosiveParticleEffect;
 
@@ -13,7 +13,7 @@ public class BlastWaveParticleEffect extends AbstractExplosiveParticleEffect {
             instance -> createDefaultWaterCodec(instance).apply(instance, BlastWaveParticleEffect::new)
     );
 
-    public static final PacketCodec<RegistryByteBuf, BlastWaveParticleEffect> PACKET_CODEC = createWaterPacketCodec(BlastWaveParticleEffect::new);
+    public static final StreamCodec<RegistryFriendlyByteBuf, BlastWaveParticleEffect> PACKET_CODEC = createWaterPacketCodec(BlastWaveParticleEffect::new);
 
     public BlastWaveParticleEffect(boolean water, float scale, boolean emissive) {
         super(water, scale, emissive);

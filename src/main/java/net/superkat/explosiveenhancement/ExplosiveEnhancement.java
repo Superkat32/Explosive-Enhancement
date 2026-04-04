@@ -2,11 +2,11 @@ package net.superkat.explosiveenhancement;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
-import net.minecraft.particle.ParticleType;
-import net.minecraft.particle.SimpleParticleType;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.Registry;
+import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
 import net.superkat.explosiveenhancement.particles.normal.BlastWaveParticleEffect;
 import net.superkat.explosiveenhancement.particles.normal.FireballParticleEffect;
 import net.superkat.explosiveenhancement.particles.normal.SmokeParticleEffect;
@@ -42,10 +42,10 @@ public class ExplosiveEnhancement implements ModInitializer {
 	}
 
 	public void registerParticle(Identifier id, ParticleType<?> particle) {
-		Registry.register(Registries.PARTICLE_TYPE, id, particle);
+		Registry.register(BuiltInRegistries.PARTICLE_TYPE, id, particle);
 	}
 
 	public static Identifier id(String path) {
-		return Identifier.of(MOD_ID, path);
+		return Identifier.fromNamespaceAndPath(MOD_ID, path);
 	}
 }

@@ -2,13 +2,13 @@ package net.superkat.explosiveenhancement.particles.normal;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.particle.BillboardParticleSubmittable;
+import net.minecraft.client.Camera;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.ParticleFactory;
-import net.minecraft.client.particle.SpriteProvider;
-import net.minecraft.client.render.Camera;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.util.math.random.Random;
+import net.minecraft.client.particle.ParticleProvider;
+import net.minecraft.client.particle.SpriteSet;
+import net.minecraft.client.renderer.state.QuadParticleRenderState;
+import net.minecraft.util.RandomSource;
 import net.superkat.explosiveenhancement.particles.AbstractExplosiveParticle;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
@@ -20,35 +20,35 @@ public class BlastWaveParticle extends AbstractExplosiveParticle {
     private static final float NINETY_DEGREES = (float) Math.toRadians(90);
 
     public BlastWaveParticle(
-            ClientWorld world,
+            ClientLevel world,
             double x, double y, double z,
             double velX, double velY, double velZ,
             BlastWaveParticleEffect params,
-            SpriteProvider spriteProvider
+            SpriteSet spriteProvider
     ) {
         super(world, x, y, z, velX, velY, velZ, params.getScale(), params.isEmissive(), spriteProvider);
-        this.maxAge = (int) (15 + (Math.floor(this.scale / 5)));
+        this.lifetime = (int) (15 + (Math.floor(this.quadSize / 5)));
     }
 
     @Override
-    public void render(BillboardParticleSubmittable submittable, Camera camera, float tickProgress) {
+    public void extract(QuadParticleRenderState submittable, Camera camera, float tickProgress) {
         Quaternionf quaternionf = new Quaternionf();
         quaternionf.rotationX(NINETY_DEGREES); // rotate 90 degrees to be horizontal
-        this.render(submittable, camera, quaternionf, tickProgress);
+        this.extractRotatedQuad(submittable, camera, quaternionf, tickProgress);
         quaternionf.rotateYXZ(HUNDRED_EIGHTY_DEGREES, 0, 0); // flip upside down to be seen from beneath
-        this.render(submittable, camera, quaternionf, tickProgress);
+        this.extractRotatedQuad(submittable, camera, quaternionf, tickProgress);
     }
 
     @Override
     public void tick() {
         super.tick();
-        this.updateSprite(this.spriteProvider);
+        this.setSpriteFromAge(this.spriteProvider);
     }
 
     @Environment(EnvType.CLIENT)
-    public record Factory(SpriteProvider sprites) implements ParticleFactory<BlastWaveParticleEffect> {
+    public record Factory(SpriteSet sprites) implements ParticleProvider<BlastWaveParticleEffect> {
         @Override
-        public @NotNull Particle createParticle(BlastWaveParticleEffect parameters, ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, Random random) {
+        public @NotNull Particle createParticle(BlastWaveParticleEffect parameters, ClientLevel world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, RandomSource random) {
             return new BlastWaveParticle(world, x, y, z, velocityX, velocityY, velocityZ, parameters, this.sprites);
         }
     }
