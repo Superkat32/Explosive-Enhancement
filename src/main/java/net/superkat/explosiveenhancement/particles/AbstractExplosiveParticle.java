@@ -22,7 +22,7 @@ public class AbstractExplosiveParticle extends SingleQuadParticle {
         this.emissive = emissive;
     }
 
-    // Makes the particle emissive
+//     Makes the particle emissive
     @Override
     protected int getLightCoords(float tint) {
         return this.emissive ? 15728880 : super.getLightCoords(tint);

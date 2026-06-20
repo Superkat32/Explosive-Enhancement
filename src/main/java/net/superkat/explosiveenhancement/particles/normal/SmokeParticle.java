@@ -6,8 +6,8 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.superkat.explosiveenhancement.particles.AbstractExplosiveParticle;
@@ -43,7 +43,7 @@ public class SmokeParticle extends AbstractExplosiveParticle {
     @Override
     protected int getLightCoords(float tint) {
         BlockPos blockPos = BlockPos.containing(this.x, this.y, this.z);
-        int normalBrightness = this.level.hasChunkAt(blockPos) ? LevelRenderer.getLightCoords(this.level, blockPos) : 0;
+        int normalBrightness = this.level.hasChunkAt(blockPos) ? LightCoordsUtil.getLightCoords(this.level, blockPos) : 0;
         if(this.emissive) {
             if(this.age <= this.lifetime * 0.12) {
                 return 15728880; // full emissive
